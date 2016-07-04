@@ -19,6 +19,9 @@ android {
 }
 
 def retroFitVersion = "2.1.0"
+def converterGsonVersion = "2.0.2"
+def lombokVersion = "1.16.8"
+def javaxAnnotationVersion = "10.0-b28"
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -26,4 +29,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:24.0.0'
 
     compile "com.squareup.retrofit2:retrofit:$retroFitVersion"
+    compile "com.squareup.retrofit2:converter-gson:$converterGsonVersion"
+    compile "org.projectlombok:lombok:$lombokVersion"
+    provided "org.glassfish:javax.annotation:$javaxAnnotationVersion"
 }
