@@ -1,11 +1,12 @@
 apply plugin: 'com.android.library'
+apply plugin: 'android-apt'
 
 android {
     compileSdkVersion 24
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        minSdkVersion 15
+        minSdkVersion 19
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
@@ -16,20 +17,46 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    // Avoid Log instrumentation
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+
+    compileOptions {
+        targetCompatibility 1.7
+        sourceCompatibility 1.7
+    }
 }
 
 def retroFitVersion = "2.1.0"
 def converterGsonVersion = "2.0.2"
 def lombokVersion = "1.16.8"
 def javaxAnnotationVersion = "10.0-b28"
+def okHttpUrlConnectionVersion = "3.2.0"
+def okHttpLoggingInterceptorVersion="3.3.1"
+def appCompatVersion="24.0.0"
+def mockitoVersion="1.10.19"
+def persistentCookieJarVersion = "v1.0.0"
+def daggerVersion = "2.7"
+def jUnitVersion = "4.12"
+def jsr250Version = "1.0"
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:24.0.0'
-
+    testCompile "junit:junit:$jUnitVersion"
+    compile "com.android.support:appcompat-v7:$appCompatVersion"
+    compile "com.squareup.okhttp3:okhttp-urlconnection:$okHttpUrlConnectionVersion"
     compile "com.squareup.retrofit2:retrofit:$retroFitVersion"
     compile "com.squareup.retrofit2:converter-gson:$converterGsonVersion"
+    compile "com.squareup.okhttp3:logging-interceptor:$okHttpLoggingInterceptorVersion"
     compile "org.projectlombok:lombok:$lombokVersion"
+    testCompile "org.projectlombok:lombok:$lombokVersion"
+    testCompile "org.mockito:mockito-all:$mockitoVersion"
     provided "org.glassfish:javax.annotation:$javaxAnnotationVersion"
+    compile "com.github.franmontiel:PersistentCookieJar:$persistentCookieJarVersion"
+    apt "com.google.dagger:dagger-compiler:$daggerVersion"
+    compile "com.google.dagger:dagger:$daggerVersion"
+    provided "javax.annotation:jsr250-api:$jsr250Version"
+    apt "org.projectlombok:lombok:$lombokVersion"
 }
