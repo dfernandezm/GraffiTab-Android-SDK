@@ -3,9 +3,12 @@ package com.graffitab.graffitabsdk.model;
 import java.util.Date;
 import java.util.List;
 
+import lombok.AllArgsConstructor;
+
 /**
  * Created by georgichristov on 04/07/16.
  */
+@AllArgsConstructor
 public class GTUser {
 
     public int id;
@@ -28,25 +31,5 @@ public class GTUser {
 
     public GTUser() {
 
-    }
-
-    public GTUser(int id, String guid, String username, String firstName, String lastName, String email, Date createdOn, Date updatedOn, String about, String website, GTAsset avatar, GTAsset cover, boolean followedByCurrentUser, int followersCount, int followingCount, int streamablesCount, List<GTExternalProvider> linkedAccounts) {
-        this.id = id;
-        this.guid = guid;
-        this.username = username;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.createdOn = createdOn;
-        this.updatedOn = updatedOn;
-        this.about = about;
-        this.website = website;
-        this.avatar = avatar;
-        this.cover = cover;
-        this.followedByCurrentUser = followedByCurrentUser;
-        this.followersCount = followersCount;
-        this.followingCount = followingCount;
-        this.streamablesCount = streamablesCount;
-        this.linkedAccounts = linkedAccounts;
     }
 }

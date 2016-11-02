@@ -2,9 +2,12 @@ package com.graffitab.graffitabsdk.model;
 
 import java.util.Date;
 
+import lombok.AllArgsConstructor;
+
 /**
  * Created by georgichristov on 04/07/16.
  */
+@AllArgsConstructor
 public class GTComment {
 
     public int id;
@@ -16,14 +19,5 @@ public class GTComment {
 
     public GTComment() {
 
-    }
-
-    public GTComment(int id, GTStreamable streamable, GTUser user, String text, Date createdOn, Date updatedOn) {
-        this.id = id;
-        this.streamable = streamable;
-        this.user = user;
-        this.text = text;
-        this.createdOn = createdOn;
-        this.updatedOn = updatedOn;
     }
 }

@@ -7,28 +7,27 @@ import com.graffitab.graffitabsdk.log.GTLog;
  */
 public class GTSDKConfig {
 
-    public static GTSDKConfig sharedInstance = new GTSDKConfig();
+    private static GTConfig config;
 
-    private GTConfig config;
-
-    public GTConfig getConfig() {
-        if (this.config == null) {
-            setConfig(GTConfig.defaultConfig());
+    public static GTConfig get() {
+        if (config == null) {
+            set(GTConfig.defaultConfig());
         }
-
         return config;
     }
 
-    public void setConfig(GTConfig config) {
-        if (config == null)
+    public static void set(GTConfig configToSet) {
+
+        if (configToSet == null) {
             config = GTConfig.defaultConfig();
+        }
 
-        this.config = config;
+        config = configToSet;
 
-        GTLog.i(getClass().getSimpleName(), "Set SDK configuration", false);
-        GTLog.i(getClass().getSimpleName(), "Domain: " + config.getDomain(), false);
-        GTLog.i(getClass().getSimpleName(), "Log: " + config.logEnabled, false);
-        GTLog.i(getClass().getSimpleName(), "HTTPS: " + config.isHttpsEnabled(), false);
-        GTLog.i(getClass().getSimpleName(), "API url: " + config.buildApiUrl(), false);
+        GTLog.i(GTSDKConfig.class.getSimpleName(), "Setting SDK configuration...", false);
+        GTLog.i(GTSDKConfig.class.getSimpleName(), "Domain: " + config.getDomain(), false);
+        GTLog.i(GTSDKConfig.class.getSimpleName(), "Log: " + config.isLogEnabled(), false);
+        GTLog.i(GTSDKConfig.class.getSimpleName(), "HTTPS: " + config.isHttpsEnabled(), false);
+        GTLog.i(GTSDKConfig.class.getSimpleName(), "API url: " + config.buildBaseApiUrl(), false);
     }
 }

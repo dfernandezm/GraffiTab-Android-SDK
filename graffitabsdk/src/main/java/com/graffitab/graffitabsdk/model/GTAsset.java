@@ -1,8 +1,12 @@
 package com.graffitab.graffitabsdk.model;
 
+import lombok.AllArgsConstructor;
+
 /**
  * Created by georgichristov on 04/07/16.
  */
+
+@AllArgsConstructor
 public class GTAsset {
 
     public String guid;
@@ -14,18 +18,5 @@ public class GTAsset {
     public int thumbnailWidth;
     public int thumbnailHeight;
 
-    public GTAsset() {
-
-    }
-
-    public GTAsset(String guid, String link, String thumbnail, String type, int width, int height, int thumbnailWidth, int thumbnailHeight) {
-        this.guid = guid;
-        this.link = link;
-        this.thumbnail = thumbnail;
-        this.type = type;
-        this.width = width;
-        this.height = height;
-        this.thumbnailWidth = thumbnailWidth;
-        this.thumbnailHeight = thumbnailHeight;
-    }
+    public GTAsset() {}
 }

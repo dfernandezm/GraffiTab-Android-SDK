@@ -2,9 +2,12 @@ package com.graffitab.graffitabsdk.model;
 
 import java.util.Date;
 
+import lombok.AllArgsConstructor;
+
 /**
  * Created by georgichristov on 04/07/16.
  */
+@AllArgsConstructor
 public class GTLocation {
 
     public int id;
@@ -16,14 +19,5 @@ public class GTLocation {
 
     public GTLocation() {
 
-    }
-
-    public GTLocation(int id, String address, double latitude, double longitude, Date createdOn, Date updatedOn) {
-        this.id = id;
-        this.address = address;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.createdOn = createdOn;
-        this.updatedOn = updatedOn;
     }
 }

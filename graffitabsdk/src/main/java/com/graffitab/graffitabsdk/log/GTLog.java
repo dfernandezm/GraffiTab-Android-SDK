@@ -11,7 +11,7 @@ import com.graffitab.graffitabsdk.config.GTSDKConfig;
 public class GTLog {
     private static GTLog ourInstance = new GTLog();
 
-    public static GTLog getInstance() {
+    public static GTLog get() {
         return ourInstance;
     }
 
@@ -46,7 +46,7 @@ public class GTLog {
     }
 
     private static boolean canLog() {
-        GTConfig config = GTSDKConfig.sharedInstance.getConfig();
+        GTConfig config = GTSDKConfig.get();
         return config.isLogEnabled();
     }
 }

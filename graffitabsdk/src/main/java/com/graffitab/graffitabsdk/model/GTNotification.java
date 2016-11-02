@@ -2,9 +2,12 @@ package com.graffitab.graffitabsdk.model;
 
 import java.util.Date;
 
+import lombok.AllArgsConstructor;
+
 /**
  * Created by georgichristov on 04/07/16.
  */
+@AllArgsConstructor
 public class GTNotification {
 
     public enum GTNotificationType {COMMENT, FOLLOW, LIKE, MENTION, WELCOME}
@@ -24,20 +27,5 @@ public class GTNotification {
 
     public GTNotification() {
 
-    }
-
-    public GTNotification(boolean isRead, Date date, GTNotificationType type, GTUser follower, GTUser liker, GTStreamable likedStreamable, GTUser commenter, GTStreamable commentedStreamable, GTComment comment, GTUser mentioner, GTStreamable mentionedStreamable, GTComment mentionedComment) {
-        this.isRead = isRead;
-        this.date = date;
-        this.type = type;
-        this.follower = follower;
-        this.liker = liker;
-        this.likedStreamable = likedStreamable;
-        this.commenter = commenter;
-        this.commentedStreamable = commentedStreamable;
-        this.comment = comment;
-        this.mentioner = mentioner;
-        this.mentionedStreamable = mentionedStreamable;
-        this.mentionedComment = mentionedComment;
     }
 }

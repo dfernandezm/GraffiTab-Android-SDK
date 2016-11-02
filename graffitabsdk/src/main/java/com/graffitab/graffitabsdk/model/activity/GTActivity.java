@@ -6,9 +6,12 @@ import com.graffitab.graffitabsdk.model.GTUser;
 
 import java.util.Date;
 
+import lombok.AllArgsConstructor;
+
 /**
  * Created by georgichristov on 04/07/16.
  */
+@AllArgsConstructor
 public class GTActivity {
 
     public enum GTActivityType {COMMENT, CREATE_STREAMABLE, FOLLOW, LIKE};
@@ -25,21 +28,5 @@ public class GTActivity {
     public GTUser creator;
     public GTStreamable createdStreamable;
 
-    public GTActivity() {
-
-    }
-
-    public GTActivity(Date date, GTActivityType type, GTUser followed, GTUser follower, GTUser liker, GTStreamable likedStreamable, GTUser commenter, GTStreamable commentedStreamable, GTComment comment, GTUser creator, GTStreamable createdStreamable) {
-        this.date = date;
-        this.type = type;
-        this.followed = followed;
-        this.follower = follower;
-        this.liker = liker;
-        this.likedStreamable = likedStreamable;
-        this.commenter = commenter;
-        this.commentedStreamable = commentedStreamable;
-        this.comment = comment;
-        this.creator = creator;
-        this.createdStreamable = createdStreamable;
-    }
+    public GTActivity() {}
 }

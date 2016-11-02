@@ -2,9 +2,12 @@ package com.graffitab.graffitabsdk.model;
 
 import java.util.List;
 
+import lombok.AllArgsConstructor;
+
 /**
  * Created by georgichristov on 04/07/16.
  */
+@AllArgsConstructor
 public class GTUserSocialFriendsContainer {
 
     public GTExternalProvider.GTExternalProviderType type;
@@ -13,15 +16,5 @@ public class GTUserSocialFriendsContainer {
     public int offset;
     public int limit;
 
-    public GTUserSocialFriendsContainer() {
-
-    }
-
-    public GTUserSocialFriendsContainer(GTExternalProvider.GTExternalProviderType type, List<GTUser> users, int resultsCount, int offset, int limit) {
-        this.type = type;
-        this.users = users;
-        this.resultsCount = resultsCount;
-        this.offset = offset;
-        this.limit = limit;
-    }
+    public GTUserSocialFriendsContainer() {}
 }
