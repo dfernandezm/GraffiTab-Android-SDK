@@ -1,6 +1,7 @@
 package com.graffitabsdk.model;
 
 import lombok.AllArgsConstructor;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -10,8 +11,8 @@ import java.util.List;
  * Created by georgichristov on 04/07/16.
  */
 @AllArgsConstructor
+@ToString
 public class GTUser implements Serializable {
-
     public int id;
     public String guid;
     public String username;

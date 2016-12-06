@@ -40,7 +40,7 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    CookieJar provideCookieJar(@Nullable Application application) {
+    public CookieJar provideCookieJar(@Nullable Application application) {
         //TODO: Remove once the tests are in place (subclass module with mock)
         if (application == null) {
             // init cookie manager to in-memory one
@@ -57,12 +57,12 @@ public class NetworkModule {
                public List<Cookie> loadForRequest(HttpUrl url) {
                    if (cookies != null)
                        return cookies;
-                   return new ArrayList<Cookie>();
+                   return new ArrayList<>();
 
                }
            };
         } else {
-            //Clearable cookieJar using Shared preferences an non-persistent cookies
+            // Clearable cookieJar using Shared preferences an non-persistent cookies
             return  new PersistentCookieJar(new SetCookieCache(),
                     new GTSharedPrefsCookiePersistor(application.getBaseContext()));
         }
@@ -70,7 +70,7 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    Retrofit provideRetrofit(Gson gson, OkHttpClient okHttpClient) {
+    public Retrofit provideRetrofit(Gson gson, OkHttpClient okHttpClient) {
         Retrofit retrofit  = new Retrofit.Builder()
                   .client(okHttpClient)
                   .baseUrl(config.buildBaseApiUrl())
@@ -85,7 +85,7 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    Gson provideGson() {
+    public Gson provideGson() {
         return new GsonBuilder()
                 .setDateFormat(GTApiConstants.GT_API_DATE_FORMAT)
                 .create();
@@ -93,7 +93,7 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    OkHttpClient provideOkHttpClient(CookieJar cookieJar) {
+    public OkHttpClient provideOkHttpClient(CookieJar cookieJar) {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 

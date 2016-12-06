@@ -2,12 +2,14 @@ package com.graffitabsdk.network.common;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * Created by david on 09/11/2016.
  */
 @Getter
 @Setter
+@ToString
 public class GTResponse<T> {
     private ResultCode resultCode;
     private String resultDetail;

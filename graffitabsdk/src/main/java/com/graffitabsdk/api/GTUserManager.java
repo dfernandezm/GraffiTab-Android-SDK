@@ -1,13 +1,13 @@
 package com.graffitabsdk.api;
 
+import javax.inject.Inject;
+
 import com.graffitabsdk.model.GTUser;
 import com.graffitabsdk.network.common.GTResponseHandler;
 import com.graffitabsdk.network.common.RequestPerformed;
 import com.graffitabsdk.tasks.user.GTUserTasks;
 import com.graffitabsdk.tasks.user.login.GTLoginTasks;
 import com.graffitabsdk.tasks.user.login.GTLogoutTask;
-
-import javax.inject.Inject;
 
 /**
  * Created by david on 09/11/2016.
