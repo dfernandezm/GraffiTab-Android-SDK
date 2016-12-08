@@ -46,6 +46,10 @@ public class GTSDK {
         return get().config;
     }
 
+    public static void setLanguage(String language) {
+        get().config.language = language;
+    }
+
     private static GTSDK get() {
         if (instance == null) {
             throw new IllegalStateException("Init not called before get()");

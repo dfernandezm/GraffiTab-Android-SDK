@@ -1,22 +1,20 @@
 package com.graffitabsdk.config.dagger.modules;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.inject.Singleton;
+
 import android.app.Application;
 import android.support.annotation.Nullable;
-
 import com.franmontiel.persistentcookiejar.PersistentCookieJar;
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.graffitabsdk.config.GTConfig;
+import com.graffitabsdk.config.okhttp.LanguageHeaderInterceptor;
 import com.graffitabsdk.constants.GTApiConstants;
 import com.graffitabsdk.log.GTLog;
 import com.graffitabsdk.network.common.GTSharedPrefsCookiePersistor;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.Cookie;
@@ -98,8 +96,11 @@ public class NetworkModule {
     OkHttpClient provideOkHttpClient(CookieJar cookieJar) {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
         return new OkHttpClient.Builder()
-                .cookieJar(cookieJar).addInterceptor(httpLoggingInterceptor)
+                .cookieJar(cookieJar)
+                .addInterceptor(new LanguageHeaderInterceptor())
+                .addInterceptor(httpLoggingInterceptor)
                 .build();
     }
 }
