@@ -48,13 +48,13 @@ public enum ResultCode {
 
     // Request was never made (network failure or host unreachable)
     OTHER(1),
-
+    EMPTY(0),
     GENERAL_ERROR(500);
 
     private Integer statusCode;
 
     public Integer getStatusCode() {
-        return statusCode;
+        return this.statusCode;
     }
 
     ResultCode(Integer statusCode) {

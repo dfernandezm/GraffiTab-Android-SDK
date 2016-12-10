@@ -11,8 +11,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class LoginData {
-
-    public LoginData() {}
     private String username;
     private String password;
 }
