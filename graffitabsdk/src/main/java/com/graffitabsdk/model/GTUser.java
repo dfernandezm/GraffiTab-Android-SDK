@@ -1,15 +1,16 @@
 package com.graffitabsdk.model;
 
+import lombok.AllArgsConstructor;
+
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-
-import lombok.AllArgsConstructor;
 
 /**
  * Created by georgichristov on 04/07/16.
  */
 @AllArgsConstructor
-public class GTUser {
+public class GTUser implements Serializable {
 
     public int id;
     public String guid;

@@ -3,6 +3,7 @@ package com.graffitabsdk.config;
 import android.app.Activity;
 import android.app.Application;
 
+import com.graffitabsdk.api.GTAccountManager;
 import com.graffitabsdk.config.dagger.components.UserComponent;
 import com.graffitabsdk.log.GTLog;
 import com.graffitabsdk.api.GTUserManager;
@@ -28,6 +29,10 @@ public class GTSDK {
 
     public static GTUserManager getUserManager() {
         return get().userComponent.getUserManager();
+    }
+
+    public static GTAccountManager getAccountManager() {
+        return get().userComponent.getAccountManager();
     }
 
     public void inject(Activity activity) {

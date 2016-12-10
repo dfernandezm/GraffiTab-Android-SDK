@@ -1,5 +1,7 @@
 package com.graffitabsdk.network.common;
 
+import com.graffitabsdk.tasks.common.GTCall;
+
 /**
  * Wrapper for the Call done by Retrofit
  *
@@ -11,9 +13,5 @@ public class RequestPerformed<T> {
 
     public RequestPerformed(GTCall<T> requestCall) {
         this.requestCall = requestCall;
-    }
-
-    public Boolean isDone() {
-        return requestCall.isDone();
     }
 }
