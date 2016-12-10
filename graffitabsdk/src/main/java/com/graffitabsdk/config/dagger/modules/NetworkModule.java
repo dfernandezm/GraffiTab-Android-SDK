@@ -1,9 +1,5 @@
 package com.graffitabsdk.config.dagger.modules;
 
-import java.util.ArrayList;
-import java.util.List;
-import javax.inject.Singleton;
-
 import android.app.Application;
 import android.support.annotation.Nullable;
 import com.franmontiel.persistentcookiejar.PersistentCookieJar;
@@ -25,6 +21,10 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import javax.inject.Singleton;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by david on 03/12/2016.
  */
@@ -41,7 +41,7 @@ public class NetworkModule {
     @Provides
     @Singleton
     CookieJar provideCookieJar(@Nullable Application application) {
-
+        //TODO: Remove once the tests are in place (subclass module with mock)
         if (application == null) {
             // init cookie manager to in-memory one
            return new CookieJar() {

@@ -30,6 +30,7 @@ public class MainTesting {
                 System.out.println("- username:      " + user.username);
                 System.out.println("- firstname:     " + user.firstName);
                 System.out.println("- lastname:      " + user.lastName);
+                System.out.println("User logged in: " + GTSDK.getAccountManager().isUserLoggedIn());
 
                 GTSDK.getUserManager().getMe(new GTResponseHandler<GTUser>() {
                     @Override
@@ -38,6 +39,20 @@ public class MainTesting {
                         System.out.println("Invoked endpoint: " + gtResponse.getApiEndpointUrl());
                         System.out.println("- firstname:     " + user.firstName);
                         System.out.println("- lastname:      " + user.lastName);
+                        System.out.println("Logged in user: " + GTSDK.getAccountManager().getLoggedInUser());
+
+                        GTSDK.getUserManager().logout(new GTResponseHandler<Void>() {
+                            @Override
+                            public void onSuccess(GTResponse<Void> gtResponse) {
+                                System.out.println("========= LOGGED OUT ========");
+                                System.out.println("User logged in: " + GTSDK.getAccountManager().isUserLoggedIn());
+                            }
+
+                            @Override
+                            public void onFailure(GTResponse<Void> responseObject) {
+                                System.out.println("========= FAILED LOGOUT ========");
+                            }
+                        });
                     }
 
                     @Override

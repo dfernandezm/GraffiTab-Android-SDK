@@ -1,9 +1,9 @@
-package com.graffitabsdk.tasks.user.login;
+package com.graffitabsdk.tasks.user;
 
+import com.google.gson.Gson;
 import com.graffitabsdk.model.GTUser;
 import com.graffitabsdk.network.common.GTResponseHandler;
 import com.graffitabsdk.network.common.RequestPerformed;
-import com.graffitabsdk.network.service.user.LoginData;
 import com.graffitabsdk.network.service.user.UserService;
 import com.graffitabsdk.tasks.GTNetworkTask;
 
@@ -18,19 +18,13 @@ public class GTUserTasks extends GTNetworkTask<GTUser> {
     private UserService userService;
 
     @Inject
-    public GTUserTasks(UserService userService) {
+    public GTUserTasks(UserService userService, Gson gson) {
         this.userService = userService;
-    }
-
-    public RequestPerformed<GTUser> login(String username, String password,
-                                          GTResponseHandler<GTUser> responseHandler) {
-        setResponseProperties(responseHandler, "user");
-        LoginData loginData = new LoginData(username, password);
-        return performRequest(userService.login(loginData));
+        super.gson = gson;
     }
 
     public RequestPerformed<GTUser> getMe(GTResponseHandler<GTUser> responseHandler) {
-        setResponseProperties(responseHandler, "user");
+        setCommonResponseProperties(responseHandler, "user");
         return performRequest(userService.getMe());
     }
 }
