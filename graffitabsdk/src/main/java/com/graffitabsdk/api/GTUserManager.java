@@ -3,7 +3,9 @@ package com.graffitabsdk.api;
 import com.graffitabsdk.model.GTUser;
 import com.graffitabsdk.network.common.GTResponseHandler;
 import com.graffitabsdk.network.common.RequestPerformed;
-import com.graffitabsdk.tasks.user.login.GTUserTasks;
+import com.graffitabsdk.tasks.user.GTUserTasks;
+import com.graffitabsdk.tasks.user.login.GTLoginTasks;
+import com.graffitabsdk.tasks.user.login.GTLogoutTask;
 
 import javax.inject.Inject;
 
@@ -13,19 +15,27 @@ import javax.inject.Inject;
 
 public class GTUserManager {
 
-    private GTUserTasks gtUserTask;
+    private GTLoginTasks gtLoginTasks;
+    private GTUserTasks gtUserTasks;
+    private GTLogoutTask gtLogoutTask;
 
     @Inject
-    public GTUserManager(GTUserTasks userTask) {
-        this.gtUserTask = userTask;
+    public GTUserManager(GTUserTasks userTasks, GTLoginTasks loginTasks, GTLogoutTask gtLogoutTask) {
+        this.gtUserTasks = userTasks;
+        this.gtLoginTasks = loginTasks;
+        this.gtLogoutTask = gtLogoutTask;
     }
 
     public RequestPerformed<GTUser> login(String username, String password,
                                           GTResponseHandler<GTUser> responseHandler) {
-        return gtUserTask.login(username, password, responseHandler);
+        return gtLoginTasks.login(username, password, responseHandler);
     }
 
     public RequestPerformed<GTUser> getMe(GTResponseHandler<GTUser> responseHandler) {
-        return gtUserTask.getMe(responseHandler);
+        return gtUserTasks.getMe(responseHandler);
+    }
+
+    public RequestPerformed<Void> logout(GTResponseHandler<Void> responseHandler) {
+        return gtLogoutTask.logout(responseHandler);
     }
 }

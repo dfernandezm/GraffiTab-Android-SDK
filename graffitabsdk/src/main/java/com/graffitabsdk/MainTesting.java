@@ -20,7 +20,7 @@ public class MainTesting {
     }
 
     public void performCall() {
-
+        final long startTime = System.currentTimeMillis();
         GTResponseHandler<GTUser> responseHandler = new GTResponseHandler<GTUser>() {
             @Override
             public void onSuccess(GTResponse<GTUser> gtResponse) {
@@ -30,7 +30,10 @@ public class MainTesting {
                 System.out.println("- username:      " + user.username);
                 System.out.println("- firstname:     " + user.firstName);
                 System.out.println("- lastname:      " + user.lastName);
-
+                System.out.println("User logged in: " + GTSDK.getAccountManager().isUserLoggedIn());
+                final long interm = (System.currentTimeMillis() - startTime);
+                final long start2 = System.currentTimeMillis();
+                System.out.println("Took: " + interm + " total: " + interm);
                 GTSDK.getUserManager().getMe(new GTResponseHandler<GTUser>() {
                     @Override
                     public void onSuccess(GTResponse<GTUser> gtResponse) {
@@ -38,6 +41,24 @@ public class MainTesting {
                         System.out.println("Invoked endpoint: " + gtResponse.getApiEndpointUrl());
                         System.out.println("- firstname:     " + user.firstName);
                         System.out.println("- lastname:      " + user.lastName);
+                        System.out.println("Logged in user: " + GTSDK.getAccountManager().getLoggedInUser());
+                        final long interm2 = (System.currentTimeMillis() - start2);
+                        final long start3 = System.currentTimeMillis();
+                        System.out.println("Took: " + interm2 + " total: " + (System.currentTimeMillis() - startTime));
+                        GTSDK.getUserManager().logout(new GTResponseHandler<Void>() {
+                            @Override
+                            public void onSuccess(GTResponse<Void> gtResponse) {
+                                final long interm3 = (System.currentTimeMillis() - start3);
+                                System.out.println("Took: " + interm3 + " total: " + (System.currentTimeMillis() - startTime));
+                                System.out.println("========= LOGGED OUT ========");
+                                System.out.println("User logged in: " + GTSDK.getAccountManager().isUserLoggedIn());
+                            }
+
+                            @Override
+                            public void onFailure(GTResponse<Void> responseObject) {
+                                System.out.println("========= FAILED LOGOUT ========");
+                            }
+                        });
                     }
 
                     @Override
@@ -58,6 +79,7 @@ public class MainTesting {
                         " - " + responseObject.getResultDetail());
             }
         };
+
 
         GTSDK.getUserManager().login("david", "password1", responseHandler);
     }
