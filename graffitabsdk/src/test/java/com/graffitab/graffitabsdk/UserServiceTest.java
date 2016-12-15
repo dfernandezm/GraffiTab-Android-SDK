@@ -1,8 +1,13 @@
 package com.graffitab.graffitabsdk;
 
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+import javax.inject.Inject;
+
 import com.graffitab.graffitabsdk.common.MockOkHttpClientInterceptor;
 import com.graffitabsdk.api.GTUserManager;
 import com.graffitabsdk.config.GTConfig;
+import com.graffitabsdk.config.GTSDK;
 import com.graffitabsdk.config.dagger.modules.AppModule;
 import com.graffitabsdk.model.GTUser;
 import com.graffitabsdk.network.common.GTResponse;
@@ -10,10 +15,6 @@ import com.graffitabsdk.network.common.GTResponseHandler;
 import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import javax.inject.Inject;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
 import static junit.framework.Assert.fail;
 
@@ -34,10 +35,14 @@ public class UserServiceTest {
 	@Before
 	public void setUp() {
 		//TODO: Use GTSDK, otherwise it won't work
+
 		TestComponent testComponent = DaggerTestComponent.builder()
 				.appModule(new AppModule(null))
 				.networkModule(new NetworkTestModule(GTConfig.defaultConfig()))
 				.build();
+
+		GTSDK.initUserComponent(testComponent, GTConfig.defaultConfig());
+
 		testComponent.inject(this);
 	}
 

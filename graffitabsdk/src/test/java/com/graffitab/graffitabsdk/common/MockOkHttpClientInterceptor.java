@@ -17,6 +17,8 @@ import org.apache.commons.io.IOUtils;
 
 public class MockOkHttpClientInterceptor implements Interceptor {
 
+	// Try to use this: https://github.com/square/retrofit/tree/master/retrofit-mock
+	// https://touk.pl/blog/2014/02/26/mock-retrofit-using-dagger-and-mockito/
 	private final static String TAG = MockOkHttpClientInterceptor.class.getSimpleName();
 
 	public static Boolean LOGIN_SUCCESS = false;

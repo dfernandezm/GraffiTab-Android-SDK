@@ -27,6 +27,11 @@ public class GTSDK {
         setupUserComponent(app);
     }
 
+    private GTSDK(UserComponent userComponent, GTConfig gtConfig) {
+        this.userComponent = userComponent;
+        this.config = gtConfig;
+    }
+
     public static GTUserManager getUserManager() {
         return get().userComponent.getUserManager();
     }
@@ -45,6 +50,13 @@ public class GTSDK {
             logConfig();
         }
 
+    }
+
+    public static void initUserComponent(UserComponent userComponent, GTConfig gtConfig) {
+        if (instance == null) {
+            instance = new GTSDK(userComponent, gtConfig);
+            logConfig();
+        }
     }
 
     public static GTConfig getConfig() {
