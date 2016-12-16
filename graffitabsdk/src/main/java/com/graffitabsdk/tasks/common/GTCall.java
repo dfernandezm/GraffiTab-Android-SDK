@@ -36,6 +36,7 @@ public abstract class GTCall<T> {
         GTResponse<T> gtResponse = new GTResponse<T>();
         T decodedResponse = decodeResponse();
         gtResponse.setObject(decodedResponse);
+        gtResponse.setIsSuccessful(true);
 
         gtResponse.setResultCode(ResultCode.OK);
         gtResponse.setApiEndpointUrl(apiEndpointUrl);

@@ -84,8 +84,85 @@ public class MainTesting {
         GTSDK.getUserManager().login("david", "password1", responseHandler);
     }
 
+
+    private void performCachedCalls() {
+        GTResponseHandler<GTUser> responseHandler = new GTResponseHandler<GTUser>() {
+
+            @Override
+            public void onSuccess(GTResponse<GTUser> gtResponse) {
+                System.out.println("Logged in");
+                final long startTime = System.currentTimeMillis();
+                GTSDK.getUserManager().getMe(new GTResponseHandler<GTUser>() {
+
+                    @Override
+                    public void onSuccess(GTResponse<GTUser> gtResponse) {
+                        System.out.println("Get me (1)");
+                        final long interm = (System.currentTimeMillis() - startTime);
+                        final long start2 = System.currentTimeMillis();
+                        System.out.println("Took: " + interm);
+
+                        GTSDK.getUserManager().getMe(new GTResponseHandler<GTUser>() {
+
+                            @Override
+                            public void onSuccess(GTResponse<GTUser> gtResponse) {
+                                System.out.println("Get me (2)");
+                                GTUser user = gtResponse.getObject();
+                                System.out.println("Invoked endpoint: " + gtResponse.getApiEndpointUrl());
+                                System.out.println("- firstname:     " + user.firstName);
+                                System.out.println("- lastname:      " + user.lastName);
+                                System.out.println("Logged in user: " + GTSDK.getAccountManager().getLoggedInUser());
+                                final long interm = (System.currentTimeMillis() - start2);
+                                System.out.println("Took: " + interm);
+                            }
+
+                            @Override
+                            public void onFailure(GTResponse<GTUser> gtResponse) {
+                                System.out.println("Failure detected");
+                                System.out.println("Invoked endpoint: " + gtResponse.getApiEndpointUrl());
+                                System.out.println("Error: " + gtResponse.getResultCode() +
+                                        " - " + gtResponse.getResultDetail());
+                            }
+
+                            @Override
+                            public void onCache(GTResponse<GTUser> gtResponse) {
+                                System.out.println("Got cached response");
+                                GTUser user = gtResponse.getObject();
+                                System.out.println("Invoked endpoint: " + gtResponse.getApiEndpointUrl());
+                                System.out.println("- firstname:     " + user.firstName);
+                                System.out.println("- lastname:      " + user.lastName);
+                                System.out.println("Logged in user: " + GTSDK.getAccountManager().getLoggedInUser());
+                                final long interm = (System.currentTimeMillis() - start2);
+                                System.out.println("Took: " + interm);
+                            }
+
+                        });
+                    }
+
+                    @Override
+                    public void onFailure(GTResponse<GTUser> gtResponse) {
+                        System.out.println("Failure detected");
+                        System.out.println("Invoked endpoint: " + gtResponse.getApiEndpointUrl());
+                        System.out.println("Error: " + gtResponse.getResultCode() +
+                                " - " + gtResponse.getResultDetail());
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(GTResponse<GTUser> gtResponse) {
+                System.out.println("Failure detected");
+                System.out.println("Invoked endpoint: " + gtResponse.getApiEndpointUrl());
+                System.out.println("Error: " + gtResponse.getResultCode() +
+                        " - " + gtResponse.getResultDetail());
+            }
+        };
+        GTSDK.getUserManager().login("david", "password1", responseHandler);
+    }
+
+
     public static void main(String[] args) throws Exception {
         MainTesting mainTesting = new MainTesting();
-        mainTesting.performCall();
+        //mainTesting.performCall();
+        mainTesting.performCachedCalls();
     }
 }

@@ -41,7 +41,7 @@ def persistentCookieJarVersion = "v1.0.0"
 def daggerVersion = "2.7"
 def jUnitVersion = "4.12"
 def jsr250Version = "1.0"
-
+def commonsCodecVersion = "1.10"
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile "junit:junit:$jUnitVersion"
@@ -51,6 +51,7 @@ dependencies {
     compile "com.squareup.retrofit2:converter-gson:$converterGsonVersion"
     compile "com.squareup.okhttp3:logging-interceptor:$okHttpLoggingInterceptorVersion"
     compile "org.projectlombok:lombok:$lombokVersion"
+    compile "commons-codec:commons-codec:$commonsCodecVersion"
     testCompile "org.projectlombok:lombok:$lombokVersion"
     testCompile "org.mockito:mockito-all:$mockitoVersion"
     provided "org.glassfish:javax.annotation:$javaxAnnotationVersion"
@@ -59,4 +60,5 @@ dependencies {
     compile "com.google.dagger:dagger:$daggerVersion"
     provided "javax.annotation:jsr250-api:$jsr250Version"
     apt "org.projectlombok:lombok:$lombokVersion"
+
 }

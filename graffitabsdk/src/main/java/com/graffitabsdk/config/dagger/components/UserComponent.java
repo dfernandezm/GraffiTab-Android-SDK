@@ -9,6 +9,7 @@ import com.graffitabsdk.config.GTConfig;
 import com.graffitabsdk.config.dagger.modules.AppModule;
 import com.graffitabsdk.config.dagger.modules.NetworkModule;
 import com.graffitabsdk.config.dagger.modules.UserModule;
+import com.graffitabsdk.tasks.cache.GTCacheService;
 import dagger.Component;
 
 import javax.inject.Singleton;
@@ -24,6 +25,7 @@ public interface UserComponent {
     void inject(Activity activity);
     GTUserManager getUserManager();
     GTAccountManager getAccountManager();
+    GTCacheService getCacheService();
 
     static final class Initializer {
         private Initializer() {}
