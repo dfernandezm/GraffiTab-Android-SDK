@@ -14,11 +14,13 @@ public class GTResponse<T> {
     private Integer statusCode;
     private T object;
     private String apiEndpointUrl;
+    private Boolean isSuccessful;
 
     public GTResponse(T object) {
         this.object = object;
         this.resultCode = ResultCode.OK;
         this.statusCode = 200;
+        this.isSuccessful = true;
     }
 
     public GTResponse(T object, ResultCode resultCode) {
@@ -36,6 +38,7 @@ public class GTResponse<T> {
         response.setStatusCode(resultCode.getStatusCode());
         response.setApiEndpointUrl(apiEndpointUrl);
         response.setResultDetail(errorMessage);
+        response.setIsSuccessful(false);
         return response;
     }
 
@@ -46,6 +49,7 @@ public class GTResponse<T> {
         response.setStatusCode(statusCode);
         response.setApiEndpointUrl(apiEndpointUrl);
         response.setResultDetail(errorMessage);
+        response.setIsSuccessful(false);
         return response;
     }
 

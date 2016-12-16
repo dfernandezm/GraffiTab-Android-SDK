@@ -35,6 +35,10 @@ public class GTSDK {
         return get().userComponent.getAccountManager();
     }
 
+    public static void invalidateCache() {
+        get().userComponent.getCacheService().invalidateCache();
+    }
+
     public void inject(Activity activity) {
         get().userComponent.inject(activity);
     }

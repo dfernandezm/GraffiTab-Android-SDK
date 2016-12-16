@@ -11,6 +11,8 @@ import com.graffitabsdk.config.okhttp.LanguageHeaderInterceptor;
 import com.graffitabsdk.constants.GTApiConstants;
 import com.graffitabsdk.log.GTLog;
 import com.graffitabsdk.network.common.GTSharedPrefsCookiePersistor;
+import com.graffitabsdk.tasks.cache.GTCache;
+import com.graffitabsdk.tasks.cache.GTSharedPrefsCache;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.Cookie;
@@ -23,7 +25,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import javax.inject.Singleton;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by david on 03/12/2016.
@@ -102,5 +106,38 @@ public class NetworkModule {
                 .addInterceptor(new LanguageHeaderInterceptor())
                 .addInterceptor(httpLoggingInterceptor)
                 .build();
+    }
+
+    @Provides
+    @Singleton
+    GTCache provideCache(@Nullable  Application application, Gson gson) {
+        if (application == null) {
+            //TODO: change when having tests
+            return new GTCache() {
+                private Map<String, Object> cache = new HashMap<>();
+                @Override
+                public <T> T readFromCache(String key) {
+                    Object value = cache.get(key);
+
+                    if (value == null) {
+                        return null;
+                    } else {
+                        return (T) value;
+                    }
+                }
+
+                @Override
+                public void invalidateCache() {
+                    cache.clear();
+                }
+
+                @Override
+                public <T> void writeValueToCache(String key, T value) {
+                    cache.put(key, value);
+                }
+            };
+        } else {
+            return new GTSharedPrefsCache(application, gson);
+        }
     }
 }

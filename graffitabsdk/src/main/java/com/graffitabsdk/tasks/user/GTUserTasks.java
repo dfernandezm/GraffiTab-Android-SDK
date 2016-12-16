@@ -4,6 +4,7 @@ import com.graffitabsdk.model.GTUser;
 import com.graffitabsdk.network.common.GTResponseHandler;
 import com.graffitabsdk.network.common.RequestPerformed;
 import com.graffitabsdk.network.service.user.UserService;
+import com.graffitabsdk.tasks.cache.GTCacheService;
 import com.graffitabsdk.tasks.common.GTNetworkTask;
 
 import javax.inject.Inject;
@@ -17,11 +18,12 @@ public class GTUserTasks extends GTNetworkTask<GTUser> {
     private UserService userService;
 
     @Inject
-    public GTUserTasks(UserService userService) {
+    public GTUserTasks(UserService userService, GTCacheService gtCacheService) {
+        super.cacheService = gtCacheService;
         this.userService = userService;
     }
 
     public RequestPerformed<GTUser> getMe(GTResponseHandler<GTUser> responseHandler) {
-        return performJsonRequest(userService.getMe(), "user", responseHandler);
+        return performJsonRequest(userService.getMe(), "user", responseHandler, true);
     }
 }
