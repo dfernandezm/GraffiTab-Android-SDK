@@ -1,21 +1,24 @@
 package com.graffitabsdk.api;
 
+import android.graphics.Bitmap;
 import com.graffitabsdk.network.common.GTRequestPerformed;
 import com.graffitabsdk.network.common.params.GTQueryParameters;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
 import com.graffitabsdk.network.common.result.GTActionCompleteResult;
-import com.graffitabsdk.network.service.location.response.GTListLocationsResponse;
-import com.graffitabsdk.network.service.location.response.GTLocationResponse;
-import com.graffitabsdk.network.service.notification.response.GTListNotificationsResponse;
-import com.graffitabsdk.network.service.streamable.response.GTListStreamablesResponse;
-import com.graffitabsdk.network.service.user.response.GTUnseenNotificationsResponse;
-import com.graffitabsdk.network.service.user.response.GTUserResponse;
+import com.graffitabsdk.network.service.assets.response.GTAssetResponse;
 import com.graffitabsdk.network.service.device.GTDeviceTasks;
 import com.graffitabsdk.network.service.location.GTLocationTasks;
+import com.graffitabsdk.network.service.location.response.GTListLocationsResponse;
+import com.graffitabsdk.network.service.location.response.GTLocationResponse;
 import com.graffitabsdk.network.service.notification.GTNotificationTasks;
+import com.graffitabsdk.network.service.notification.response.GTListNotificationsResponse;
 import com.graffitabsdk.network.service.streamable.GTStreamableTasks;
+import com.graffitabsdk.network.service.streamable.response.GTListStreamablesResponse;
+import com.graffitabsdk.network.service.user.GTUserImagesTasks;
 import com.graffitabsdk.network.service.user.GTUserProfileTasks;
 import com.graffitabsdk.network.service.user.GTUserTasks;
+import com.graffitabsdk.network.service.user.response.GTUnseenNotificationsResponse;
+import com.graffitabsdk.network.service.user.response.GTUserResponse;
 
 import javax.inject.Inject;
 
@@ -32,15 +35,19 @@ public class GTMeManager {
     private GTDeviceTasks gtDeviceTasks;
     private GTLocationTasks gtLocationTasks;
     private GTUserProfileTasks gtUserProfileTasks;
+    private GTUserImagesTasks gtUserImagesTasks;
 
     @Inject
-    public GTMeManager(GTUserTasks userTasks, GTStreamableTasks gtStreamableTasks, GTNotificationTasks gtNotificationTasks, GTLocationTasks gtLocationTasks, GTUserProfileTasks gtUserProfileTasks, GTDeviceTasks gtDeviceTasks) {
+    public GTMeManager(GTUserTasks userTasks, GTStreamableTasks gtStreamableTasks, GTNotificationTasks gtNotificationTasks,
+                       GTLocationTasks gtLocationTasks, GTUserProfileTasks gtUserProfileTasks,
+                       GTDeviceTasks gtDeviceTasks, GTUserImagesTasks gtUserImagesTasks) {
         this.gtUserTasks = userTasks;
         this.gtStreamableTasks = gtStreamableTasks;
         this.gtNotificationTasks = gtNotificationTasks;
         this.gtLocationTasks = gtLocationTasks;
         this.gtUserProfileTasks = gtUserProfileTasks;
         this.gtDeviceTasks = gtDeviceTasks;
+        this.gtUserImagesTasks = gtUserImagesTasks;
     }
 
     public GTRequestPerformed getMe(boolean useCache, GTResponseHandler<GTUserResponse> responseHandler) {
@@ -97,5 +104,9 @@ public class GTMeManager {
 
     public GTRequestPerformed unlinkDevice(String token, GTResponseHandler<GTActionCompleteResult> responseHandler) {
         return gtDeviceTasks.unlinkDevice(token, responseHandler);
+    }
+
+    public GTRequestPerformed uploadAvatar(Bitmap bitmap, GTResponseHandler<GTAssetResponse> responseHandler) {
+        return gtUserImagesTasks.uploadAvatar(bitmap, responseHandler);
     }
 }

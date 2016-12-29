@@ -152,9 +152,10 @@ public class GTApiConstants {
     // -- Global
     public static final String FEEDBACK_ENDPOINT = "feedback";
 
-
     // - Asset
-
+    // -- Multipart uploads
+    public static final String UPLOAD_AVATAR_ENDPOINT = "users/me/avatar";
+    public static final String UPLOAD_COVER_ENDPOINT = "users/cover/avatar";
 
     // -- Global
     public static final String ASSETS_ENDPOINT = "assets";
@@ -164,4 +165,5 @@ public class GTApiConstants {
 
     // -- Progress
     public static final String ASSET_PROGRESS_ENDPOINT = ASSET_ENDPOINT + "/progress";
+
 }

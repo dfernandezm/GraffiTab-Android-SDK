@@ -1,18 +1,22 @@
 package com.graffitabsdk.api;
 
+import android.graphics.Bitmap;
 import com.graffitabsdk.network.common.GTRequestPerformed;
 import com.graffitabsdk.network.common.params.GTQueryParameters;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
 import com.graffitabsdk.network.common.result.GTActionCompleteResult;
+import com.graffitabsdk.network.service.assets.response.GTAssetResponse;
 import com.graffitabsdk.network.service.streamable.response.GTListStreamablesResponse;
-import com.graffitabsdk.network.service.user.response.GTListUsersResponse;
-import com.graffitabsdk.network.service.user.response.GTUserResponse;
-import com.graffitabsdk.network.service.user.GTUserProfileTasks;
-import com.graffitabsdk.network.service.user.GTUserTasks;
 import com.graffitabsdk.network.service.user.GTLoginTasks;
 import com.graffitabsdk.network.service.user.GTLogoutTask;
+import com.graffitabsdk.network.service.user.GTUserImagesTasks;
+import com.graffitabsdk.network.service.user.GTUserProfileTasks;
+import com.graffitabsdk.network.service.user.GTUserTasks;
+import com.graffitabsdk.network.service.user.response.GTListUsersResponse;
+import com.graffitabsdk.network.service.user.response.GTUserResponse;
 
 import javax.inject.Inject;
+
 
 /**
  * Created by david on 09/11/2016.
@@ -23,14 +27,17 @@ public class GTUserManager {
     private GTLoginTasks gtLoginTasks;
     private GTUserTasks gtUserTasks;
     private GTLogoutTask gtLogoutTask;
+    private GTUserImagesTasks gtUserImagesTasks;
     private GTUserProfileTasks gtUserProfileTasks;
 
     @Inject
-    public GTUserManager(GTUserTasks userTasks, GTLoginTasks loginTasks, GTLogoutTask gtLogoutTask, GTUserProfileTasks gtUserProfileTasks) {
+    public GTUserManager(GTUserTasks userTasks, GTLoginTasks loginTasks, GTLogoutTask gtLogoutTask,
+                         GTUserProfileTasks gtUserProfileTasks, com.graffitabsdk.network.service.user.GTUserImagesTasks gtUserImagesTasks) {
         this.gtUserTasks = userTasks;
         this.gtLoginTasks = loginTasks;
         this.gtLogoutTask = gtLogoutTask;
         this.gtUserProfileTasks = gtUserProfileTasks;
+        this.gtUserImagesTasks = gtUserImagesTasks;
     }
 
     public GTRequestPerformed login(String username, String password, GTResponseHandler<GTUserResponse> responseHandler) {
@@ -95,5 +102,9 @@ public class GTUserManager {
 
     public GTRequestPerformed search(GTQueryParameters parameters, GTResponseHandler<GTListUsersResponse> responseHandler) {
         return gtUserTasks.search(parameters, responseHandler);
+    }
+
+    public GTRequestPerformed uploadAvatar(Bitmap avatarImage, GTResponseHandler<GTAssetResponse> responseHandler) {
+        return gtUserImagesTasks.uploadAvatar(avatarImage, responseHandler);
     }
 }

@@ -1,11 +1,16 @@
 package com.graffitabsdk;
 
-import com.graffitabsdk.sdk.GTConfig;
-import com.graffitabsdk.sdk.GTSDK;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import com.graffitabsdk.model.GTUser;
 import com.graffitabsdk.network.common.response.GTResponse;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
+import com.graffitabsdk.network.service.assets.response.GTAssetResponse;
 import com.graffitabsdk.network.service.user.response.GTUserResponse;
+import com.graffitabsdk.sdk.GTConfig;
+import com.graffitabsdk.sdk.GTSDK;
+
+import java.io.File;
 
 /**
  * Created by david on 06/11/2016.
@@ -160,10 +165,53 @@ public class MainTesting {
         GTSDK.getUserManager().login("david", "password1", responseHandler);
     }
 
+    public void uploadAvatar() {
+        GTResponseHandler<GTUserResponse> responseHandler = new GTResponseHandler<GTUserResponse>() {
+
+            @Override
+            public void onSuccess(GTResponse<GTUserResponse> gtResponse) {
+                GTSDK.getUserManager().uploadAvatar(getBitmapFromFile(), new GTResponseHandler<GTAssetResponse>() {
+                    @Override
+                    public void onSuccess(GTResponse<GTAssetResponse> gtResponse) {
+                        GTAssetResponse asset = gtResponse.getObject();
+                        System.out.println("Invoked endpoint: " + gtResponse.getApiEndpointUrl());
+                        System.out.println("- asset GUID:     " + asset.asset.guid);
+                        System.out.println("- asset Link:      " + asset.asset.link);
+                    }
+
+                    @Override
+                    public void onFailure(GTResponse<GTAssetResponse> gtResponse) {
+                        System.out.println("Failure detected");
+                        System.out.println("Invoked endpoint: " + gtResponse.getApiEndpointUrl());
+                        System.out.println("Error: " + gtResponse.getResultCode() +
+                                " - " + gtResponse.getResultDetail());
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(GTResponse<GTUserResponse> gtResponse) {
+                System.out.println("Failure detected");
+                System.out.println("Invoked endpoint: " + gtResponse.getApiEndpointUrl());
+                System.out.println("Error: " + gtResponse.getResultCode() +
+                        " - " + gtResponse.getResultDetail());
+            }
+        };
+
+        GTSDK.getUserManager().login("david", "password1", responseHandler);
+    }
+
+    private Bitmap getBitmapFromFile() {
+        File f = new File("/Users/david/upload.jpg");
+        // Needs Android instrumentation -- won't work here
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        return BitmapFactory.decodeFile( f.getPath(), options );
+    }
 
     public static void main(String[] args) throws Exception {
         MainTesting mainTesting = new MainTesting();
         //mainTesting.performCall();
-        mainTesting.performCachedCalls();
+        //mainTesting.performCachedCalls();
+        mainTesting.uploadAvatar();
     }
 }
