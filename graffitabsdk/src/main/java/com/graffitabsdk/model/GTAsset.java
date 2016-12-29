@@ -1,8 +1,8 @@
 package com.graffitabsdk.model;
 
-import java.io.Serializable;
-
 import lombok.AllArgsConstructor;
+
+import java.io.Serializable;
 
 /**
  * Created by georgichristov on 04/07/16.
@@ -19,6 +19,11 @@ public class GTAsset implements Serializable {
     public int height;
     public int thumbnailWidth;
     public int thumbnailHeight;
+    public AssetState state;
+
+    public enum AssetState {
+        RESIZING, PROCESSING, COMPLETED;
+    }
 
     public GTAsset() {}
 
