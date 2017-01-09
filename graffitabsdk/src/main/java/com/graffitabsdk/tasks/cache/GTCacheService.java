@@ -2,6 +2,7 @@ package com.graffitabsdk.tasks.cache;
 
 import com.graffitabsdk.network.common.GTResponse;
 import com.graffitabsdk.network.common.ResultCode;
+import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import javax.inject.Inject;
@@ -40,8 +41,7 @@ public class GTCacheService {
     }
 
     private String hashApiEndpoint(String apiEndpointUrl) {
-        // In older versions of Android there were some problems with this, replace with
-        // 'return new String(Hex.encodeHex(DigestUtils.md5(apiEndpointUrl)))' if this way does not work
-        return DigestUtils.md5Hex(apiEndpointUrl);
+        // Need to use it like this in Android for it to work properly
+        return new String(Hex.encodeHex(DigestUtils.md5(apiEndpointUrl)));
     }
 }
