@@ -17,10 +17,10 @@ import retrofit2.http.POST;
 public interface UserService {
 
     @Headers("Content-Type: application/json")
-    @POST(GTApiConstants.LOGIN_ENDPOINT)
+    @POST(GTApiConstants.USER_LOGIN_ENDPOINT)
     Call<Map<String,GTUser>> login(@Body LoginData loginData);
 
-    @GET(GTApiConstants.LOGOUT)
+    @GET(GTApiConstants.USER_LOGOUT_ENDPOINT)
     Call<Void> logout();
 
     @Headers("Content-Type: application/json")
