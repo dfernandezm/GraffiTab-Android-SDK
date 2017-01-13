@@ -2,6 +2,7 @@ package com.graffitabsdk.config.dagger.modules;
 
 import android.app.Application;
 import android.support.annotation.Nullable;
+
 import com.franmontiel.persistentcookiejar.PersistentCookieJar;
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
 import com.google.gson.Gson;
@@ -13,6 +14,14 @@ import com.graffitabsdk.log.GTLog;
 import com.graffitabsdk.network.common.GTSharedPrefsCookiePersistor;
 import com.graffitabsdk.tasks.cache.GTCache;
 import com.graffitabsdk.tasks.cache.GTSharedPrefsCache;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.Cookie;
@@ -22,12 +31,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-import javax.inject.Singleton;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by david on 03/12/2016.
@@ -116,7 +119,7 @@ public class NetworkModule {
             return new GTCache() {
                 private Map<String, Object> cache = new HashMap<>();
                 @Override
-                public <T> T readFromCache(String key) {
+                public <T> T readFromCache(String key, Class<T> type) {
                     Object value = cache.get(key);
 
                     if (value == null) {

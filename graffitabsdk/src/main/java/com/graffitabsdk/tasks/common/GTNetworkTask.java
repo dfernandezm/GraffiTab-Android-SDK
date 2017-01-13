@@ -4,9 +4,10 @@ import com.graffitabsdk.network.common.GTResponse;
 import com.graffitabsdk.network.common.GTResponseHandler;
 import com.graffitabsdk.network.common.RequestPerformed;
 import com.graffitabsdk.tasks.cache.GTCacheService;
-import retrofit2.Call;
 
 import java.util.Map;
+
+import retrofit2.Call;
 
 
 /**
@@ -16,7 +17,7 @@ public abstract class GTNetworkTask<T> {
 
     protected GTCacheService cacheService;
 
-    protected RequestPerformed<T> performJsonRequest(Call<Map<String,T>> request, String propertyNameToExtract,
+    protected RequestPerformed<T> performJsonRequest(Call<Map<String,T>> request, Class<T> type, String propertyNameToExtract,
                                                      GTResponseHandler<T> responseHandler, boolean shouldUseCache) {
         boolean isGetRequest = request.request().method().equalsIgnoreCase("GET");
         AfterCompletionOperation<T> afterCompletionOperation = getAfterCompletionOperations(shouldUseCache, isGetRequest);
@@ -24,7 +25,7 @@ public abstract class GTNetworkTask<T> {
         RequestPerformed<T> requestPerformed = new RequestPerformed<>(call);
 
         // Try to resolve from cache
-        resolveCallFromCacheIfPossible(call.getApiEndpointUrl(), responseHandler, shouldUseCache, isGetRequest);
+        resolveCallFromCacheIfPossible(call.getApiEndpointUrl(), responseHandler, shouldUseCache, isGetRequest, type);
 
         // The network call is executed anyway
         call.execute(responseHandler);
@@ -70,14 +71,14 @@ public abstract class GTNetworkTask<T> {
     }
 
     private void resolveCallFromCacheIfPossible(String apiEndpointUrl, GTResponseHandler<T> responseHandler,
-                                            boolean requestShouldUseCache, boolean isGetRequest) {
+                                            boolean requestShouldUseCache, boolean isGetRequest, Class<T> type) {
         if (requestShouldUseCache && isGetRequest) {
 
             if (cacheService == null) {
                 throw new IllegalStateException("Request requiring cache provides a null cacheService");
             }
 
-            GTResponse<T> gtResponse = cacheService.resolveRequestFromCache(apiEndpointUrl);
+            GTResponse<T> gtResponse = cacheService.resolveRequestFromCache(apiEndpointUrl, type);
             if (gtResponse.getObject() != null) {
                 // Cache hit, execute cache handler on the app side -- only execute the handler in case of a cache hit
                 responseHandler.onCache(gtResponse);

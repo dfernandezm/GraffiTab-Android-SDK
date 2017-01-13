@@ -5,7 +5,7 @@ package com.graffitabsdk.tasks.cache;
  */
 
 public interface GTCache {
-    <T> T readFromCache(String key);
+    <T> T readFromCache(String key, Class<T> type);
     void invalidateCache();
     <T> void writeValueToCache(String key, T value);
 }

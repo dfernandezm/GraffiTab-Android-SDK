@@ -20,11 +20,11 @@ public class GTCacheService {
         this.gtCache = gtCache;
     }
 
-    public <T> GTResponse<T> resolveRequestFromCache(String apiEndpointUrl) {
+    public <T> GTResponse<T> resolveRequestFromCache(String apiEndpointUrl, Class<T> type) {
         GTResponse<T> gtResponse = new GTResponse<>();
         gtResponse.setApiEndpointUrl(apiEndpointUrl);
         String cacheKey = hashApiEndpoint(apiEndpointUrl);
-        T decodedResponse = gtCache.readFromCache(cacheKey);
+        T decodedResponse = gtCache.readFromCache(cacheKey, type);
         gtResponse.setObject(decodedResponse);
         gtResponse.setResultCode(ResultCode.OK);
         gtResponse.setIsSuccessful(true);

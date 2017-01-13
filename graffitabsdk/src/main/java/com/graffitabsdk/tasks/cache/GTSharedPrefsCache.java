@@ -3,11 +3,10 @@ package com.graffitabsdk.tasks.cache;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import javax.inject.Inject;
-import java.lang.reflect.Type;
 
 /**
  * Created by david on 16/12/2016.
@@ -26,11 +25,10 @@ public class GTSharedPrefsCache implements GTCache {
     }
 
     @Override
-    public <T> T readFromCache(String key) {
+    public <T> T readFromCache(String key, Class<T> type) {
         String json = getSharedPreferences(application).getString(key, null);
         if (json != null) {
-            Type typeOfT = new TypeToken<T>() {}.getType();
-            return gson.fromJson(json, typeOfT);
+            return gson.fromJson(json, type);
         }
         return null;
     }
