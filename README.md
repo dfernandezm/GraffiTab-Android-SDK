@@ -1,5 +1,8 @@
-# GraffiTab-Android-SDK
-Android SDK for the GraffiTab project.
+<img src="https://drive.google.com/uc?export=download&id=0B8cKnJyOSiKfQkw5c0dWUVppaUU" width="1500">
+
+The GraffiTab app lets you create and share drawings with your audience. Follow your favourite artists, be creative and build your profile.
+
+This is the Android SDK for the system. Work is still in progress.
 
 ## License
 
