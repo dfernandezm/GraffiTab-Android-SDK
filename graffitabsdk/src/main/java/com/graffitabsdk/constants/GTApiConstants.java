@@ -8,17 +8,17 @@ public class GTApiConstants {
 
     public static final String GT_API_DATE_FORMAT = "EEE, dd MMM yyyy HH:mm:ss Z";
 
-    // API constants
-    public static String GT_DEFAULT_APP_DOMAIN = "www.graffitab.com";
-    public static String GT_DEFAULT_PROTOCOL = "https";
-    public static final String GT_API_URL =
-            String.format("%s://%s/api", GT_DEFAULT_PROTOCOL, GT_DEFAULT_APP_DOMAIN);
+    // Default API constants
+    public static final String GT_DEFAULT_DOMAIN = "www.graffitab.com";
+    public static final String GT_DEFAULT_LANGUAGE = "en";
+    public static final boolean GT_DEFAULT_SECURE = true;
 
     // - Users
     // -- Global
-    public static final String USERS_ENDPOINT = GT_API_URL + "/users";
-    public static final String ME_ENDPOINT = "users/me";
-    public static final String EXTERNAL_PROVIDERS = GT_API_URL + "/externalproviders";
+    public static final String USERS_ENDPOINT = "users";
+    public static final String ME_ENDPOINT = USERS_ENDPOINT + "/me";
+    public static final String MY_FULL_PROFILE_ENDPOINT = ME_ENDPOINT + "/profile";
+    public static final String EXTERNAL_PROVIDERS = "externalproviders";
 
     // -- Login
     public static final String LOGIN_ENDPOINT = "login";

@@ -2,13 +2,14 @@ package com.graffitabsdk.network.service.user;
 
 import com.graffitabsdk.constants.GTApiConstants;
 import com.graffitabsdk.model.GTUser;
+
+import java.util.Map;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
-
-import java.util.Map;
 
 /**
  * Created by david on 10/11/2016.
@@ -19,11 +20,15 @@ public interface UserService {
     @POST(GTApiConstants.LOGIN_ENDPOINT)
     Call<Map<String,GTUser>> login(@Body LoginData loginData);
 
+    @GET(GTApiConstants.LOGOUT)
+    Call<Void> logout();
+
     @Headers("Content-Type: application/json")
     @GET(GTApiConstants.ME_ENDPOINT)
     Call<Map<String,GTUser>> getMe();
 
-    @GET(GTApiConstants.LOGOUT)
-    Call<Void> logout();
+    @Headers("Content-Type: application/json")
+    @GET(GTApiConstants.MY_FULL_PROFILE_ENDPOINT)
+    Call<Map<String,GTUser>> getMyFullProfile();
 }
 

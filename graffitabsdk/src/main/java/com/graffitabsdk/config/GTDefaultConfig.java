@@ -7,6 +7,6 @@ import com.graffitabsdk.constants.GTApiConstants;
  */
 class GTDefaultConfig extends GTConfig {
     GTDefaultConfig() {
-        super(false, GTApiConstants.GT_DEFAULT_APP_DOMAIN, true, "en");
+        super(false, GTApiConstants.GT_DEFAULT_DOMAIN, GTApiConstants.GT_DEFAULT_SECURE, GTApiConstants.GT_DEFAULT_LANGUAGE);
     }
 }

@@ -31,11 +31,15 @@ public class GTUserManager {
         return gtLoginTasks.login(username, password, responseHandler);
     }
 
+    public RequestPerformed<Void> logout(GTResponseHandler<Void> responseHandler) {
+        return gtLogoutTask.logout(responseHandler);
+    }
+
     public RequestPerformed<GTUser> getMe(GTResponseHandler<GTUser> responseHandler) {
         return gtUserTasks.getMe(responseHandler);
     }
 
-    public RequestPerformed<Void> logout(GTResponseHandler<Void> responseHandler) {
-        return gtLogoutTask.logout(responseHandler);
+    public RequestPerformed<GTUser> getMyFullProfile(GTResponseHandler<GTUser> responseHandler) {
+        return gtUserTasks.getMyFullProfile(responseHandler);
     }
 }

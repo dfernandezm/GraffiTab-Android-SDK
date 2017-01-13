@@ -26,4 +26,8 @@ public class GTUserTasks extends GTNetworkTask<GTUser> {
     public RequestPerformed<GTUser> getMe(GTResponseHandler<GTUser> responseHandler) {
         return performJsonRequest(userService.getMe(), GTUser.class, "user", responseHandler, true);
     }
+
+    public RequestPerformed<GTUser> getMyFullProfile(GTResponseHandler<GTUser> responseHandler) {
+        return performJsonRequest(userService.getMyFullProfile(), GTUser.class, "user", responseHandler, true);
+    }
 }
