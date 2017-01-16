@@ -1,14 +1,15 @@
 package com.graffitabsdk.tasks.common;
 
-import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.Map;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.graffitabsdk.network.common.GTResponse;
 import com.graffitabsdk.network.common.GTResponseHandler;
 import com.graffitabsdk.network.common.ResultCode;
+
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.Map;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -78,6 +79,8 @@ class GTJsonCall<T> extends GTCall<T> {
 
     @Override
     protected T decodeResponse() {
+        if (propertyNameToExtract == null)
+            return null;
         return (T) resolvedResponse.body().get(propertyNameToExtract);
     }
 

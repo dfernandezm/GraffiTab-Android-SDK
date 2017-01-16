@@ -5,14 +5,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Created by david on 10/11/2016.
+ * Created by georgichristov on 16/01/2017
+ * --
+ * Copyright © GraffiTab Inc. 2016
  */
 @AllArgsConstructor
 @Getter
 @Setter
-public class LoginData {
+public class ResetPasswordData {
 
-    private String username;
-    private String password;
+    private String email;
 }
-

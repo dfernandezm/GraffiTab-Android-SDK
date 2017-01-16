@@ -24,6 +24,10 @@ public interface UserService {
     Call<Void> logout();
 
     @Headers("Content-Type: application/json")
+    @POST(GTApiConstants.USER_RESET_PASSWORD)
+    Call<Map<String,String>> resetPassword(@Body ResetPasswordData resetPasswordData);
+
+    @Headers("Content-Type: application/json")
     @GET(GTApiConstants.ME_ENDPOINT)
     Call<Map<String,GTUser>> getMe();
 
