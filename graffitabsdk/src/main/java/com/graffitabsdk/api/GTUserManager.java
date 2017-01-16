@@ -6,6 +6,7 @@ import com.graffitabsdk.network.common.RequestPerformed;
 import com.graffitabsdk.tasks.user.GTUserTasks;
 import com.graffitabsdk.tasks.user.login.GTLoginTasks;
 import com.graffitabsdk.tasks.user.login.GTLogoutTask;
+import com.graffitabsdk.tasks.user.login.GTRegisterTask;
 import com.graffitabsdk.tasks.user.login.GTResetPasswordTask;
 
 import javax.inject.Inject;
@@ -20,13 +21,15 @@ public class GTUserManager {
     private GTUserTasks gtUserTasks;
     private GTLogoutTask gtLogoutTask;
     private GTResetPasswordTask gtResetPasswordTask;
+    private GTRegisterTask gtRegisterTask;
 
     @Inject
-    public GTUserManager(GTUserTasks userTasks, GTLoginTasks loginTasks, GTLogoutTask gtLogoutTask, GTResetPasswordTask gtResetPasswordTask) {
+    public GTUserManager(GTUserTasks userTasks, GTLoginTasks loginTasks, GTLogoutTask gtLogoutTask, GTResetPasswordTask gtResetPasswordTask, GTRegisterTask gtRegisterTask) {
         this.gtUserTasks = userTasks;
         this.gtLoginTasks = loginTasks;
         this.gtLogoutTask = gtLogoutTask;
         this.gtResetPasswordTask = gtResetPasswordTask;
+        this.gtRegisterTask = gtRegisterTask;
     }
 
     public RequestPerformed<GTUser> login(String username, String password,
@@ -40,6 +43,10 @@ public class GTUserManager {
 
     public RequestPerformed<String> resetPassword(String email, GTResponseHandler<String> responseHandler) {
         return gtResetPasswordTask.resetPassword(email, responseHandler);
+    }
+
+    public RequestPerformed<String> register(String firstName, String lastName, String email, String username, String password, GTResponseHandler<String> responseHandler) {
+        return gtRegisterTask.register(firstName, lastName, email, username, password, responseHandler);
     }
 
     public RequestPerformed<GTUser> getMe(GTResponseHandler<GTUser> responseHandler) {

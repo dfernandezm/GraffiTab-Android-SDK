@@ -2,6 +2,9 @@ package com.graffitabsdk.network.service.user;
 
 import com.graffitabsdk.constants.GTApiConstants;
 import com.graffitabsdk.model.GTUser;
+import com.graffitabsdk.network.service.user.data.LoginData;
+import com.graffitabsdk.network.service.user.data.ResetPasswordData;
+import com.graffitabsdk.network.service.user.data.register.RegisterData;
 
 import java.util.Map;
 
@@ -26,6 +29,10 @@ public interface UserService {
     @Headers("Content-Type: application/json")
     @POST(GTApiConstants.USER_RESET_PASSWORD)
     Call<Map<String,String>> resetPassword(@Body ResetPasswordData resetPasswordData);
+
+    @Headers("Content-Type: application/json")
+    @POST(GTApiConstants.USERS_ENDPOINT)
+    Call<Map<String,String>> register(@Body RegisterData registerData);
 
     @Headers("Content-Type: application/json")
     @GET(GTApiConstants.ME_ENDPOINT)

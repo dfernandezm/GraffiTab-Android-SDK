@@ -4,7 +4,7 @@ import com.graffitabsdk.model.GTUser;
 import com.graffitabsdk.network.common.GTResponse;
 import com.graffitabsdk.network.common.GTResponseHandler;
 import com.graffitabsdk.network.common.RequestPerformed;
-import com.graffitabsdk.network.service.user.LoginData;
+import com.graffitabsdk.network.service.user.data.LoginData;
 import com.graffitabsdk.network.service.user.UserService;
 import com.graffitabsdk.tasks.common.GTNetworkTask;
 

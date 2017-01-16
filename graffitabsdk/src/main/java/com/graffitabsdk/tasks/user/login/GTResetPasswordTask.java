@@ -2,7 +2,7 @@ package com.graffitabsdk.tasks.user.login;
 
 import com.graffitabsdk.network.common.GTResponseHandler;
 import com.graffitabsdk.network.common.RequestPerformed;
-import com.graffitabsdk.network.service.user.ResetPasswordData;
+import com.graffitabsdk.network.service.user.data.ResetPasswordData;
 import com.graffitabsdk.network.service.user.UserService;
 import com.graffitabsdk.tasks.cache.GTCacheService;
 import com.graffitabsdk.tasks.common.GTNetworkTask;

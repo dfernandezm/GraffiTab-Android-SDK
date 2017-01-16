@@ -1,4 +1,4 @@
-package com.graffitabsdk.network.service.user;
+package com.graffitabsdk.network.service.user.data;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
