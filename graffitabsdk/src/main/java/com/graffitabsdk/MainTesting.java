@@ -3,8 +3,9 @@ package com.graffitabsdk;
 import com.graffitabsdk.config.GTConfig;
 import com.graffitabsdk.config.GTSDK;
 import com.graffitabsdk.model.GTUser;
-import com.graffitabsdk.network.common.GTResponse;
-import com.graffitabsdk.network.common.GTResponseHandler;
+import com.graffitabsdk.network.common.response.GTResponse;
+import com.graffitabsdk.network.common.response.GTResponseHandler;
+import com.graffitabsdk.network.service.user.response.GTUserResponse;
 
 /**
  * Created by david on 06/11/2016.
@@ -21,10 +22,10 @@ public class MainTesting {
 
     public void performCall() {
         final long startTime = System.currentTimeMillis();
-        GTResponseHandler<GTUser> responseHandler = new GTResponseHandler<GTUser>() {
+        GTResponseHandler<GTUserResponse> responseHandler = new GTResponseHandler<GTUserResponse>() {
             @Override
-            public void onSuccess(GTResponse<GTUser> gtResponse) {
-                GTUser user = gtResponse.getObject();
+            public void onSuccess(GTResponse<GTUserResponse> gtResponse) {
+                GTUser user = gtResponse.getObject().user;
                 System.out.println("Invoked endpoint: " + gtResponse.getApiEndpointUrl());
                 System.out.println("- email:         " + user.email);
                 System.out.println("- username:      " + user.username);
@@ -34,10 +35,10 @@ public class MainTesting {
                 final long interm = (System.currentTimeMillis() - startTime);
                 final long start2 = System.currentTimeMillis();
                 System.out.println("Took: " + interm + " total: " + interm);
-                GTSDK.getUserManager().getMe(new GTResponseHandler<GTUser>() {
+                GTSDK.getMeManager().getMe(new GTResponseHandler<GTUserResponse>() {
                     @Override
-                    public void onSuccess(GTResponse<GTUser> gtResponse) {
-                        GTUser user = gtResponse.getObject();
+                    public void onSuccess(GTResponse<GTUserResponse> gtResponse) {
+                        GTUser user = gtResponse.getObject().user;
                         System.out.println("Invoked endpoint: " + gtResponse.getApiEndpointUrl());
                         System.out.println("- firstname:     " + user.firstName);
                         System.out.println("- lastname:      " + user.lastName);
@@ -62,7 +63,7 @@ public class MainTesting {
                     }
 
                     @Override
-                    public void onFailure(GTResponse<GTUser> responseObject) {
+                    public void onFailure(GTResponse<GTUserResponse> responseObject) {
                         System.out.println("Failure detected");
                         System.out.println("Invoked endpoint: " + responseObject.getApiEndpointUrl());
                         System.out.println("Error: " + responseObject.getResultCode() +
@@ -72,7 +73,7 @@ public class MainTesting {
             }
 
             @Override
-            public void onFailure(GTResponse<GTUser> responseObject) {
+            public void onFailure(GTResponse<GTUserResponse> responseObject) {
                 System.out.println("Failure detected");
                 System.out.println("Invoked endpoint: " + responseObject.getApiEndpointUrl());
                 System.out.println("Error: " + responseObject.getResultCode() +
@@ -86,27 +87,27 @@ public class MainTesting {
 
 
     private void performCachedCalls() {
-        GTResponseHandler<GTUser> responseHandler = new GTResponseHandler<GTUser>() {
+        GTResponseHandler<GTUserResponse> responseHandler = new GTResponseHandler<GTUserResponse>() {
 
             @Override
-            public void onSuccess(GTResponse<GTUser> gtResponse) {
+            public void onSuccess(GTResponse<GTUserResponse> gtResponse) {
                 System.out.println("Logged in");
                 final long startTime = System.currentTimeMillis();
-                GTSDK.getUserManager().getMe(new GTResponseHandler<GTUser>() {
+                GTSDK.getMeManager().getMe(new GTResponseHandler<GTUserResponse>() {
 
                     @Override
-                    public void onSuccess(GTResponse<GTUser> gtResponse) {
+                    public void onSuccess(GTResponse<GTUserResponse> gtResponse) {
                         System.out.println("Get me (1)");
                         final long interm = (System.currentTimeMillis() - startTime);
                         final long start2 = System.currentTimeMillis();
                         System.out.println("Took: " + interm);
 
-                        GTSDK.getUserManager().getMe(new GTResponseHandler<GTUser>() {
+                        GTSDK.getMeManager().getMe(new GTResponseHandler<GTUserResponse>() {
 
                             @Override
-                            public void onSuccess(GTResponse<GTUser> gtResponse) {
+                            public void onSuccess(GTResponse<GTUserResponse> gtResponse) {
                                 System.out.println("Get me (2)");
-                                GTUser user = gtResponse.getObject();
+                                GTUser user = gtResponse.getObject().user;
                                 System.out.println("Invoked endpoint: " + gtResponse.getApiEndpointUrl());
                                 System.out.println("- firstname:     " + user.firstName);
                                 System.out.println("- lastname:      " + user.lastName);
@@ -116,7 +117,7 @@ public class MainTesting {
                             }
 
                             @Override
-                            public void onFailure(GTResponse<GTUser> gtResponse) {
+                            public void onFailure(GTResponse<GTUserResponse> gtResponse) {
                                 System.out.println("Failure detected");
                                 System.out.println("Invoked endpoint: " + gtResponse.getApiEndpointUrl());
                                 System.out.println("Error: " + gtResponse.getResultCode() +
@@ -124,9 +125,9 @@ public class MainTesting {
                             }
 
                             @Override
-                            public void onCache(GTResponse<GTUser> gtResponse) {
+                            public void onCache(GTResponse<GTUserResponse> gtResponse) {
                                 System.out.println("Got cached response");
-                                GTUser user = gtResponse.getObject();
+                                GTUser user = gtResponse.getObject().user;
                                 System.out.println("Invoked endpoint: " + gtResponse.getApiEndpointUrl());
                                 System.out.println("- firstname:     " + user.firstName);
                                 System.out.println("- lastname:      " + user.lastName);
@@ -139,7 +140,7 @@ public class MainTesting {
                     }
 
                     @Override
-                    public void onFailure(GTResponse<GTUser> gtResponse) {
+                    public void onFailure(GTResponse<GTUserResponse> gtResponse) {
                         System.out.println("Failure detected");
                         System.out.println("Invoked endpoint: " + gtResponse.getApiEndpointUrl());
                         System.out.println("Error: " + gtResponse.getResultCode() +
@@ -149,7 +150,7 @@ public class MainTesting {
             }
 
             @Override
-            public void onFailure(GTResponse<GTUser> gtResponse) {
+            public void onFailure(GTResponse<GTUserResponse> gtResponse) {
                 System.out.println("Failure detected");
                 System.out.println("Invoked endpoint: " + gtResponse.getApiEndpointUrl());
                 System.out.println("Error: " + gtResponse.getResultCode() +

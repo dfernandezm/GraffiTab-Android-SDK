@@ -1,6 +1,6 @@
 package com.graffitabsdk.tasks.common;
 
-import com.graffitabsdk.network.common.GTResponse;
+import com.graffitabsdk.network.common.response.GTResponse;
 
 /**
  * Created by david on 11/12/2016.

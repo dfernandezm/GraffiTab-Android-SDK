@@ -1,7 +1,8 @@
 package com.graffitabsdk.tasks.user.login;
 
-import com.graffitabsdk.network.common.GTResponseHandler;
+import com.graffitabsdk.network.common.response.GTResponseHandler;
 import com.graffitabsdk.network.common.RequestPerformed;
+import com.graffitabsdk.network.common.result.GTRegistrationCompleteResult;
 import com.graffitabsdk.network.service.user.UserService;
 import com.graffitabsdk.network.service.user.data.register.RegisterData;
 import com.graffitabsdk.network.service.user.data.register.RegisterUserData;
@@ -15,7 +16,7 @@ import javax.inject.Inject;
  * --
  * Copyright © GraffiTab Inc. 2016
  */
-public class GTRegisterTask extends GTNetworkTask<String> {
+public class GTRegisterTask extends GTNetworkTask {
 
     private UserService userService;
 
@@ -25,9 +26,9 @@ public class GTRegisterTask extends GTNetworkTask<String> {
         this.cacheService = cacheService;
     }
 
-    public RequestPerformed<String> register(String firstName, String lastName, String email, String username, String password, GTResponseHandler<String> responseHandler) {
+    public RequestPerformed register(String firstName, String lastName, String email, String username, String password, GTResponseHandler<GTRegistrationCompleteResult> responseHandler) {
         RegisterUserData registerUserData = new RegisterUserData(firstName, lastName, email, username, password);
         RegisterData registerData = new RegisterData(registerUserData);
-        return performJsonRequest(userService.register(registerData), String.class, null, responseHandler, false);
+        return performJsonRequest(userService.register(registerData), GTRegistrationCompleteResult.class, responseHandler, false);
     }
 }

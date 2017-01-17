@@ -1,5 +1,6 @@
 package com.graffitabsdk.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -8,7 +9,7 @@ import lombok.AllArgsConstructor;
  * Created by georgichristov on 04/07/16.
  */
 @AllArgsConstructor
-public class GTUserSocialFriendsContainer {
+public class GTUserSocialFriendsContainer implements Serializable {
 
     public GTExternalProvider.GTExternalProviderType type;
     public List<GTUser> users;

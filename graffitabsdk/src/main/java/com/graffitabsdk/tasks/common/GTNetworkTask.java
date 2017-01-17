@@ -1,11 +1,9 @@
 package com.graffitabsdk.tasks.common;
 
-import com.graffitabsdk.network.common.GTResponse;
-import com.graffitabsdk.network.common.GTResponseHandler;
 import com.graffitabsdk.network.common.RequestPerformed;
+import com.graffitabsdk.network.common.response.GTResponse;
+import com.graffitabsdk.network.common.response.GTResponseHandler;
 import com.graffitabsdk.tasks.cache.GTCacheService;
-
-import java.util.Map;
 
 import retrofit2.Call;
 
@@ -13,16 +11,15 @@ import retrofit2.Call;
 /**
  * Created by david on 09/11/2016.
  */
-public abstract class GTNetworkTask<T> {
+public abstract class GTNetworkTask {
 
     protected GTCacheService cacheService;
 
-    protected RequestPerformed<T> performJsonRequest(Call<Map<String,T>> request, Class<T> type, String propertyNameToExtract,
-                                                     GTResponseHandler<T> responseHandler, boolean shouldUseCache) {
+    protected <T> RequestPerformed performJsonRequest(Call<T> request, Class<T> type, GTResponseHandler<T> responseHandler, boolean shouldUseCache) {
         boolean isGetRequest = request.request().method().equalsIgnoreCase("GET");
         AfterCompletionOperation<T> afterCompletionOperation = getAfterCompletionOperations(shouldUseCache, isGetRequest);
-        GTCall<T> call = GTCall.jsonCall(request, propertyNameToExtract, afterCompletionOperation);
-        RequestPerformed<T> requestPerformed = new RequestPerformed<>(call);
+        GTCall<T> call = GTCall.jsonCall(request, afterCompletionOperation);
+        RequestPerformed requestPerformed = new RequestPerformed(call);
 
         // Try to resolve from cache
         resolveCallFromCacheIfPossible(call.getApiEndpointUrl(), responseHandler, shouldUseCache, isGetRequest, type);
@@ -38,14 +35,15 @@ public abstract class GTNetworkTask<T> {
      * @param responseHandler
      * @return
      */
-    protected RequestPerformed<T> performRawRequest(Call<T> request, GTResponseHandler<T> responseHandler) {
-        GTCall<T> call = GTCall.rawCall(request, getAfterCompletionOperations(false, false));
-        RequestPerformed<T> requestPerformed = new RequestPerformed<>(call);
+    protected <T> RequestPerformed performRawRequest(Call<T> request, GTResponseHandler<T> responseHandler) {
+        AfterCompletionOperation<T> afterCompletionOperation = getAfterCompletionOperations(false, false);
+        GTCall<T> call = GTCall.rawCall(request, afterCompletionOperation);
+        RequestPerformed requestPerformed = new RequestPerformed(call);
         call.execute(responseHandler);
         return requestPerformed;
     }
 
-    private AfterCompletionOperation<T> getAfterCompletionOperations(final boolean shouldUseCache, final boolean isGetRequest) {
+    private <T> AfterCompletionOperation<T> getAfterCompletionOperations(final boolean shouldUseCache, final boolean isGetRequest) {
         return new AfterCompletionOperation<T>() {
             @Override
             public void executeOnSuccess(GTResponse<T> gtResponse) {
@@ -60,20 +58,19 @@ public abstract class GTNetworkTask<T> {
         };
     }
 
-    protected void performExtraOperationOnSuccess(GTResponse<T> gtResponse) {
+    protected void performExtraOperationOnSuccess(GTResponse<?> gtResponse) {
         // Subclasses can provide custom code to execute by the SDK (like save an user, clear cache etc) when the
         // call is successful
     }
 
-    protected void performExtraOperationOnFailure(GTResponse<T> gtResponse) {
+    protected void performExtraOperationOnFailure(GTResponse<?> gtResponse) {
         // Subclasses can provide custom code to execute by the SDK (like save an user, clear cache etc)
         // when the call failed
     }
 
-    private void resolveCallFromCacheIfPossible(String apiEndpointUrl, GTResponseHandler<T> responseHandler,
+    private <T> void resolveCallFromCacheIfPossible(String apiEndpointUrl, GTResponseHandler<T> responseHandler,
                                             boolean requestShouldUseCache, boolean isGetRequest, Class<T> type) {
         if (requestShouldUseCache && isGetRequest) {
-
             if (cacheService == null) {
                 throw new IllegalStateException("Request requiring cache provides a null cacheService");
             }
@@ -87,7 +84,7 @@ public abstract class GTNetworkTask<T> {
         }
     }
 
-    private void saveResponseToCacheIfPossible(GTResponse<T> gtResponse, boolean shouldUseCache, boolean isGetRequest) {
+    private <T> void saveResponseToCacheIfPossible(GTResponse<T> gtResponse, boolean shouldUseCache, boolean isGetRequest) {
         if (shouldUseCache && isGetRequest) {
             if (cacheService == null) {
                 throw new IllegalStateException("Request requiring cache provides a null cacheService");

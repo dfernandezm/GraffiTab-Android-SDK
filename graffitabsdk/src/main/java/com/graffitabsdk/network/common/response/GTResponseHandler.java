@@ -1,4 +1,4 @@
-package com.graffitabsdk.network.common;
+package com.graffitabsdk.network.common.response;
 
 /**
  * Created by david on 10/11/2016.

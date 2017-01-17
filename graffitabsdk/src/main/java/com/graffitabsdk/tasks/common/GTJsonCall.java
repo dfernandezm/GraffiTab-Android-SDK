@@ -2,8 +2,8 @@ package com.graffitabsdk.tasks.common;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.graffitabsdk.network.common.GTResponse;
-import com.graffitabsdk.network.common.GTResponseHandler;
+import com.graffitabsdk.network.common.response.GTResponse;
+import com.graffitabsdk.network.common.response.GTResponseHandler;
 import com.graffitabsdk.network.common.ResultCode;
 
 import java.io.IOException;
@@ -22,26 +22,24 @@ class GTJsonCall<T> extends GTCall<T> {
 
     private static final Type STRING_MAP_GSON_TYPE = new TypeToken<Map<String, String>>(){}.getType();
     private static final Gson gson = new Gson();
-    private final Call<Map<String,T>> wrappedCall;
-    private final String propertyNameToExtract;
+    private final Call<T> wrappedCall;
 
-    private Response<Map<String,T>> resolvedResponse;
+    private Response<T> resolvedResponse;
 
-    public GTJsonCall(Call<Map<String,T>> wrappedCall, String propertyNameToExtract,
+    public GTJsonCall(Call<T> wrappedCall,
                       AfterCompletionOperation<T> afterCompletionOperation) {
         super(wrappedCall.request().url().toString(),afterCompletionOperation);
         this.wrappedCall = wrappedCall;
-        this.propertyNameToExtract = propertyNameToExtract;
     }
 
     public void execute(GTResponseHandler<T> responseHandler) {
         wrappedCall.enqueue(getJsonCallback(responseHandler));
     }
 
-    private Callback<Map<String,T>> getJsonCallback(final GTResponseHandler<T> responseHandler) {
-        return new Callback<Map<String,T>>() {
+    private Callback<T> getJsonCallback(final GTResponseHandler<T> responseHandler) {
+        return new Callback<T>() {
             @Override
-            public void onResponse(Call<Map<String,T>> call, Response<Map<String,T>> response) {
+            public void onResponse(Call<T> call, Response<T> response) {
                 resolvedResponse = response;
                 successful = response.isSuccessful();
                 handleErrorOrSuccessfulResponse(responseHandler);
@@ -49,7 +47,7 @@ class GTJsonCall<T> extends GTCall<T> {
             }
 
             @Override
-            public void onFailure(Call<Map<String,T>> call, Throwable t) {
+            public void onFailure(Call<T> call, Throwable t) {
                 handleOtherFailure(t.getMessage(), responseHandler);
                 done = true;
             }
@@ -79,12 +77,10 @@ class GTJsonCall<T> extends GTCall<T> {
 
     @Override
     protected T decodeResponse() {
-        if (propertyNameToExtract == null)
-            return null;
-        return (T) resolvedResponse.body().get(propertyNameToExtract);
+        return resolvedResponse.body();
     }
 
-    private void handleUnsuccessfulCall(Response<Map<String,T>> response,
+    private void handleUnsuccessfulCall(Response<T> response,
                                         GTResponseHandler<T> responseHandler) {
         ResultCode resultCode = ResultCode.OTHER;
         String resultMessage = null;

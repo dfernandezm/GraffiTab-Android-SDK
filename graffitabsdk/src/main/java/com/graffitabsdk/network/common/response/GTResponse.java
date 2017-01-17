@@ -1,4 +1,6 @@
-package com.graffitabsdk.network.common;
+package com.graffitabsdk.network.common.response;
+
+import com.graffitabsdk.network.common.ResultCode;
 
 import lombok.Getter;
 import lombok.Setter;

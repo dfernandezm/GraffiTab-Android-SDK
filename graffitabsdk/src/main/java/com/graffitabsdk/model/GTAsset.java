@@ -1,5 +1,7 @@
 package com.graffitabsdk.model;
 
+import java.io.Serializable;
+
 import lombok.AllArgsConstructor;
 
 /**
@@ -7,7 +9,7 @@ import lombok.AllArgsConstructor;
  */
 
 @AllArgsConstructor
-public class GTAsset {
+public class GTAsset implements Serializable {
 
     public String guid;
     public String link;

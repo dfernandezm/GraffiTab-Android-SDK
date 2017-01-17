@@ -4,6 +4,7 @@ import com.graffitabsdk.model.GTComment;
 import com.graffitabsdk.model.GTStreamable;
 import com.graffitabsdk.model.GTUser;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
@@ -12,7 +13,7 @@ import lombok.AllArgsConstructor;
  * Created by georgichristov on 04/07/16.
  */
 @AllArgsConstructor
-public class GTActivity {
+public class GTActivity implements Serializable {
 
     public enum GTActivityType {COMMENT, CREATE_STREAMABLE, FOLLOW, LIKE};
 

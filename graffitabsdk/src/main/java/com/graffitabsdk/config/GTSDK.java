@@ -4,9 +4,10 @@ import android.app.Activity;
 import android.app.Application;
 
 import com.graffitabsdk.api.GTAccountManager;
+import com.graffitabsdk.api.GTMeManager;
+import com.graffitabsdk.api.GTUserManager;
 import com.graffitabsdk.config.dagger.components.UserComponent;
 import com.graffitabsdk.log.GTLog;
-import com.graffitabsdk.api.GTUserManager;
 
 /**
  * Created by david on 05/12/2016.
@@ -29,6 +30,10 @@ public class GTSDK {
 
     public static GTUserManager getUserManager() {
         return get().userComponent.getUserManager();
+    }
+
+    public static GTMeManager getMeManager() {
+        return get().userComponent.getMeManager();
     }
 
     public static GTAccountManager getAccountManager() {

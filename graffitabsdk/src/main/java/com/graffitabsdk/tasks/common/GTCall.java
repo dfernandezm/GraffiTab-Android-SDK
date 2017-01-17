@@ -1,11 +1,10 @@
 package com.graffitabsdk.tasks.common;
 
-import com.graffitabsdk.network.common.GTResponse;
-import com.graffitabsdk.network.common.GTResponseHandler;
+import com.graffitabsdk.network.common.response.GTResponse;
+import com.graffitabsdk.network.common.response.GTResponseHandler;
 import com.graffitabsdk.network.common.ResultCode;
-import retrofit2.Call;
 
-import java.util.Map;
+import retrofit2.Call;
 
 /**
  * Created by david on 22/11/2016.
@@ -73,9 +72,8 @@ public abstract class GTCall<T> {
         }
     }
 
-    static <T> GTCall<T> jsonCall(Call<Map<String,T>> call, String propertyNameToExtract,
-                                         AfterCompletionOperation<T> afterCompletionOperation) {
-        return new GTJsonCall<>(call, propertyNameToExtract, afterCompletionOperation);
+    static <T> GTCall<T> jsonCall(Call<T> call, AfterCompletionOperation<T> afterCompletionOperation) {
+        return new GTJsonCall<>(call, afterCompletionOperation);
     }
 
     static <T> GTCall<T> rawCall(Call<T> call, AfterCompletionOperation<T> afterCompletionOperation) {

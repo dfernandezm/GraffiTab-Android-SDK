@@ -1,9 +1,10 @@
 package com.graffitabsdk.tasks.user.login;
 
-import com.graffitabsdk.network.common.GTResponseHandler;
 import com.graffitabsdk.network.common.RequestPerformed;
-import com.graffitabsdk.network.service.user.data.ResetPasswordData;
+import com.graffitabsdk.network.common.response.GTResponseHandler;
+import com.graffitabsdk.network.common.result.GTPasswordResetCompleteResult;
 import com.graffitabsdk.network.service.user.UserService;
+import com.graffitabsdk.network.service.user.data.ResetPasswordData;
 import com.graffitabsdk.tasks.cache.GTCacheService;
 import com.graffitabsdk.tasks.common.GTNetworkTask;
 
@@ -14,7 +15,7 @@ import javax.inject.Inject;
  * --
  * Copyright © GraffiTab Inc. 2016
  */
-public class GTResetPasswordTask extends GTNetworkTask<String> {
+public class GTResetPasswordTask extends GTNetworkTask {
 
     private UserService userService;
 
@@ -24,8 +25,8 @@ public class GTResetPasswordTask extends GTNetworkTask<String> {
         this.cacheService = cacheService;
     }
 
-    public RequestPerformed<String> resetPassword(String email, GTResponseHandler<String> responseHandler) {
+    public RequestPerformed resetPassword(String email, GTResponseHandler<GTPasswordResetCompleteResult> responseHandler) {
         ResetPasswordData resetPasswordData = new ResetPasswordData(email);
-        return performJsonRequest(userService.resetPassword(resetPasswordData), String.class, null, responseHandler, false);
+        return performJsonRequest(userService.resetPassword(resetPasswordData), GTPasswordResetCompleteResult.class, responseHandler, false);
     }
 }

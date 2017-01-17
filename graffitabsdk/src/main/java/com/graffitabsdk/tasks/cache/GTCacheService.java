@@ -1,6 +1,6 @@
 package com.graffitabsdk.tasks.cache;
 
-import com.graffitabsdk.network.common.GTResponse;
+import com.graffitabsdk.network.common.response.GTResponse;
 import com.graffitabsdk.network.common.ResultCode;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
