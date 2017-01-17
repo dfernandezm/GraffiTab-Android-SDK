@@ -2,7 +2,7 @@ package com.graffitabsdk.tasks.common;
 
 import com.graffitabsdk.network.common.response.GTResponse;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
-import com.graffitabsdk.network.common.ResultCode;
+import com.graffitabsdk.network.common.GTResultCode;
 
 import retrofit2.Call;
 
@@ -37,7 +37,7 @@ public abstract class GTCall<T> {
         gtResponse.setObject(decodedResponse);
         gtResponse.setIsSuccessful(true);
 
-        gtResponse.setResultCode(ResultCode.OK);
+        gtResponse.setResultCode(GTResultCode.OK);
         gtResponse.setApiEndpointUrl(apiEndpointUrl);
 
         runAfterCompletion(gtResponse, true);
@@ -49,7 +49,7 @@ public abstract class GTCall<T> {
      * For instance if the URL is invalid / host not reachable
      */
     protected void handleOtherFailure(String errorMessage, GTResponseHandler<T> responseHandler) {
-        GTResponse<T> gtResponse = GTResponse.error(ResultCode.OTHER, errorMessage, apiEndpointUrl);
+        GTResponse<T> gtResponse = GTResponse.error(GTResultCode.OTHER, errorMessage, apiEndpointUrl);
         responseHandler.onFailure(gtResponse);
         runAfterCompletion(gtResponse, false);
     }

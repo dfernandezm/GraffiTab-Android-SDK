@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.graffitabsdk.network.common.response.GTResponse;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
-import com.graffitabsdk.network.common.ResultCode;
+import com.graffitabsdk.network.common.GTResultCode;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -82,14 +82,14 @@ class GTJsonCall<T> extends GTCall<T> {
 
     private void handleUnsuccessfulCall(Response<T> response,
                                         GTResponseHandler<T> responseHandler) {
-        ResultCode resultCode = ResultCode.OTHER;
+        GTResultCode resultCode = GTResultCode.OTHER;
         String resultMessage = null;
         try {
             String jsonError = response.errorBody().string();
             Map<String, String> jsonBody = convertErrorResponseToMap(jsonError);
             String resultCodeString = jsonBody.get("resultCode");
             resultMessage = jsonBody.get("resultMessage");
-            resultCode = ResultCode.valueOf(resultCodeString);
+            resultCode = GTResultCode.valueOf(resultCodeString);
         } catch (IOException e) {
             //TODO: log this exception
             resultMessage = e.getMessage();
@@ -105,7 +105,7 @@ class GTJsonCall<T> extends GTCall<T> {
     private void handleInvalidJsonResponse(GTResponseHandler<T> responseHandler) {
         String resultMessage = "Invalid JSON detected in response";
         GTResponse<T> gtResponse =
-                GTResponse.error(ResultCode.OTHER, resultMessage, apiEndpointUrl);
+                GTResponse.error(GTResultCode.OTHER, resultMessage, apiEndpointUrl);
 
         runAfterCompletion(gtResponse, false);
         responseHandler.onFailure(gtResponse);

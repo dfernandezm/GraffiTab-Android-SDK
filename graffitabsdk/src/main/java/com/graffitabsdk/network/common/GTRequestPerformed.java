@@ -7,11 +7,11 @@ import com.graffitabsdk.tasks.common.GTCall;
  *
  * Created by david on 10/11/2016.
  */
-public class RequestPerformed {
+public class GTRequestPerformed {
 
     private GTCall<?> requestCall;
 
-    public RequestPerformed(GTCall<?> requestCall) {
+    public GTRequestPerformed(GTCall<?> requestCall) {
         this.requestCall = requestCall;
     }
 }

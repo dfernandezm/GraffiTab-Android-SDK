@@ -1,6 +1,6 @@
 package com.graffitabsdk.tasks.user;
 
-import com.graffitabsdk.network.common.RequestPerformed;
+import com.graffitabsdk.network.common.GTRequestPerformed;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
 import com.graffitabsdk.network.service.user.UserService;
 import com.graffitabsdk.network.service.user.response.GTUserResponse;
@@ -23,11 +23,11 @@ public class GTUserTasks extends GTNetworkTask {
         this.userService = userService;
     }
 
-    public RequestPerformed getMe(GTResponseHandler<GTUserResponse> responseHandler) {
-        return performJsonRequest(userService.getMe(), GTUserResponse.class, responseHandler, true);
+    public GTRequestPerformed getMe(boolean useCache, GTResponseHandler<GTUserResponse> responseHandler) {
+        return performJsonRequest(userService.getMe(), GTUserResponse.class, responseHandler, useCache);
     }
 
-    public RequestPerformed getMyFullProfile(GTResponseHandler<GTUserResponse> responseHandler) {
-        return performJsonRequest(userService.getMyFullProfile(), GTUserResponse.class, responseHandler, true);
+    public GTRequestPerformed getMyFullProfile(boolean useCache, GTResponseHandler<GTUserResponse> responseHandler) {
+        return performJsonRequest(userService.getMyFullProfile(), GTUserResponse.class, responseHandler, useCache);
     }
 }

@@ -1,6 +1,6 @@
 package com.graffitabsdk.tasks.common;
 
-import com.graffitabsdk.network.common.RequestPerformed;
+import com.graffitabsdk.network.common.GTRequestPerformed;
 import com.graffitabsdk.network.common.response.GTResponse;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
 import com.graffitabsdk.tasks.cache.GTCacheService;
@@ -15,11 +15,11 @@ public abstract class GTNetworkTask {
 
     protected GTCacheService cacheService;
 
-    protected <T> RequestPerformed performJsonRequest(Call<T> request, Class<T> type, GTResponseHandler<T> responseHandler, boolean shouldUseCache) {
+    protected <T> GTRequestPerformed performJsonRequest(Call<T> request, Class<T> type, GTResponseHandler<T> responseHandler, boolean shouldUseCache) {
         boolean isGetRequest = request.request().method().equalsIgnoreCase("GET");
         AfterCompletionOperation<T> afterCompletionOperation = getAfterCompletionOperations(shouldUseCache, isGetRequest);
         GTCall<T> call = GTCall.jsonCall(request, afterCompletionOperation);
-        RequestPerformed requestPerformed = new RequestPerformed(call);
+        GTRequestPerformed requestPerformed = new GTRequestPerformed(call);
 
         // Try to resolve from cache
         resolveCallFromCacheIfPossible(call.getApiEndpointUrl(), responseHandler, shouldUseCache, isGetRequest, type);
@@ -35,10 +35,10 @@ public abstract class GTNetworkTask {
      * @param responseHandler
      * @return
      */
-    protected <T> RequestPerformed performRawRequest(Call<T> request, GTResponseHandler<T> responseHandler) {
+    protected <T> GTRequestPerformed performRawRequest(Call<T> request, GTResponseHandler<T> responseHandler) {
         AfterCompletionOperation<T> afterCompletionOperation = getAfterCompletionOperations(false, false);
         GTCall<T> call = GTCall.rawCall(request, afterCompletionOperation);
-        RequestPerformed requestPerformed = new RequestPerformed(call);
+        GTRequestPerformed requestPerformed = new GTRequestPerformed(call);
         call.execute(responseHandler);
         return requestPerformed;
     }

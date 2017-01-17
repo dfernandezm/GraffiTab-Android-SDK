@@ -1,6 +1,7 @@
 package com.graffitabsdk.tasks.streamable;
 
-import com.graffitabsdk.network.common.RequestPerformed;
+import com.graffitabsdk.network.common.GTRequestPerformed;
+import com.graffitabsdk.network.common.params.GTQueryParameters;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
 import com.graffitabsdk.network.service.streamable.StreamableService;
 import com.graffitabsdk.network.service.streamable.response.GTListStreamablesResponse;
@@ -24,7 +25,7 @@ public class GTStreamableTasks extends GTNetworkTask {
         this.streamableService = streamableService;
     }
 
-    public RequestPerformed getFeed(GTResponseHandler<GTListStreamablesResponse> responseHandler) {
-        return performJsonRequest(streamableService.getFeed(), GTListStreamablesResponse.class, responseHandler, true);
+    public GTRequestPerformed getFeed(boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListStreamablesResponse> responseHandler) {
+        return performJsonRequest(streamableService.getFeed(parameters.getParameters()), GTListStreamablesResponse.class, responseHandler, useCache);
     }
 }

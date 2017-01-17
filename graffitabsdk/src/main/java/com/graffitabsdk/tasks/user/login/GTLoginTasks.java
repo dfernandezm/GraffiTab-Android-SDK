@@ -1,6 +1,6 @@
 package com.graffitabsdk.tasks.user.login;
 
-import com.graffitabsdk.network.common.RequestPerformed;
+import com.graffitabsdk.network.common.GTRequestPerformed;
 import com.graffitabsdk.network.common.response.GTResponse;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
 import com.graffitabsdk.network.service.user.UserService;
@@ -25,12 +25,12 @@ public class GTLoginTasks extends GTNetworkTask {
         this.loggedInUserPersistor = loggedInUserPersistor;
     }
 
-    public RequestPerformed login(String username, String password, GTResponseHandler<GTUserResponse> responseHandler) {
+    public GTRequestPerformed login(String username, String password, GTResponseHandler<GTUserResponse> responseHandler) {
         LoginData loginData = new LoginData(username, password);
         return performJsonRequest(userService.login(loginData), GTUserResponse.class, responseHandler, false);
     }
 
-    public RequestPerformed loginWithExternalProvider() {
+    public GTRequestPerformed loginWithExternalProvider() {
         //TODO
         return null;
     }

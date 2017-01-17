@@ -35,7 +35,7 @@ public class MainTesting {
                 final long interm = (System.currentTimeMillis() - startTime);
                 final long start2 = System.currentTimeMillis();
                 System.out.println("Took: " + interm + " total: " + interm);
-                GTSDK.getMeManager().getMe(new GTResponseHandler<GTUserResponse>() {
+                GTSDK.getMeManager().getMe(false, new GTResponseHandler<GTUserResponse>() {
                     @Override
                     public void onSuccess(GTResponse<GTUserResponse> gtResponse) {
                         GTUser user = gtResponse.getObject().user;
@@ -93,7 +93,7 @@ public class MainTesting {
             public void onSuccess(GTResponse<GTUserResponse> gtResponse) {
                 System.out.println("Logged in");
                 final long startTime = System.currentTimeMillis();
-                GTSDK.getMeManager().getMe(new GTResponseHandler<GTUserResponse>() {
+                GTSDK.getMeManager().getMe(false, new GTResponseHandler<GTUserResponse>() {
 
                     @Override
                     public void onSuccess(GTResponse<GTUserResponse> gtResponse) {
@@ -102,7 +102,7 @@ public class MainTesting {
                         final long start2 = System.currentTimeMillis();
                         System.out.println("Took: " + interm);
 
-                        GTSDK.getMeManager().getMe(new GTResponseHandler<GTUserResponse>() {
+                        GTSDK.getMeManager().getMe(true, new GTResponseHandler<GTUserResponse>() {
 
                             @Override
                             public void onSuccess(GTResponse<GTUserResponse> gtResponse) {

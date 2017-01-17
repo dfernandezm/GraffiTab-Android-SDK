@@ -2,7 +2,7 @@ package com.graffitabsdk.tasks.user.login;
 
 import com.graffitabsdk.network.common.response.GTResponse;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
-import com.graffitabsdk.network.common.RequestPerformed;
+import com.graffitabsdk.network.common.GTRequestPerformed;
 import com.graffitabsdk.network.service.user.UserService;
 import com.graffitabsdk.tasks.cache.GTCacheService;
 import com.graffitabsdk.tasks.common.GTNetworkTask;
@@ -26,7 +26,7 @@ public class GTLogoutTask extends GTNetworkTask {
         this.loggedInUserPersistor = loggedInUserPersistor;
     }
 
-    public RequestPerformed logout(GTResponseHandler<Void> responseHandler) {
+    public GTRequestPerformed logout(GTResponseHandler<Void> responseHandler) {
         return performRawRequest(userService.logout(), responseHandler);
     }
 

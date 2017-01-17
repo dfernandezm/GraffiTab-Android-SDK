@@ -62,6 +62,14 @@ public class GTUser implements Serializable {
         return text;
     }
 
+    public boolean hasAvatar() {
+        return avatar != null && avatar.thumbnail != null && avatar.link != null;
+    }
+
+    public boolean hasCover() {
+        return cover != null && cover.thumbnail != null && cover.link != null;
+    }
+
     private String itemsCountAsString(int count) {
         if (count < 10000)
             return count + "";

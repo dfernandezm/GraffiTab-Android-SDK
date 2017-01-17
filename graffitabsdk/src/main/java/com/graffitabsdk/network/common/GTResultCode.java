@@ -4,7 +4,7 @@ package com.graffitabsdk.network.common;
  * Created by david on 06/11/2016.
  */
 
-public enum ResultCode {
+public enum GTResultCode {
 
     OK(200),
 
@@ -57,7 +57,7 @@ public enum ResultCode {
         return this.statusCode;
     }
 
-    ResultCode(Integer statusCode) {
+    GTResultCode(Integer statusCode) {
         this.statusCode = statusCode;
     }
 }

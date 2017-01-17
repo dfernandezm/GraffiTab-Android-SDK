@@ -1,6 +1,7 @@
 package com.graffitabsdk.api;
 
-import com.graffitabsdk.network.common.RequestPerformed;
+import com.graffitabsdk.network.common.GTRequestPerformed;
+import com.graffitabsdk.network.common.params.GTQueryParameters;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
 import com.graffitabsdk.network.service.streamable.response.GTListStreamablesResponse;
 import com.graffitabsdk.network.service.user.response.GTUserResponse;
@@ -25,15 +26,15 @@ public class GTMeManager {
         this.gtStreamableTasks = gtStreamableTasks;
     }
 
-    public RequestPerformed getMe(GTResponseHandler<GTUserResponse> responseHandler) {
-        return gtUserTasks.getMe(responseHandler);
+    public GTRequestPerformed getMe(boolean useCache, GTResponseHandler<GTUserResponse> responseHandler) {
+        return gtUserTasks.getMe(useCache, responseHandler);
     }
 
-    public RequestPerformed getMyFullProfile(GTResponseHandler<GTUserResponse> responseHandler) {
-        return gtUserTasks.getMyFullProfile(responseHandler);
+    public GTRequestPerformed getMyFullProfile(boolean useCache, GTResponseHandler<GTUserResponse> responseHandler) {
+        return gtUserTasks.getMyFullProfile(useCache, responseHandler);
     }
 
-    public RequestPerformed getFeed(GTResponseHandler<GTListStreamablesResponse> responseHandler) {
-        return gtStreamableTasks.getFeed(responseHandler);
+    public GTRequestPerformed getFeed(boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListStreamablesResponse> responseHandler) {
+        return gtStreamableTasks.getFeed(useCache, parameters, responseHandler);
     }
 }

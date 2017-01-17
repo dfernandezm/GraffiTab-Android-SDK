@@ -1,6 +1,6 @@
 package com.graffitabsdk.tasks.user.login;
 
-import com.graffitabsdk.network.common.RequestPerformed;
+import com.graffitabsdk.network.common.GTRequestPerformed;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
 import com.graffitabsdk.network.common.result.GTPasswordResetCompleteResult;
 import com.graffitabsdk.network.service.user.UserService;
@@ -25,7 +25,7 @@ public class GTResetPasswordTask extends GTNetworkTask {
         this.cacheService = cacheService;
     }
 
-    public RequestPerformed resetPassword(String email, GTResponseHandler<GTPasswordResetCompleteResult> responseHandler) {
+    public GTRequestPerformed resetPassword(String email, GTResponseHandler<GTPasswordResetCompleteResult> responseHandler) {
         ResetPasswordData resetPasswordData = new ResetPasswordData(email);
         return performJsonRequest(userService.resetPassword(resetPasswordData), GTPasswordResetCompleteResult.class, responseHandler, false);
     }

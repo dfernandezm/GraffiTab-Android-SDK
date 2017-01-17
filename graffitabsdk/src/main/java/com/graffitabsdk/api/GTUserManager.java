@@ -1,6 +1,6 @@
 package com.graffitabsdk.api;
 
-import com.graffitabsdk.network.common.RequestPerformed;
+import com.graffitabsdk.network.common.GTRequestPerformed;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
 import com.graffitabsdk.network.common.result.GTPasswordResetCompleteResult;
 import com.graffitabsdk.network.common.result.GTRegistrationCompleteResult;
@@ -34,19 +34,19 @@ public class GTUserManager {
         this.gtRegisterTask = gtRegisterTask;
     }
 
-    public RequestPerformed login(String username, String password, GTResponseHandler<GTUserResponse> responseHandler) {
+    public GTRequestPerformed login(String username, String password, GTResponseHandler<GTUserResponse> responseHandler) {
         return gtLoginTasks.login(username, password, responseHandler);
     }
 
-    public RequestPerformed logout(GTResponseHandler<Void> responseHandler) {
+    public GTRequestPerformed logout(GTResponseHandler<Void> responseHandler) {
         return gtLogoutTask.logout(responseHandler);
     }
 
-    public RequestPerformed resetPassword(String email, GTResponseHandler<GTPasswordResetCompleteResult> responseHandler) {
+    public GTRequestPerformed resetPassword(String email, GTResponseHandler<GTPasswordResetCompleteResult> responseHandler) {
         return gtResetPasswordTask.resetPassword(email, responseHandler);
     }
 
-    public RequestPerformed register(String firstName, String lastName, String email, String username, String password, GTResponseHandler<GTRegistrationCompleteResult> responseHandler) {
+    public GTRequestPerformed register(String firstName, String lastName, String email, String username, String password, GTResponseHandler<GTRegistrationCompleteResult> responseHandler) {
         return gtRegisterTask.register(firstName, lastName, email, username, password, responseHandler);
     }
 }
