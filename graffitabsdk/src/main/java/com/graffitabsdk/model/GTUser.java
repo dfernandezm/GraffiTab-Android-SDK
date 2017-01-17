@@ -1,10 +1,10 @@
 package com.graffitabsdk.model;
 
-import lombok.AllArgsConstructor;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+
+import lombok.AllArgsConstructor;
 
 /**
  * Created by georgichristov on 04/07/16.
@@ -32,5 +32,39 @@ public class GTUser implements Serializable {
 
     public GTUser() {
 
+    }
+
+    public String fullName() {
+        return String.format("%s %s", firstName, lastName);
+    }
+
+    public String mentionUsername() {
+        return String.format("@%s", username);
+    }
+
+    public String streamablesCountAsString() {
+        return itemsCountAsString(streamablesCount);
+    }
+
+    public String followersCountAsString() {
+        return itemsCountAsString(followersCount);
+    }
+
+    public String followingCountAsString() {
+        return itemsCountAsString(followingCount);
+    }
+
+    public String aboutString() {
+        String text = "";
+        if (about != null) text += about;
+        if (website != null) text += (about != null ? "\n\n" : "") + website;
+
+        return text;
+    }
+
+    private String itemsCountAsString(int count) {
+        if (count < 10000)
+            return count + "";
+        return String.format("%dK", count / 1000);
     }
 }
