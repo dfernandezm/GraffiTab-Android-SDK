@@ -10,6 +10,7 @@ import com.graffitabsdk.api.GTUserManager;
 import com.graffitabsdk.config.GTConfig;
 import com.graffitabsdk.config.dagger.modules.AppModule;
 import com.graffitabsdk.config.dagger.modules.NetworkModule;
+import com.graffitabsdk.config.dagger.modules.NotificationModule;
 import com.graffitabsdk.config.dagger.modules.StreamableModule;
 import com.graffitabsdk.config.dagger.modules.UserModule;
 import com.graffitabsdk.tasks.cache.GTCacheService;
@@ -23,7 +24,7 @@ import dagger.Component;
  */
 
 @Singleton
-@Component(modules = {UserModule.class, StreamableModule.class, NetworkModule.class, AppModule.class})
+@Component(modules = {UserModule.class, StreamableModule.class, NotificationModule.class, NetworkModule.class, AppModule.class})
 public interface UserComponent {
     void inject(MainTesting mainTesting);
     void inject(Activity activity);

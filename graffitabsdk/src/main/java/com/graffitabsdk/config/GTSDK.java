@@ -5,9 +5,13 @@ import android.app.Application;
 
 import com.graffitabsdk.api.GTAccountManager;
 import com.graffitabsdk.api.GTMeManager;
+import com.graffitabsdk.api.GTStreamableManager;
 import com.graffitabsdk.api.GTUserManager;
+import com.graffitabsdk.config.dagger.components.StreamableComponent;
 import com.graffitabsdk.config.dagger.components.UserComponent;
 import com.graffitabsdk.log.GTLog;
+
+import java.util.stream.Stream;
 
 /**
  * Created by david on 05/12/2016.
@@ -17,6 +21,7 @@ public class GTSDK {
 
     private final GTConfig config;
     private UserComponent userComponent;
+    private StreamableComponent streamableComponent;
     private static GTSDK instance;
 
     private GTSDK(Application app, GTConfig config) {
@@ -25,7 +30,11 @@ public class GTSDK {
         } else {
             this.config = config;
         }
-        setupUserComponent(app);
+        setupComponents(app);
+    }
+
+    public static GTStreamableManager getStreamableManager() {
+        return get().streamableComponent.getStreamableManager();
     }
 
     public static GTUserManager getUserManager() {
@@ -46,6 +55,7 @@ public class GTSDK {
 
     public void inject(Activity activity) {
         get().userComponent.inject(activity);
+        get().streamableComponent.inject(activity);
     }
 
     public static void init(Application application, GTConfig configToSet) {
@@ -53,7 +63,6 @@ public class GTSDK {
             instance = new GTSDK(application, configToSet);
             logConfig();
         }
-
     }
 
     public static GTConfig getConfig() {
@@ -71,8 +80,9 @@ public class GTSDK {
         return instance;
     }
 
-    private void setupUserComponent(Application app) {
+    private void setupComponents(Application app) {
         userComponent = UserComponent.Initializer.init(app, config);
+        streamableComponent = StreamableComponent.Initializer.init(app, config);
     }
 
     private static void logConfig() {

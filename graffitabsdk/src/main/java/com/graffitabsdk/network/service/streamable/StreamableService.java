@@ -20,4 +20,12 @@ public interface StreamableService {
     @Headers("Content-Type: application/json")
     @GET(GTApiConstants.MY_FEED_ENDPOINT)
     Call<GTListStreamablesResponse> getFeed(@QueryMap Map<String, String> parameters);
+
+    @Headers("Content-Type: application/json")
+    @GET(GTApiConstants.STREAMABLES_POPULAR_ENDPOINT)
+    Call<GTListStreamablesResponse> getPopular(@QueryMap Map<String, String> parameters);
+
+    @Headers("Content-Type: application/json")
+    @GET(GTApiConstants.STREAMABLES_NEWEST_ENDPOINT)
+    Call<GTListStreamablesResponse> getNewest(@QueryMap Map<String, String> parameters);
 }
