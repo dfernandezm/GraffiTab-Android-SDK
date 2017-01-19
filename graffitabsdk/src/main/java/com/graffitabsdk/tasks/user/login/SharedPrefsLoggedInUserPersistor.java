@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import com.google.gson.Gson;
+import com.graffitabsdk.log.GTLog;
 import com.graffitabsdk.model.GTUser;
 
 import javax.inject.Inject;
@@ -48,6 +49,7 @@ public class SharedPrefsLoggedInUserPersistor implements LoggedInUserPersistor {
             SharedPreferences.Editor editor = getSharedPreferences(application).edit();
             editor.remove(LOGGED_IN_USER_KEY);
             editor.apply();
+            GTLog.i(getClass().getSimpleName(), "Cleared logged in user", false);
         }
     }
 

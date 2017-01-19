@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
+import com.graffitabsdk.log.GTLog;
 
 import javax.inject.Inject;
 
@@ -38,6 +39,7 @@ public class GTSharedPrefsCache implements GTCache {
         SharedPreferences.Editor editor = getSharedPreferences(application).edit();
         editor.clear();
         editor.apply();
+        GTLog.i(getClass().getSimpleName(), "Invalidated cache", false);
     }
 
     @Override

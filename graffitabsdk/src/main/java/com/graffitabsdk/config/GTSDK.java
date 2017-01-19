@@ -7,11 +7,10 @@ import com.graffitabsdk.api.GTAccountManager;
 import com.graffitabsdk.api.GTMeManager;
 import com.graffitabsdk.api.GTStreamableManager;
 import com.graffitabsdk.api.GTUserManager;
-import com.graffitabsdk.config.dagger.components.StreamableComponent;
-import com.graffitabsdk.config.dagger.components.UserComponent;
+import com.graffitabsdk.config.dagger.components.GTComponents;
 import com.graffitabsdk.log.GTLog;
 
-import java.util.stream.Stream;
+import java.lang.ref.WeakReference;
 
 /**
  * Created by david on 05/12/2016.
@@ -20,11 +19,13 @@ import java.util.stream.Stream;
 public class GTSDK {
 
     private final GTConfig config;
-    private UserComponent userComponent;
-    private StreamableComponent streamableComponent;
+    private GTComponents gtComponent;
     private static GTSDK instance;
+    private WeakReference<Application> application;
 
     private GTSDK(Application app, GTConfig config) {
+        this.application = new WeakReference<>(app);
+
         if (config == null) {
             this.config = GTConfig.defaultConfig();
         } else {
@@ -33,29 +34,32 @@ public class GTSDK {
         setupComponents(app);
     }
 
+    public static Application getApplication() {
+        return get().application.get();
+    }
+
     public static GTStreamableManager getStreamableManager() {
-        return get().streamableComponent.getStreamableManager();
+        return get().gtComponent.getStreamableManager();
     }
 
     public static GTUserManager getUserManager() {
-        return get().userComponent.getUserManager();
+        return get().gtComponent.getUserManager();
     }
 
     public static GTMeManager getMeManager() {
-        return get().userComponent.getMeManager();
+        return get().gtComponent.getMeManager();
     }
 
     public static GTAccountManager getAccountManager() {
-        return get().userComponent.getAccountManager();
+        return get().gtComponent.getAccountManager();
     }
 
     public static void invalidateCache() {
-        get().userComponent.getCacheService().invalidateCache();
+        get().gtComponent.getCacheService().invalidateCache();
     }
 
     public void inject(Activity activity) {
-        get().userComponent.inject(activity);
-        get().streamableComponent.inject(activity);
+        get().gtComponent.inject(activity);
     }
 
     public static void init(Application application, GTConfig configToSet) {
@@ -81,8 +85,7 @@ public class GTSDK {
     }
 
     private void setupComponents(Application app) {
-        userComponent = UserComponent.Initializer.init(app, config);
-        streamableComponent = StreamableComponent.Initializer.init(app, config);
+        gtComponent = GTComponents.Initializer.init(app, config);
     }
 
     private static void logConfig() {
