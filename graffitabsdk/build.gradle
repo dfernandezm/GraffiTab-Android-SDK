@@ -42,6 +42,7 @@ def daggerVersion = "2.7"
 def jUnitVersion = "4.12"
 def jsr250Version = "1.0"
 def commonsCodecVersion = "1.10"
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile "junit:junit:$jUnitVersion"
