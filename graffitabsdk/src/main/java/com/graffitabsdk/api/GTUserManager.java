@@ -1,15 +1,17 @@
 package com.graffitabsdk.api;
 
 import com.graffitabsdk.network.common.GTRequestPerformed;
+import com.graffitabsdk.network.common.params.GTQueryParameters;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
 import com.graffitabsdk.network.common.result.GTPasswordResetCompleteResult;
 import com.graffitabsdk.network.common.result.GTRegistrationCompleteResult;
+import com.graffitabsdk.network.service.user.response.GTListUsersResponse;
 import com.graffitabsdk.network.service.user.response.GTUserResponse;
-import com.graffitabsdk.tasks.user.GTUserTasks;
-import com.graffitabsdk.tasks.user.login.GTLoginTasks;
-import com.graffitabsdk.tasks.user.login.GTLogoutTask;
-import com.graffitabsdk.tasks.user.login.GTRegisterTask;
-import com.graffitabsdk.tasks.user.login.GTResetPasswordTask;
+import com.graffitabsdk.tasks.GTUserTasks;
+import com.graffitabsdk.tasks.login.GTLoginTasks;
+import com.graffitabsdk.tasks.login.GTLogoutTask;
+import com.graffitabsdk.tasks.login.GTRegisterTask;
+import com.graffitabsdk.tasks.login.GTResetPasswordTask;
 
 import javax.inject.Inject;
 
@@ -48,5 +50,9 @@ public class GTUserManager {
 
     public GTRequestPerformed register(String firstName, String lastName, String email, String username, String password, GTResponseHandler<GTRegistrationCompleteResult> responseHandler) {
         return gtRegisterTask.register(firstName, lastName, email, username, password, responseHandler);
+    }
+
+    public GTRequestPerformed getMostActiveUsers(boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListUsersResponse> responseHandler) {
+        return gtUserTasks.getMostActive(useCache, parameters, responseHandler);
     }
 }

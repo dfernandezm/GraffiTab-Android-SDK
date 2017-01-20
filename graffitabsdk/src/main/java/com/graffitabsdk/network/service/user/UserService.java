@@ -6,13 +6,17 @@ import com.graffitabsdk.network.common.result.GTRegistrationCompleteResult;
 import com.graffitabsdk.network.service.user.data.LoginData;
 import com.graffitabsdk.network.service.user.data.ResetPasswordData;
 import com.graffitabsdk.network.service.user.data.register.RegisterData;
+import com.graffitabsdk.network.service.user.response.GTListUsersResponse;
 import com.graffitabsdk.network.service.user.response.GTUserResponse;
+
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.QueryMap;
 
 /**
  * Created by david on 10/11/2016.
@@ -41,5 +45,9 @@ public interface UserService {
     @Headers("Content-Type: application/json")
     @GET(GTApiConstants.MY_FULL_PROFILE_ENDPOINT)
     Call<GTUserResponse> getMyFullProfile();
+
+    @Headers("Content-Type: application/json")
+    @GET(GTApiConstants.USERS_MOST_ACTIVE_ENDPOINT)
+    Call<GTListUsersResponse> getMostActiveUsers(@QueryMap Map<String, String> parameters);
 }
 

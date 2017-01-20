@@ -4,7 +4,8 @@ import com.graffitabsdk.network.common.GTRequestPerformed;
 import com.graffitabsdk.network.common.params.GTQueryParameters;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
 import com.graffitabsdk.network.service.streamable.response.GTListStreamablesResponse;
-import com.graffitabsdk.tasks.streamable.GTStreamableTasks;
+import com.graffitabsdk.network.service.streamable.response.GTStreamableResponse;
+import com.graffitabsdk.tasks.GTStreamableTasks;
 
 import javax.inject.Inject;
 
@@ -28,5 +29,9 @@ public class GTStreamableManager {
 
     public GTRequestPerformed getNewest(boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListStreamablesResponse> responseHandler) {
         return gtStreamableTasks.getNewest(useCache, parameters, responseHandler);
+    }
+
+    public GTRequestPerformed getStreamable(int streamableId, boolean useCache, GTResponseHandler<GTStreamableResponse> responseHandler) {
+        return gtStreamableTasks.getStreamable(streamableId, useCache, responseHandler);
     }
 }

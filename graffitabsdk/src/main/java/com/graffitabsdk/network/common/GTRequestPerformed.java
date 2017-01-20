@@ -1,6 +1,6 @@
 package com.graffitabsdk.network.common;
 
-import com.graffitabsdk.tasks.common.GTCall;
+import com.graffitabsdk.network.call.GTCall;
 
 /**
  * Wrapper for the Call done in the API

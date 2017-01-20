@@ -7,7 +7,6 @@ import com.graffitabsdk.api.GTAccountManager;
 import com.graffitabsdk.api.GTMeManager;
 import com.graffitabsdk.api.GTStreamableManager;
 import com.graffitabsdk.api.GTUserManager;
-import com.graffitabsdk.config.dagger.components.GTComponents;
 import com.graffitabsdk.log.GTLog;
 
 import java.lang.ref.WeakReference;

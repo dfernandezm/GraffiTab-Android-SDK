@@ -2,12 +2,14 @@ package com.graffitabsdk.network.service.streamable;
 
 import com.graffitabsdk.constants.GTApiConstants;
 import com.graffitabsdk.network.service.streamable.response.GTListStreamablesResponse;
+import com.graffitabsdk.network.service.streamable.response.GTStreamableResponse;
 
 import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
+import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
 
 /**
@@ -28,4 +30,8 @@ public interface StreamableService {
     @Headers("Content-Type: application/json")
     @GET(GTApiConstants.STREAMABLES_NEWEST_ENDPOINT)
     Call<GTListStreamablesResponse> getNewest(@QueryMap Map<String, String> parameters);
+
+    @Headers("Content-Type: application/json")
+    @GET(GTApiConstants.STREAMABLE_ENDPOINT)
+    Call<GTStreamableResponse> getStreamable(@Path("streamableId") int streamableId);
 }
