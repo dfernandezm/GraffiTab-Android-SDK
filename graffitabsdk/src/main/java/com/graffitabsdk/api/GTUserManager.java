@@ -64,4 +64,8 @@ public class GTUserManager {
     public GTRequestPerformed getPosts(int userId, boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListStreamablesResponse> responseHandler) {
         return gtUserTasks.getPosts(userId, useCache, parameters, responseHandler);
     }
+
+    public GTRequestPerformed getMentions(int userId, boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListStreamablesResponse> responseHandler) {
+        return gtUserTasks.getMentions(userId, useCache, parameters, responseHandler);
+    }
 }
