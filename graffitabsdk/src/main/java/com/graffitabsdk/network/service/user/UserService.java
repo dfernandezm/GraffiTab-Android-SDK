@@ -63,5 +63,9 @@ public interface UserService {
     @Headers("Content-Type: application/json")
     @GET(GTApiConstants.USER_MENTIONS_ENDPOINT)
     Call<GTListStreamablesResponse> getMentions(@Path("userId") int userId, @QueryMap Map<String, String> parameters);
+
+    @Headers("Content-Type: application/json")
+    @GET(GTApiConstants.MY_PRIVATE_ENDPOINT)
+    Call<GTListStreamablesResponse> getPrivatePosts(@QueryMap Map<String, String> parameters);
 }
 

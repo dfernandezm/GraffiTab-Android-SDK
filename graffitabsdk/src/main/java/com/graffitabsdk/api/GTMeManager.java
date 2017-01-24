@@ -53,4 +53,8 @@ public class GTMeManager {
     public GTRequestPerformed getLocations(boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListLocationsResponse> responseHandler) {
         return gtLocationTasks.getLocations(useCache, parameters, responseHandler);
     }
+
+    public GTRequestPerformed getPrivatePosts(boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListStreamablesResponse> responseHandler) {
+        return gtUserTasks.getPrivatePosts(useCache, parameters, responseHandler);
+    }
 }

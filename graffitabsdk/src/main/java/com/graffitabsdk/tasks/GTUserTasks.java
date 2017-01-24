@@ -49,4 +49,8 @@ public class GTUserTasks extends GTNetworkTask {
     public GTRequestPerformed getMentions(int userId, boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListStreamablesResponse> responseHandler) {
         return performJsonRequest(userService.getMentions(userId, parameters.getParameters()), GTListStreamablesResponse.class, responseHandler, useCache);
     }
+
+    public GTRequestPerformed getPrivatePosts(boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListStreamablesResponse> responseHandler) {
+        return performJsonRequest(userService.getPrivatePosts(parameters.getParameters()), GTListStreamablesResponse.class, responseHandler, useCache);
+    }
 }
