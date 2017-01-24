@@ -3,6 +3,7 @@ package com.graffitabsdk.network.service.user;
 import com.graffitabsdk.constants.GTApiConstants;
 import com.graffitabsdk.network.common.result.GTPasswordResetCompleteResult;
 import com.graffitabsdk.network.common.result.GTRegistrationCompleteResult;
+import com.graffitabsdk.network.service.streamable.response.GTListStreamablesResponse;
 import com.graffitabsdk.network.service.user.data.LoginData;
 import com.graffitabsdk.network.service.user.data.ResetPasswordData;
 import com.graffitabsdk.network.service.user.data.register.RegisterData;
@@ -16,6 +17,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
 
 /**
@@ -49,5 +51,13 @@ public interface UserService {
     @Headers("Content-Type: application/json")
     @GET(GTApiConstants.USERS_MOST_ACTIVE_ENDPOINT)
     Call<GTListUsersResponse> getMostActiveUsers(@QueryMap Map<String, String> parameters);
+
+    @Headers("Content-Type: application/json")
+    @GET(GTApiConstants.USER_LIKES_ENDPOINT)
+    Call<GTListStreamablesResponse> getLikes(@Path("userId") int userId, @QueryMap Map<String, String> parameters);
+
+    @Headers("Content-Type: application/json")
+    @GET(GTApiConstants.USER_STREAMABLES_ENDPOINT)
+    Call<GTListStreamablesResponse> getPosts(@Path("userId") int userId, @QueryMap Map<String, String> parameters);
 }
 
