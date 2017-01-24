@@ -68,4 +68,12 @@ public class GTUserManager {
     public GTRequestPerformed getMentions(int userId, boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListStreamablesResponse> responseHandler) {
         return gtUserTasks.getMentions(userId, useCache, parameters, responseHandler);
     }
+
+    public GTRequestPerformed getFollowers(int userId, boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListUsersResponse> responseHandler) {
+        return gtUserTasks.getFollowers(userId, useCache, parameters, responseHandler);
+    }
+
+    public GTRequestPerformed getFollowing(int userId, boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListUsersResponse> responseHandler) {
+        return gtUserTasks.getFollowing(userId, useCache, parameters, responseHandler);
+    }
 }

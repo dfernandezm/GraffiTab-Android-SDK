@@ -67,5 +67,13 @@ public interface UserService {
     @Headers("Content-Type: application/json")
     @GET(GTApiConstants.MY_PRIVATE_ENDPOINT)
     Call<GTListStreamablesResponse> getPrivatePosts(@QueryMap Map<String, String> parameters);
+
+    @Headers("Content-Type: application/json")
+    @GET(GTApiConstants.USER_FOLLOWERS_ENDPOINT)
+    Call<GTListUsersResponse> getFollowers(@Path("userId") int userId, @QueryMap Map<String, String> parameters);
+
+    @Headers("Content-Type: application/json")
+    @GET(GTApiConstants.USER_FOLLOWING_ENDPOINT)
+    Call<GTListUsersResponse> getFollowing(@Path("userId") int userId, @QueryMap Map<String, String> parameters);
 }
 

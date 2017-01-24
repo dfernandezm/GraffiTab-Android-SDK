@@ -53,4 +53,12 @@ public class GTUserTasks extends GTNetworkTask {
     public GTRequestPerformed getPrivatePosts(boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListStreamablesResponse> responseHandler) {
         return performJsonRequest(userService.getPrivatePosts(parameters.getParameters()), GTListStreamablesResponse.class, responseHandler, useCache);
     }
+
+    public GTRequestPerformed getFollowers(int userId, boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListUsersResponse> responseHandler) {
+        return performJsonRequest(userService.getFollowers(userId, parameters.getParameters()), GTListUsersResponse.class, responseHandler, useCache);
+    }
+
+    public GTRequestPerformed getFollowing(int userId, boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListUsersResponse> responseHandler) {
+        return performJsonRequest(userService.getFollowing(userId, parameters.getParameters()), GTListUsersResponse.class, responseHandler, useCache);
+    }
 }
