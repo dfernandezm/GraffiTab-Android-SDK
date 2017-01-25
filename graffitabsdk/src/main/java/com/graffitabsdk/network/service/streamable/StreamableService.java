@@ -3,6 +3,7 @@ package com.graffitabsdk.network.service.streamable;
 import com.graffitabsdk.constants.GTApiConstants;
 import com.graffitabsdk.network.service.streamable.response.GTListStreamablesResponse;
 import com.graffitabsdk.network.service.streamable.response.GTStreamableResponse;
+import com.graffitabsdk.network.service.user.response.GTListUsersResponse;
 
 import java.util.Map;
 
@@ -34,4 +35,8 @@ public interface StreamableService {
     @Headers("Content-Type: application/json")
     @GET(GTApiConstants.STREAMABLE_ENDPOINT)
     Call<GTStreamableResponse> getStreamable(@Path("streamableId") int streamableId);
+
+    @Headers("Content-Type: application/json")
+    @GET(GTApiConstants.STREAMABLE_LIKES_ENDPOINT)
+    Call<GTListUsersResponse> getLikers(@Path("streamableId") int streamableId, @QueryMap Map<String, String> parameters);
 }

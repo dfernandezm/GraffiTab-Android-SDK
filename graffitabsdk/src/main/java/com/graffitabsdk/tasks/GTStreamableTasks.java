@@ -8,6 +8,7 @@ import com.graffitabsdk.network.service.streamable.response.GTListStreamablesRes
 import com.graffitabsdk.config.cache.GTCacheService;
 import com.graffitabsdk.network.call.GTNetworkTask;
 import com.graffitabsdk.network.service.streamable.response.GTStreamableResponse;
+import com.graffitabsdk.network.service.user.response.GTListUsersResponse;
 
 import javax.inject.Inject;
 
@@ -40,5 +41,9 @@ public class GTStreamableTasks extends GTNetworkTask {
 
     public GTRequestPerformed getStreamable(int streamableId, boolean useCache, GTResponseHandler<GTStreamableResponse> responseHandler) {
         return performJsonRequest(streamableService.getStreamable(streamableId), GTStreamableResponse.class, responseHandler, useCache);
+    }
+
+    public GTRequestPerformed getLikers(int streamableId, boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListUsersResponse> responseHandler) {
+        return performJsonRequest(streamableService.getLikers(streamableId, parameters.getParameters()), GTListUsersResponse.class, responseHandler, useCache);
     }
 }
