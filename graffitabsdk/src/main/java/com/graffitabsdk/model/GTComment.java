@@ -18,7 +18,20 @@ public class GTComment implements Serializable {
     public Date createdOn;
     public Date updatedOn;
 
-    public GTComment() {
+    public GTComment() {}
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        GTComment gtComment = (GTComment) o;
+
+        return id == gtComment.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
     }
 }

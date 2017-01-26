@@ -30,7 +30,20 @@ public class GTStreamable implements Serializable {
     public int likersCount;
     public int commentsCount;
 
-    public GTStreamable() {
+    public GTStreamable() {}
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        GTStreamable gtStreamable = (GTStreamable) o;
+
+        return id == gtStreamable.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
     }
 }

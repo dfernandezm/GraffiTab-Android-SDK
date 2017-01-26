@@ -49,6 +49,14 @@ public interface UserService {
     Call<GTUserResponse> getMyFullProfile();
 
     @Headers("Content-Type: application/json")
+    @GET(GTApiConstants.USER_PROFILE_ENDPOINT)
+    Call<GTUserResponse> getUserProfile(@Path("userId") int userId);
+
+    @Headers("Content-Type: application/json")
+    @GET(GTApiConstants.USER_FULL_PROFILE_ENDPOINT)
+    Call<GTUserResponse> getFullUserProfile(@Path("userId") int userId);
+
+    @Headers("Content-Type: application/json")
     @GET(GTApiConstants.USERS_MOST_ACTIVE_ENDPOINT)
     Call<GTListUsersResponse> getMostActiveUsers(@QueryMap Map<String, String> parameters);
 

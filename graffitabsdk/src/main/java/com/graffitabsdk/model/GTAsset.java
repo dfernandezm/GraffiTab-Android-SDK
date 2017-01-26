@@ -21,4 +21,19 @@ public class GTAsset implements Serializable {
     public int thumbnailHeight;
 
     public GTAsset() {}
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        GTAsset gtAsset = (GTAsset) o;
+
+        return guid.equals(gtAsset.guid);
+    }
+
+    @Override
+    public int hashCode() {
+        return guid.hashCode();
+    }
 }

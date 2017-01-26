@@ -18,7 +18,20 @@ public class GTLocation implements Serializable {
     public Date createdOn;
     public Date updatedOn;
 
-    public GTLocation() {
+    public GTLocation() {}
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        GTLocation gtLocation = (GTLocation) o;
+
+        return id == gtLocation.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
     }
 }

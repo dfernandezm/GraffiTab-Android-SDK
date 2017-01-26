@@ -1,5 +1,7 @@
 package com.graffitabsdk.model;
 
+import com.graffitabsdk.config.GTSDK;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -70,9 +72,31 @@ public class GTUser implements Serializable {
         return cover != null && cover.thumbnail != null && cover.link != null;
     }
 
+    public boolean isMe() {
+        GTUser me = GTSDK.getAccountManager().getLoggedInUser();
+        if (me != null)
+            return me.equals(this);
+        return false;
+    }
+
     private String itemsCountAsString(int count) {
         if (count < 10000)
             return count + "";
         return String.format("%dK", count / 1000);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        GTUser gtUser = (GTUser) o;
+
+        return id == gtUser.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
     }
 }

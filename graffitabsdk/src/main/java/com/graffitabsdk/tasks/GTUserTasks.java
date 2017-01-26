@@ -34,6 +34,14 @@ public class GTUserTasks extends GTNetworkTask {
         return performJsonRequest(userService.getMyFullProfile(), GTUserResponse.class, responseHandler, useCache);
     }
 
+    public GTRequestPerformed getUserProfile(int userId, boolean useCache, GTResponseHandler<GTUserResponse> responseHandler) {
+        return performJsonRequest(userService.getUserProfile(userId), GTUserResponse.class, responseHandler, useCache);
+    }
+
+    public GTRequestPerformed getFullUserProfile(int userId, boolean useCache, GTResponseHandler<GTUserResponse> responseHandler) {
+        return performJsonRequest(userService.getFullUserProfile(userId), GTUserResponse.class, responseHandler, useCache);
+    }
+
     public GTRequestPerformed getMostActive(boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListUsersResponse> responseHandler) {
         return performJsonRequest(userService.getMostActiveUsers(parameters.getParameters()), GTListUsersResponse.class, responseHandler, useCache);
     }
