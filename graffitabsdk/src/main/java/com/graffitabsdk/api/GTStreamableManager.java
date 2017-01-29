@@ -3,6 +3,7 @@ package com.graffitabsdk.api;
 import com.graffitabsdk.network.common.GTRequestPerformed;
 import com.graffitabsdk.network.common.params.GTQueryParameters;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
+import com.graffitabsdk.network.service.streamable.response.GTListCommentsResponse;
 import com.graffitabsdk.network.service.streamable.response.GTListStreamablesResponse;
 import com.graffitabsdk.network.service.streamable.response.GTStreamableResponse;
 import com.graffitabsdk.network.service.user.response.GTListUsersResponse;
@@ -38,5 +39,9 @@ public class GTStreamableManager {
 
     public GTRequestPerformed getLikers(int streamableId, boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListUsersResponse> responseHandler) {
         return gtStreamableTasks.getLikers(streamableId, useCache, parameters, responseHandler);
+    }
+
+    public GTRequestPerformed getComments(int streamableId, boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListCommentsResponse> responseHandler) {
+        return gtStreamableTasks.getComments(streamableId, useCache, parameters, responseHandler);
     }
 }
