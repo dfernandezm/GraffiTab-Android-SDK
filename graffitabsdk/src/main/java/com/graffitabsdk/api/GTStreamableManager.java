@@ -44,4 +44,8 @@ public class GTStreamableManager {
     public GTRequestPerformed getComments(int streamableId, boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListCommentsResponse> responseHandler) {
         return gtStreamableTasks.getComments(streamableId, useCache, parameters, responseHandler);
     }
+
+    public GTRequestPerformed search(GTQueryParameters parameters, GTResponseHandler<GTListStreamablesResponse> responseHandler) {
+        return gtStreamableTasks.search(false, parameters, responseHandler);
+    }
 }

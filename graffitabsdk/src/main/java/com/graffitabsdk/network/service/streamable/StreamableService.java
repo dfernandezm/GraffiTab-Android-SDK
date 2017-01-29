@@ -44,4 +44,8 @@ public interface StreamableService {
     @Headers("Content-Type: application/json")
     @GET(GTApiConstants.STREAMABLE_COMMENTS_ENDPOINT)
     Call<GTListCommentsResponse> getComments(@Path("streamableId") int streamableId, @QueryMap Map<String, String> parameters);
+
+    @Headers("Content-Type: application/json")
+    @GET(GTApiConstants.STREAMABLES_SEARCH_HASHTAG_ENDPOINT)
+    Call<GTListStreamablesResponse> search(@QueryMap Map<String, String> parameters);
 }

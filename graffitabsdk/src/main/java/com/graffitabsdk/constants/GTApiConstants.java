@@ -50,7 +50,7 @@ public class GTApiConstants {
     public static final String USER_LIKES_ENDPOINT = USERS_ENDPOINT + "/{userId}/liked";
 
     // -- Search
-    public static final String USERS_SEARCH_ENDPOINT = USERS_ENDPOINT + "/search?query={userId}";
+    public static final String USERS_SEARCH_ENDPOINT = USERS_ENDPOINT + "/search";
 
 
     // - Me
@@ -142,7 +142,7 @@ public class GTApiConstants {
     // -- Search
     public static final String STREAMABLES_SEARCH_ENDPOINT = STREAMABLES_ENDPOINT + "/search";
     public static final String STREAMABLES_SEARCH_LOCATION_ENDPOINT = STREAMABLES_SEARCH_ENDPOINT + "/location?latitude={latitude}&longitude={longitude}&radius={radius}";
-    public static final String STREAMABLES_SEARCH_HASHTAG_ENDPOINT = STREAMABLES_SEARCH_ENDPOINT + "/hashtag?query={hashtag}";
+    public static final String STREAMABLES_SEARCH_HASHTAG_ENDPOINT = STREAMABLES_SEARCH_ENDPOINT + "/hashtag";
     public static final String STREAMABLES_SEARCH_HASHTAGS_ENDPOINT = STREAMABLES_SEARCH_ENDPOINT + "/hashtags?query={hashtag}";
 
 

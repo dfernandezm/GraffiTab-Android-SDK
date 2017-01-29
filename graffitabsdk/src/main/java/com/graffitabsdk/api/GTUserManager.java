@@ -84,4 +84,8 @@ public class GTUserManager {
     public GTRequestPerformed getFullUserProfile(int userId, boolean useCache, GTResponseHandler<GTUserResponse> responseHandler) {
         return gtUserTasks.getFullUserProfile(userId, useCache, responseHandler);
     }
+
+    public GTRequestPerformed search(GTQueryParameters parameters, GTResponseHandler<GTListUsersResponse> responseHandler) {
+        return gtUserTasks.search(false, parameters, responseHandler);
+    }
 }
