@@ -17,6 +17,7 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
 
@@ -58,6 +59,10 @@ public interface StreamableService {
     @Headers("Content-Type: application/json")
     @DELETE(GTApiConstants.STREAMABLE_COMMENT_ENDPOINT)
     Call<GTCommentDeletedResult> deleteComment(@Path("streamableId") int streamableId, @Path("commentId") int commentId);
+
+    @Headers("Content-Type: application/json")
+    @PUT(GTApiConstants.STREAMABLE_COMMENT_ENDPOINT)
+    Call<GTCommentResponse> editComment(@Path("streamableId") int streamableId, @Path("commentId") int commentId, @Body PostCommentData commentData);
 
     @Headers("Content-Type: application/json")
     @GET(GTApiConstants.STREAMABLES_SEARCH_HASHTAG_ENDPOINT)

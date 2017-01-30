@@ -51,6 +51,10 @@ public class GTStreamableManager {
         return gtStreamableTasks.postComment(streamableId, text, responseHandler);
     }
 
+    public GTRequestPerformed editComment(int streamableId, int commentId, String text, GTResponseHandler<GTCommentResponse> responseHandler) {
+        return gtStreamableTasks.editComment(streamableId, commentId, text, responseHandler);
+    }
+
     public GTRequestPerformed deleteComment(int streamableId, int commentId, GTResponseHandler<GTCommentDeletedResult> responseHandler) {
         return gtStreamableTasks.deleteComment(streamableId, commentId, responseHandler);
     }

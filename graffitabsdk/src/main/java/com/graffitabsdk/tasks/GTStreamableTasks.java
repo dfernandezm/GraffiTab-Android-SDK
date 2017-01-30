@@ -62,6 +62,12 @@ public class GTStreamableTasks extends GTNetworkTask {
         return performJsonRequest(streamableService.postComment(streamableId, postCommentData), GTCommentResponse.class, responseHandler, false);
     }
 
+    public GTRequestPerformed editComment(int streamableId, int commentId, String text, GTResponseHandler<GTCommentResponse> responseHandler) {
+        CommentData commentData = new CommentData(text);
+        PostCommentData postCommentData = new PostCommentData(commentData);
+        return performJsonRequest(streamableService.editComment(streamableId, commentId, postCommentData), GTCommentResponse.class, responseHandler, false);
+    }
+
     public GTRequestPerformed deleteComment(int streamableId, int commentId, GTResponseHandler<GTCommentDeletedResult> responseHandler) {
         return performJsonRequest(streamableService.deleteComment(streamableId, commentId), GTCommentDeletedResult.class, responseHandler, false);
     }
