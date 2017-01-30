@@ -11,8 +11,6 @@ import com.graffitabsdk.network.service.user.response.GTUserResponse;
 import com.graffitabsdk.tasks.GTUserTasks;
 import com.graffitabsdk.tasks.login.GTLoginTasks;
 import com.graffitabsdk.tasks.login.GTLogoutTask;
-import com.graffitabsdk.tasks.login.GTRegisterTask;
-import com.graffitabsdk.tasks.login.GTResetPasswordTask;
 
 import javax.inject.Inject;
 
@@ -25,16 +23,12 @@ public class GTUserManager {
     private GTLoginTasks gtLoginTasks;
     private GTUserTasks gtUserTasks;
     private GTLogoutTask gtLogoutTask;
-    private GTResetPasswordTask gtResetPasswordTask;
-    private GTRegisterTask gtRegisterTask;
 
     @Inject
-    public GTUserManager(GTUserTasks userTasks, GTLoginTasks loginTasks, GTLogoutTask gtLogoutTask, GTResetPasswordTask gtResetPasswordTask, GTRegisterTask gtRegisterTask) {
+    public GTUserManager(GTUserTasks userTasks, GTLoginTasks loginTasks, GTLogoutTask gtLogoutTask) {
         this.gtUserTasks = userTasks;
         this.gtLoginTasks = loginTasks;
         this.gtLogoutTask = gtLogoutTask;
-        this.gtResetPasswordTask = gtResetPasswordTask;
-        this.gtRegisterTask = gtRegisterTask;
     }
 
     public GTRequestPerformed login(String username, String password, GTResponseHandler<GTUserResponse> responseHandler) {
@@ -46,11 +40,11 @@ public class GTUserManager {
     }
 
     public GTRequestPerformed resetPassword(String email, GTResponseHandler<GTPasswordResetCompleteResult> responseHandler) {
-        return gtResetPasswordTask.resetPassword(email, responseHandler);
+        return gtUserTasks.resetPassword(email, responseHandler);
     }
 
     public GTRequestPerformed register(String firstName, String lastName, String email, String username, String password, GTResponseHandler<GTRegistrationCompleteResult> responseHandler) {
-        return gtRegisterTask.register(firstName, lastName, email, username, password, responseHandler);
+        return gtUserTasks.register(firstName, lastName, email, username, password, responseHandler);
     }
 
     public GTRequestPerformed getMostActiveUsers(boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListUsersResponse> responseHandler) {

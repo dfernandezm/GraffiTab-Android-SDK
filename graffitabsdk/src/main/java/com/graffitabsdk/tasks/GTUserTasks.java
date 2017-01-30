@@ -5,8 +5,13 @@ import com.graffitabsdk.network.call.GTNetworkTask;
 import com.graffitabsdk.network.common.GTRequestPerformed;
 import com.graffitabsdk.network.common.params.GTQueryParameters;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
+import com.graffitabsdk.network.common.result.GTPasswordResetCompleteResult;
+import com.graffitabsdk.network.common.result.GTRegistrationCompleteResult;
 import com.graffitabsdk.network.service.streamable.response.GTListStreamablesResponse;
 import com.graffitabsdk.network.service.user.UserService;
+import com.graffitabsdk.network.service.user.data.ResetPasswordData;
+import com.graffitabsdk.network.service.user.data.register.RegisterData;
+import com.graffitabsdk.network.service.user.data.register.RegisterUserData;
 import com.graffitabsdk.network.service.user.response.GTListUsersResponse;
 import com.graffitabsdk.network.service.user.response.GTUserResponse;
 
@@ -24,6 +29,17 @@ public class GTUserTasks extends GTNetworkTask {
     public GTUserTasks(UserService userService, GTCacheService gtCacheService) {
         super.cacheService = gtCacheService;
         this.userService = userService;
+    }
+
+    public GTRequestPerformed register(String firstName, String lastName, String email, String username, String password, GTResponseHandler<GTRegistrationCompleteResult> responseHandler) {
+        RegisterUserData registerUserData = new RegisterUserData(firstName, lastName, email, username, password);
+        RegisterData registerData = new RegisterData(registerUserData);
+        return performJsonRequest(userService.register(registerData), GTRegistrationCompleteResult.class, responseHandler, false);
+    }
+
+    public GTRequestPerformed resetPassword(String email, GTResponseHandler<GTPasswordResetCompleteResult> responseHandler) {
+        ResetPasswordData resetPasswordData = new ResetPasswordData(email);
+        return performJsonRequest(userService.resetPassword(resetPasswordData), GTPasswordResetCompleteResult.class, responseHandler, false);
     }
 
     public GTRequestPerformed getMe(boolean useCache, GTResponseHandler<GTUserResponse> responseHandler) {

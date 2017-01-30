@@ -1,13 +1,17 @@
 package com.graffitabsdk.tasks;
 
+import com.graffitabsdk.config.cache.GTCacheService;
+import com.graffitabsdk.network.call.GTNetworkTask;
 import com.graffitabsdk.network.common.GTRequestPerformed;
 import com.graffitabsdk.network.common.params.GTQueryParameters;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
+import com.graffitabsdk.network.common.result.GTCommentDeletedResult;
 import com.graffitabsdk.network.service.streamable.StreamableService;
+import com.graffitabsdk.network.service.streamable.data.comment.CommentData;
+import com.graffitabsdk.network.service.streamable.data.comment.PostCommentData;
+import com.graffitabsdk.network.service.streamable.response.GTCommentResponse;
 import com.graffitabsdk.network.service.streamable.response.GTListCommentsResponse;
 import com.graffitabsdk.network.service.streamable.response.GTListStreamablesResponse;
-import com.graffitabsdk.config.cache.GTCacheService;
-import com.graffitabsdk.network.call.GTNetworkTask;
 import com.graffitabsdk.network.service.streamable.response.GTStreamableResponse;
 import com.graffitabsdk.network.service.user.response.GTListUsersResponse;
 
@@ -50,6 +54,16 @@ public class GTStreamableTasks extends GTNetworkTask {
 
     public GTRequestPerformed getComments(int streamableId, boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListCommentsResponse> responseHandler) {
         return performJsonRequest(streamableService.getComments(streamableId, parameters.getParameters()), GTListCommentsResponse.class, responseHandler, useCache);
+    }
+
+    public GTRequestPerformed postComment(int streamableId, String text, GTResponseHandler<GTCommentResponse> responseHandler) {
+        CommentData commentData = new CommentData(text);
+        PostCommentData postCommentData = new PostCommentData(commentData);
+        return performJsonRequest(streamableService.postComment(streamableId, postCommentData), GTCommentResponse.class, responseHandler, false);
+    }
+
+    public GTRequestPerformed deleteComment(int streamableId, int commentId, GTResponseHandler<GTCommentDeletedResult> responseHandler) {
+        return performJsonRequest(streamableService.deleteComment(streamableId, commentId), GTCommentDeletedResult.class, responseHandler, false);
     }
 
     public GTRequestPerformed search(boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListStreamablesResponse> responseHandler) {

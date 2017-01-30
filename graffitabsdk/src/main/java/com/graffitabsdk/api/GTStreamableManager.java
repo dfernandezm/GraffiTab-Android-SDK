@@ -3,6 +3,8 @@ package com.graffitabsdk.api;
 import com.graffitabsdk.network.common.GTRequestPerformed;
 import com.graffitabsdk.network.common.params.GTQueryParameters;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
+import com.graffitabsdk.network.common.result.GTCommentDeletedResult;
+import com.graffitabsdk.network.service.streamable.response.GTCommentResponse;
 import com.graffitabsdk.network.service.streamable.response.GTListCommentsResponse;
 import com.graffitabsdk.network.service.streamable.response.GTListStreamablesResponse;
 import com.graffitabsdk.network.service.streamable.response.GTStreamableResponse;
@@ -43,6 +45,14 @@ public class GTStreamableManager {
 
     public GTRequestPerformed getComments(int streamableId, boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListCommentsResponse> responseHandler) {
         return gtStreamableTasks.getComments(streamableId, useCache, parameters, responseHandler);
+    }
+
+    public GTRequestPerformed postComment(int streamableId, String text, GTResponseHandler<GTCommentResponse> responseHandler) {
+        return gtStreamableTasks.postComment(streamableId, text, responseHandler);
+    }
+
+    public GTRequestPerformed deleteComment(int streamableId, int commentId, GTResponseHandler<GTCommentDeletedResult> responseHandler) {
+        return gtStreamableTasks.deleteComment(streamableId, commentId, responseHandler);
     }
 
     public GTRequestPerformed search(GTQueryParameters parameters, GTResponseHandler<GTListStreamablesResponse> responseHandler) {
