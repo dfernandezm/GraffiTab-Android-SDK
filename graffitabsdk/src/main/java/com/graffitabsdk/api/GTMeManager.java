@@ -11,6 +11,7 @@ import com.graffitabsdk.tasks.GTLocationTasks;
 import com.graffitabsdk.tasks.GTNotificationTasks;
 import com.graffitabsdk.tasks.GTStreamableTasks;
 import com.graffitabsdk.tasks.GTUserTasks;
+import com.graffitabsdk.tasks.edit.GTEditUserTasks;
 
 import javax.inject.Inject;
 
@@ -25,13 +26,15 @@ public class GTMeManager {
     private GTStreamableTasks gtStreamableTasks;
     private GTNotificationTasks gtNotificationTasks;
     private GTLocationTasks gtLocationTasks;
+    private GTEditUserTasks gtEditUserTasks;
 
     @Inject
-    public GTMeManager(GTUserTasks userTasks, GTStreamableTasks gtStreamableTasks, GTNotificationTasks gtNotificationTasks, GTLocationTasks gtLocationTasks) {
+    public GTMeManager(GTUserTasks userTasks, GTStreamableTasks gtStreamableTasks, GTNotificationTasks gtNotificationTasks, GTLocationTasks gtLocationTasks, GTEditUserTasks gtEditUserTasks) {
         this.gtUserTasks = userTasks;
         this.gtStreamableTasks = gtStreamableTasks;
         this.gtNotificationTasks = gtNotificationTasks;
         this.gtLocationTasks = gtLocationTasks;
+        this.gtEditUserTasks = gtEditUserTasks;
     }
 
     public GTRequestPerformed getMe(boolean useCache, GTResponseHandler<GTUserResponse> responseHandler) {
@@ -40,6 +43,10 @@ public class GTMeManager {
 
     public GTRequestPerformed getMyFullProfile(boolean useCache, GTResponseHandler<GTUserResponse> responseHandler) {
         return gtUserTasks.getMyFullProfile(useCache, responseHandler);
+    }
+
+    public GTRequestPerformed edit(String firstName, String lastName, String email, String about, String website, GTResponseHandler<GTUserResponse> responseHandler) {
+        return gtEditUserTasks.edit(firstName, lastName, email, about, website, responseHandler);
     }
 
     public GTRequestPerformed getFeed(boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListStreamablesResponse> responseHandler) {

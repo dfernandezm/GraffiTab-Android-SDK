@@ -6,6 +6,7 @@ import com.graffitabsdk.network.common.result.GTRegistrationCompleteResult;
 import com.graffitabsdk.network.service.streamable.response.GTListStreamablesResponse;
 import com.graffitabsdk.network.service.user.data.LoginData;
 import com.graffitabsdk.network.service.user.data.ResetPasswordData;
+import com.graffitabsdk.network.service.user.data.edit.EditProfileData;
 import com.graffitabsdk.network.service.user.data.register.RegisterData;
 import com.graffitabsdk.network.service.user.response.GTListUsersResponse;
 import com.graffitabsdk.network.service.user.response.GTUserResponse;
@@ -17,6 +18,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
 
@@ -55,6 +57,10 @@ public interface UserService {
     @Headers("Content-Type: application/json")
     @GET(GTApiConstants.USER_FULL_PROFILE_ENDPOINT)
     Call<GTUserResponse> getFullUserProfile(@Path("userId") int userId);
+
+    @Headers("Content-Type: application/json")
+    @PUT(GTApiConstants.ME_ENDPOINT)
+    Call<GTUserResponse> edit(@Body EditProfileData profileData);
 
     @Headers("Content-Type: application/json")
     @GET(GTApiConstants.USERS_MOST_ACTIVE_ENDPOINT)

@@ -12,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class RegisterUserData {
+public class RegisterMetadata {
 
     private String firstName;
     private String lastName;

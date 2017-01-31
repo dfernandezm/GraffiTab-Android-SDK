@@ -11,7 +11,7 @@ import com.graffitabsdk.network.service.streamable.response.GTListStreamablesRes
 import com.graffitabsdk.network.service.user.UserService;
 import com.graffitabsdk.network.service.user.data.ResetPasswordData;
 import com.graffitabsdk.network.service.user.data.register.RegisterData;
-import com.graffitabsdk.network.service.user.data.register.RegisterUserData;
+import com.graffitabsdk.network.service.user.data.register.RegisterMetadata;
 import com.graffitabsdk.network.service.user.response.GTListUsersResponse;
 import com.graffitabsdk.network.service.user.response.GTUserResponse;
 
@@ -32,7 +32,7 @@ public class GTUserTasks extends GTNetworkTask {
     }
 
     public GTRequestPerformed register(String firstName, String lastName, String email, String username, String password, GTResponseHandler<GTRegistrationCompleteResult> responseHandler) {
-        RegisterUserData registerUserData = new RegisterUserData(firstName, lastName, email, username, password);
+        RegisterMetadata registerUserData = new RegisterMetadata(firstName, lastName, email, username, password);
         RegisterData registerData = new RegisterData(registerUserData);
         return performJsonRequest(userService.register(registerData), GTRegistrationCompleteResult.class, responseHandler, false);
     }
