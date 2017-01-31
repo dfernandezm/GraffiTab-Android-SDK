@@ -83,4 +83,12 @@ public class GTStreamableTasks extends GTNetworkTask {
     public GTRequestPerformed search(boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListStreamablesResponse> responseHandler) {
         return performJsonRequest(streamableService.search(parameters.getParameters()), GTListStreamablesResponse.class, responseHandler, useCache);
     }
+
+    public GTRequestPerformed makePrivate(int streamableId, boolean useCache, GTResponseHandler<GTStreamableResponse> responseHandler) {
+        return performJsonRequest(streamableService.makePrivate(streamableId), GTStreamableResponse.class, responseHandler, useCache);
+    }
+
+    public GTRequestPerformed makePublic(int streamableId, boolean useCache, GTResponseHandler<GTStreamableResponse> responseHandler) {
+        return performJsonRequest(streamableService.makePublic(streamableId), GTStreamableResponse.class, responseHandler, useCache);
+    }
 }

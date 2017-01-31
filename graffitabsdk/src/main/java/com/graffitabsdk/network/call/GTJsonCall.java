@@ -90,7 +90,7 @@ class GTJsonCall<T> extends GTCall<T> {
             String resultCodeString = jsonBody.get("resultCode");
             resultMessage = jsonBody.get("resultMessage");
             resultCode = GTResultCode.valueOf(resultCodeString);
-        } catch (IOException e) {
+        } catch (Exception e) {
             //TODO: log this exception
             resultMessage = e.getMessage();
         } finally {

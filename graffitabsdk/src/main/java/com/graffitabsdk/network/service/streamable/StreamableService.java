@@ -75,4 +75,12 @@ public interface StreamableService {
     @Headers("Content-Type: application/json")
     @GET(GTApiConstants.STREAMABLES_SEARCH_HASHTAG_ENDPOINT)
     Call<GTListStreamablesResponse> search(@QueryMap Map<String, String> parameters);
+
+    @Headers("Content-Type: application/json")
+    @PUT(GTApiConstants.MY_PRIVATE_STREAMABLE_ENDPOINT)
+    Call<GTStreamableResponse> makePrivate(@Path("streamableId") int streamableId);
+
+    @Headers("Content-Type: application/json")
+    @DELETE(GTApiConstants.MY_PRIVATE_STREAMABLE_ENDPOINT)
+    Call<GTStreamableResponse> makePublic(@Path("streamableId") int streamableId);
 }
