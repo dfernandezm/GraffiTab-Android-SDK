@@ -43,6 +43,14 @@ public class GTStreamableManager {
         return gtStreamableTasks.getLikers(streamableId, useCache, parameters, responseHandler);
     }
 
+    public GTRequestPerformed like(int streamableId, GTResponseHandler<GTStreamableResponse> responseHandler) {
+        return gtStreamableTasks.like(streamableId, false, responseHandler);
+    }
+
+    public GTRequestPerformed unlike(int streamableId, GTResponseHandler<GTStreamableResponse> responseHandler) {
+        return gtStreamableTasks.unlike(streamableId, false, responseHandler);
+    }
+
     public GTRequestPerformed getComments(int streamableId, boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListCommentsResponse> responseHandler) {
         return gtStreamableTasks.getComments(streamableId, useCache, parameters, responseHandler);
     }

@@ -49,6 +49,14 @@ public interface StreamableService {
     Call<GTListUsersResponse> getLikers(@Path("streamableId") int streamableId, @QueryMap Map<String, String> parameters);
 
     @Headers("Content-Type: application/json")
+    @POST(GTApiConstants.STREAMABLE_LIKES_ENDPOINT)
+    Call<GTStreamableResponse> like(@Path("streamableId") int streamableId);
+
+    @Headers("Content-Type: application/json")
+    @DELETE(GTApiConstants.STREAMABLE_LIKES_ENDPOINT)
+    Call<GTStreamableResponse> unlike(@Path("streamableId") int streamableId);
+
+    @Headers("Content-Type: application/json")
     @GET(GTApiConstants.STREAMABLE_COMMENTS_ENDPOINT)
     Call<GTListCommentsResponse> getComments(@Path("streamableId") int streamableId, @QueryMap Map<String, String> parameters);
 

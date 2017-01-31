@@ -52,6 +52,14 @@ public class GTStreamableTasks extends GTNetworkTask {
         return performJsonRequest(streamableService.getLikers(streamableId, parameters.getParameters()), GTListUsersResponse.class, responseHandler, useCache);
     }
 
+    public GTRequestPerformed like(int streamableId, boolean useCache, GTResponseHandler<GTStreamableResponse> responseHandler) {
+        return performJsonRequest(streamableService.like(streamableId), GTStreamableResponse.class, responseHandler, useCache);
+    }
+
+    public GTRequestPerformed unlike(int streamableId, boolean useCache, GTResponseHandler<GTStreamableResponse> responseHandler) {
+        return performJsonRequest(streamableService.unlike(streamableId), GTStreamableResponse.class, responseHandler, useCache);
+    }
+
     public GTRequestPerformed getComments(int streamableId, boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListCommentsResponse> responseHandler) {
         return performJsonRequest(streamableService.getComments(streamableId, parameters.getParameters()), GTListCommentsResponse.class, responseHandler, useCache);
     }
