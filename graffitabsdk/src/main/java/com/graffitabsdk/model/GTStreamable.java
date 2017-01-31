@@ -1,5 +1,7 @@
 package com.graffitabsdk.model;
 
+import com.graffitabsdk.config.GTSDK;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -31,6 +33,13 @@ public class GTStreamable implements Serializable {
     public int commentsCount;
 
     public GTStreamable() {}
+
+    public boolean isMine() {
+        GTUser me = GTSDK.getAccountManager().getLoggedInUser();
+        if (me != null)
+            return me.equals(user);
+        return false;
+    }
 
     @Override
     public boolean equals(Object o) {
