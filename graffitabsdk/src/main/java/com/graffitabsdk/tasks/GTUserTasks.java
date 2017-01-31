@@ -5,11 +5,13 @@ import com.graffitabsdk.network.call.GTNetworkTask;
 import com.graffitabsdk.network.common.GTRequestPerformed;
 import com.graffitabsdk.network.common.params.GTQueryParameters;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
+import com.graffitabsdk.network.common.result.GTEditPasswordResult;
 import com.graffitabsdk.network.common.result.GTPasswordResetCompleteResult;
 import com.graffitabsdk.network.common.result.GTRegistrationCompleteResult;
 import com.graffitabsdk.network.service.streamable.response.GTListStreamablesResponse;
 import com.graffitabsdk.network.service.user.UserService;
 import com.graffitabsdk.network.service.user.data.ResetPasswordData;
+import com.graffitabsdk.network.service.user.data.edit.EditPasswordData;
 import com.graffitabsdk.network.service.user.data.register.RegisterData;
 import com.graffitabsdk.network.service.user.data.register.RegisterMetadata;
 import com.graffitabsdk.network.service.user.response.GTListUsersResponse;
@@ -40,6 +42,11 @@ public class GTUserTasks extends GTNetworkTask {
     public GTRequestPerformed resetPassword(String email, GTResponseHandler<GTPasswordResetCompleteResult> responseHandler) {
         ResetPasswordData resetPasswordData = new ResetPasswordData(email);
         return performJsonRequest(userService.resetPassword(resetPasswordData), GTPasswordResetCompleteResult.class, responseHandler, false);
+    }
+
+    public GTRequestPerformed editPassword(String currentPassword, String newPassword, GTResponseHandler<GTEditPasswordResult> responseHandler) {
+        EditPasswordData editPasswordData = new EditPasswordData(currentPassword, newPassword);
+        return performJsonRequest(userService.editPassword(editPasswordData), GTEditPasswordResult.class, responseHandler, false);
     }
 
     public GTRequestPerformed getMe(boolean useCache, GTResponseHandler<GTUserResponse> responseHandler) {

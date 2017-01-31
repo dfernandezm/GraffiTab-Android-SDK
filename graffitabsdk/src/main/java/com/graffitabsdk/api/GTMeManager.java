@@ -3,6 +3,7 @@ package com.graffitabsdk.api;
 import com.graffitabsdk.network.common.GTRequestPerformed;
 import com.graffitabsdk.network.common.params.GTQueryParameters;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
+import com.graffitabsdk.network.common.result.GTEditPasswordResult;
 import com.graffitabsdk.network.service.location.response.GTListLocationsResponse;
 import com.graffitabsdk.network.service.notification.response.GTListNotificationsResponse;
 import com.graffitabsdk.network.service.streamable.response.GTListStreamablesResponse;
@@ -47,6 +48,10 @@ public class GTMeManager {
 
     public GTRequestPerformed edit(String firstName, String lastName, String email, String about, String website, GTResponseHandler<GTUserResponse> responseHandler) {
         return gtEditUserTasks.edit(firstName, lastName, email, about, website, responseHandler);
+    }
+
+    public GTRequestPerformed editPassword(String currentPassword, String newPassword, GTResponseHandler<GTEditPasswordResult> responseHandler) {
+        return gtUserTasks.editPassword(currentPassword, newPassword, responseHandler);
     }
 
     public GTRequestPerformed getFeed(boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListStreamablesResponse> responseHandler) {

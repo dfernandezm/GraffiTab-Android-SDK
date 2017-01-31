@@ -1,11 +1,13 @@
 package com.graffitabsdk.network.service.user;
 
 import com.graffitabsdk.constants.GTApiConstants;
+import com.graffitabsdk.network.common.result.GTEditPasswordResult;
 import com.graffitabsdk.network.common.result.GTPasswordResetCompleteResult;
 import com.graffitabsdk.network.common.result.GTRegistrationCompleteResult;
 import com.graffitabsdk.network.service.streamable.response.GTListStreamablesResponse;
 import com.graffitabsdk.network.service.user.data.LoginData;
 import com.graffitabsdk.network.service.user.data.ResetPasswordData;
+import com.graffitabsdk.network.service.user.data.edit.EditPasswordData;
 import com.graffitabsdk.network.service.user.data.edit.EditProfileData;
 import com.graffitabsdk.network.service.user.data.register.RegisterData;
 import com.graffitabsdk.network.service.user.response.GTListUsersResponse;
@@ -61,6 +63,10 @@ public interface UserService {
     @Headers("Content-Type: application/json")
     @PUT(GTApiConstants.ME_ENDPOINT)
     Call<GTUserResponse> edit(@Body EditProfileData profileData);
+
+    @Headers("Content-Type: application/json")
+    @PUT(GTApiConstants.ME_CHANGE_PASSWORD_ENDPOINT)
+    Call<GTEditPasswordResult> editPassword(@Body EditPasswordData passwordData);
 
     @Headers("Content-Type: application/json")
     @GET(GTApiConstants.USERS_MOST_ACTIVE_ENDPOINT)
