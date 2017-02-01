@@ -12,7 +12,7 @@ public class GTQueryParameters {
 
     protected Map<String,String> params = new HashMap<>();
 
-    public enum GTParameterType {OFFSET, LIMIT, QUERY};
+    public enum GTParameterType {OFFSET, LIMIT, QUERY, LATITUDE, LONGITUDE, RADIUS};
 
     public void addParameter(GTParameterType parameter, String value) {
         params.put(parameter.name().toLowerCase(), value);

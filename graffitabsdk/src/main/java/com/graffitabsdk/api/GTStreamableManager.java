@@ -71,6 +71,10 @@ public class GTStreamableManager {
         return gtStreamableTasks.search(false, parameters, responseHandler);
     }
 
+    public GTRequestPerformed searchLocation(GTQueryParameters parameters, GTResponseHandler<GTListStreamablesResponse> responseHandler) {
+        return gtStreamableTasks.searchLocation(false, parameters, responseHandler);
+    }
+
     public GTRequestPerformed makePrivate(int streamableId, GTResponseHandler<GTStreamableResponse> responseHandler) {
         return gtStreamableTasks.makePrivate(streamableId, false, responseHandler);
     }

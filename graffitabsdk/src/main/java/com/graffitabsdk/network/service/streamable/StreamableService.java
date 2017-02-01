@@ -77,6 +77,10 @@ public interface StreamableService {
     Call<GTListStreamablesResponse> search(@QueryMap Map<String, String> parameters);
 
     @Headers("Content-Type: application/json")
+    @GET(GTApiConstants.STREAMABLES_SEARCH_LOCATION_ENDPOINT)
+    Call<GTListStreamablesResponse> searchLocation(@QueryMap Map<String, String> parameters);
+
+    @Headers("Content-Type: application/json")
     @PUT(GTApiConstants.MY_PRIVATE_STREAMABLE_ENDPOINT)
     Call<GTStreamableResponse> makePrivate(@Path("streamableId") int streamableId);
 
