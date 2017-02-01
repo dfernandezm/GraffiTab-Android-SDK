@@ -17,6 +17,7 @@ import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -95,6 +96,14 @@ public interface UserService {
     @Headers("Content-Type: application/json")
     @GET(GTApiConstants.USER_FOLLOWING_ENDPOINT)
     Call<GTListUsersResponse> getFollowing(@Path("userId") int userId, @QueryMap Map<String, String> parameters);
+
+    @Headers("Content-Type: application/json")
+    @POST(GTApiConstants.USER_FOLLOWERS_ENDPOINT)
+    Call<GTUserResponse> follow(@Path("userId") int userId);
+
+    @Headers("Content-Type: application/json")
+    @DELETE(GTApiConstants.USER_FOLLOWERS_ENDPOINT)
+    Call<GTUserResponse> unfollow(@Path("userId") int userId);
 
     @Headers("Content-Type: application/json")
     @GET(GTApiConstants.USERS_SEARCH_ENDPOINT)

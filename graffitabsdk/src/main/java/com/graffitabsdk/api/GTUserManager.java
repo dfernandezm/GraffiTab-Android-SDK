@@ -79,6 +79,14 @@ public class GTUserManager {
         return gtUserTasks.getFullUserProfile(userId, useCache, responseHandler);
     }
 
+    public GTRequestPerformed follow(int userId, GTResponseHandler<GTUserResponse> responseHandler) {
+        return gtUserTasks.follow(userId, false, responseHandler);
+    }
+
+    public GTRequestPerformed unfollow(int userId, GTResponseHandler<GTUserResponse> responseHandler) {
+        return gtUserTasks.unfollow(userId, false, responseHandler);
+    }
+
     public GTRequestPerformed search(GTQueryParameters parameters, GTResponseHandler<GTListUsersResponse> responseHandler) {
         return gtUserTasks.search(false, parameters, responseHandler);
     }
