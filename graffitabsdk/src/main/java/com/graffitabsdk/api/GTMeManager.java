@@ -4,7 +4,9 @@ import com.graffitabsdk.network.common.GTRequestPerformed;
 import com.graffitabsdk.network.common.params.GTQueryParameters;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
 import com.graffitabsdk.network.common.result.GTEditPasswordResult;
+import com.graffitabsdk.network.common.result.GTLocationDeletedResult;
 import com.graffitabsdk.network.service.location.response.GTListLocationsResponse;
+import com.graffitabsdk.network.service.location.response.GTLocationResponse;
 import com.graffitabsdk.network.service.notification.response.GTListNotificationsResponse;
 import com.graffitabsdk.network.service.streamable.response.GTListStreamablesResponse;
 import com.graffitabsdk.network.service.user.response.GTUserResponse;
@@ -64,6 +66,18 @@ public class GTMeManager {
 
     public GTRequestPerformed getLocations(boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListLocationsResponse> responseHandler) {
         return gtLocationTasks.getLocations(useCache, parameters, responseHandler);
+    }
+
+    public GTRequestPerformed createLocation(String address, double latitude, double longitude, GTResponseHandler<GTLocationResponse> responseHandler) {
+        return gtLocationTasks.createLocation(address, latitude, longitude, responseHandler);
+    }
+
+    public GTRequestPerformed editLocation(int locationId, String address, double latitude, double longitude, GTResponseHandler<GTLocationResponse> responseHandler) {
+        return gtLocationTasks.editLocation(locationId, address, latitude, longitude, responseHandler);
+    }
+
+    public GTRequestPerformed deleteLocation(int locationId, GTResponseHandler<GTLocationDeletedResult> responseHandler) {
+        return gtLocationTasks.deleteLocation(locationId, responseHandler);
     }
 
     public GTRequestPerformed getPrivatePosts(boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListStreamablesResponse> responseHandler) {
