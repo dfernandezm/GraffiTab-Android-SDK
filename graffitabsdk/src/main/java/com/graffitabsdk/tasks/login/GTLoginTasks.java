@@ -27,7 +27,7 @@ public class GTLoginTasks extends GTNetworkTask {
 
     public GTRequestPerformed login(String username, String password, GTResponseHandler<GTUserResponse> responseHandler) {
         LoginData loginData = new LoginData(username, password);
-        return performJsonRequest(userService.login(loginData), GTUserResponse.class, responseHandler, false);
+        return performJsonRequest(userService.login(loginData), GTUserResponse.class, responseHandler);
     }
 
     public GTRequestPerformed loginWithExternalProvider() {

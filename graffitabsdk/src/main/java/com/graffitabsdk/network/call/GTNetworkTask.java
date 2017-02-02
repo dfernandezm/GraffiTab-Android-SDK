@@ -15,6 +15,11 @@ public abstract class GTNetworkTask {
 
     protected GTCacheService cacheService;
 
+    /** Perform request without cache. */
+    protected <T> GTRequestPerformed performJsonRequest(Call<T> request, Class<T> type, GTResponseHandler<T> responseHandler) {
+        return performJsonRequest(request, type, responseHandler, false);
+    }
+
     protected <T> GTRequestPerformed performJsonRequest(Call<T> request, Class<T> type, GTResponseHandler<T> responseHandler, boolean shouldUseCache) {
         boolean isGetRequest = request.request().method().equalsIgnoreCase("GET");
         AfterCompletionOperation<T> afterCompletionOperation = getAfterCompletionOperations(shouldUseCache, isGetRequest);

@@ -31,7 +31,7 @@ public class GTEditUserTasks extends GTNetworkTask {
     public GTRequestPerformed edit(String firstName, String lastName, String email, String about, String website, GTResponseHandler<GTUserResponse> responseHandler) {
         EditProfileMetadata editProfileMetadata = new EditProfileMetadata(firstName, lastName, email, about, website);
         EditProfileData editProfileData = new EditProfileData(editProfileMetadata);
-        return performJsonRequest(userService.edit(editProfileData), GTUserResponse.class, responseHandler, false);
+        return performJsonRequest(userService.edit(editProfileData), GTUserResponse.class, responseHandler);
     }
 
     @Override

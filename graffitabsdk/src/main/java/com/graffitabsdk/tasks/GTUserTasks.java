@@ -36,17 +36,17 @@ public class GTUserTasks extends GTNetworkTask {
     public GTRequestPerformed register(String firstName, String lastName, String email, String username, String password, GTResponseHandler<GTRegistrationCompleteResult> responseHandler) {
         RegisterMetadata registerUserData = new RegisterMetadata(firstName, lastName, email, username, password);
         RegisterData registerData = new RegisterData(registerUserData);
-        return performJsonRequest(userService.register(registerData), GTRegistrationCompleteResult.class, responseHandler, false);
+        return performJsonRequest(userService.register(registerData), GTRegistrationCompleteResult.class, responseHandler);
     }
 
     public GTRequestPerformed resetPassword(String email, GTResponseHandler<GTPasswordResetCompleteResult> responseHandler) {
         ResetPasswordData resetPasswordData = new ResetPasswordData(email);
-        return performJsonRequest(userService.resetPassword(resetPasswordData), GTPasswordResetCompleteResult.class, responseHandler, false);
+        return performJsonRequest(userService.resetPassword(resetPasswordData), GTPasswordResetCompleteResult.class, responseHandler);
     }
 
     public GTRequestPerformed editPassword(String currentPassword, String newPassword, GTResponseHandler<GTEditPasswordResult> responseHandler) {
         EditPasswordData editPasswordData = new EditPasswordData(currentPassword, newPassword);
-        return performJsonRequest(userService.editPassword(editPasswordData), GTEditPasswordResult.class, responseHandler, false);
+        return performJsonRequest(userService.editPassword(editPasswordData), GTEditPasswordResult.class, responseHandler);
     }
 
     public GTRequestPerformed getMe(boolean useCache, GTResponseHandler<GTUserResponse> responseHandler) {
@@ -93,15 +93,15 @@ public class GTUserTasks extends GTNetworkTask {
         return performJsonRequest(userService.getFollowing(userId, parameters.getParameters()), GTListUsersResponse.class, responseHandler, useCache);
     }
 
-    public GTRequestPerformed follow(int userId, boolean useCache, GTResponseHandler<GTUserResponse> responseHandler) {
-        return performJsonRequest(userService.follow(userId), GTUserResponse.class, responseHandler, useCache);
+    public GTRequestPerformed follow(int userId, GTResponseHandler<GTUserResponse> responseHandler) {
+        return performJsonRequest(userService.follow(userId), GTUserResponse.class, responseHandler);
     }
 
-    public GTRequestPerformed unfollow(int userId, boolean useCache, GTResponseHandler<GTUserResponse> responseHandler) {
-        return performJsonRequest(userService.unfollow(userId), GTUserResponse.class, responseHandler, useCache);
+    public GTRequestPerformed unfollow(int userId, GTResponseHandler<GTUserResponse> responseHandler) {
+        return performJsonRequest(userService.unfollow(userId), GTUserResponse.class, responseHandler);
     }
 
-    public GTRequestPerformed search(boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListUsersResponse> responseHandler) {
-        return performJsonRequest(userService.search(parameters.getParameters()), GTListUsersResponse.class, responseHandler, useCache);
+    public GTRequestPerformed search(GTQueryParameters parameters, GTResponseHandler<GTListUsersResponse> responseHandler) {
+        return performJsonRequest(userService.search(parameters.getParameters()), GTListUsersResponse.class, responseHandler);
     }
 }

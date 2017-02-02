@@ -53,12 +53,12 @@ public class GTStreamableTasks extends GTNetworkTask {
         return performJsonRequest(streamableService.getLikers(streamableId, parameters.getParameters()), GTListUsersResponse.class, responseHandler, useCache);
     }
 
-    public GTRequestPerformed like(int streamableId, boolean useCache, GTResponseHandler<GTStreamableResponse> responseHandler) {
-        return performJsonRequest(streamableService.like(streamableId), GTStreamableResponse.class, responseHandler, useCache);
+    public GTRequestPerformed like(int streamableId, GTResponseHandler<GTStreamableResponse> responseHandler) {
+        return performJsonRequest(streamableService.like(streamableId), GTStreamableResponse.class, responseHandler);
     }
 
-    public GTRequestPerformed unlike(int streamableId, boolean useCache, GTResponseHandler<GTStreamableResponse> responseHandler) {
-        return performJsonRequest(streamableService.unlike(streamableId), GTStreamableResponse.class, responseHandler, useCache);
+    public GTRequestPerformed unlike(int streamableId, GTResponseHandler<GTStreamableResponse> responseHandler) {
+        return performJsonRequest(streamableService.unlike(streamableId), GTStreamableResponse.class, responseHandler);
     }
 
     public GTRequestPerformed getComments(int streamableId, boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListCommentsResponse> responseHandler) {
@@ -68,36 +68,36 @@ public class GTStreamableTasks extends GTNetworkTask {
     public GTRequestPerformed postComment(int streamableId, String text, GTResponseHandler<GTCommentResponse> responseHandler) {
         CommentData commentData = new CommentData(text);
         PostCommentData postCommentData = new PostCommentData(commentData);
-        return performJsonRequest(streamableService.postComment(streamableId, postCommentData), GTCommentResponse.class, responseHandler, false);
+        return performJsonRequest(streamableService.postComment(streamableId, postCommentData), GTCommentResponse.class, responseHandler);
     }
 
     public GTRequestPerformed editComment(int streamableId, int commentId, String text, GTResponseHandler<GTCommentResponse> responseHandler) {
         CommentData commentData = new CommentData(text);
         PostCommentData postCommentData = new PostCommentData(commentData);
-        return performJsonRequest(streamableService.editComment(streamableId, commentId, postCommentData), GTCommentResponse.class, responseHandler, false);
+        return performJsonRequest(streamableService.editComment(streamableId, commentId, postCommentData), GTCommentResponse.class, responseHandler);
     }
 
     public GTRequestPerformed deleteComment(int streamableId, int commentId, GTResponseHandler<GTCommentDeletedResult> responseHandler) {
-        return performJsonRequest(streamableService.deleteComment(streamableId, commentId), GTCommentDeletedResult.class, responseHandler, false);
+        return performJsonRequest(streamableService.deleteComment(streamableId, commentId), GTCommentDeletedResult.class, responseHandler);
     }
 
-    public GTRequestPerformed search(boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListStreamablesResponse> responseHandler) {
-        return performJsonRequest(streamableService.search(parameters.getParameters()), GTListStreamablesResponse.class, responseHandler, useCache);
+    public GTRequestPerformed search(GTQueryParameters parameters, GTResponseHandler<GTListStreamablesResponse> responseHandler) {
+        return performJsonRequest(streamableService.search(parameters.getParameters()), GTListStreamablesResponse.class, responseHandler);
     }
 
-    public GTRequestPerformed searchLocation(boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListStreamablesResponse> responseHandler) {
-        return performJsonRequest(streamableService.searchLocation(parameters.getParameters()), GTListStreamablesResponse.class, responseHandler, useCache);
+    public GTRequestPerformed searchLocation(GTQueryParameters parameters, GTResponseHandler<GTListStreamablesResponse> responseHandler) {
+        return performJsonRequest(streamableService.searchLocation(parameters.getParameters()), GTListStreamablesResponse.class, responseHandler);
     }
 
-    public GTRequestPerformed searchHashtags(boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListHashtagsResponse> responseHandler) {
-        return performJsonRequest(streamableService.searchHashtags(parameters.getParameters()), GTListHashtagsResponse.class, responseHandler, useCache);
+    public GTRequestPerformed searchHashtags(GTQueryParameters parameters, GTResponseHandler<GTListHashtagsResponse> responseHandler) {
+        return performJsonRequest(streamableService.searchHashtags(parameters.getParameters()), GTListHashtagsResponse.class, responseHandler);
     }
 
-    public GTRequestPerformed makePrivate(int streamableId, boolean useCache, GTResponseHandler<GTStreamableResponse> responseHandler) {
-        return performJsonRequest(streamableService.makePrivate(streamableId), GTStreamableResponse.class, responseHandler, useCache);
+    public GTRequestPerformed makePrivate(int streamableId, GTResponseHandler<GTStreamableResponse> responseHandler) {
+        return performJsonRequest(streamableService.makePrivate(streamableId), GTStreamableResponse.class, responseHandler);
     }
 
-    public GTRequestPerformed makePublic(int streamableId, boolean useCache, GTResponseHandler<GTStreamableResponse> responseHandler) {
-        return performJsonRequest(streamableService.makePublic(streamableId), GTStreamableResponse.class, responseHandler, useCache);
+    public GTRequestPerformed makePublic(int streamableId, GTResponseHandler<GTStreamableResponse> responseHandler) {
+        return performJsonRequest(streamableService.makePublic(streamableId), GTStreamableResponse.class, responseHandler);
     }
 }

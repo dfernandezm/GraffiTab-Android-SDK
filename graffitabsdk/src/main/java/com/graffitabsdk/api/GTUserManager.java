@@ -80,14 +80,14 @@ public class GTUserManager {
     }
 
     public GTRequestPerformed follow(int userId, GTResponseHandler<GTUserResponse> responseHandler) {
-        return gtUserTasks.follow(userId, false, responseHandler);
+        return gtUserTasks.follow(userId, responseHandler);
     }
 
     public GTRequestPerformed unfollow(int userId, GTResponseHandler<GTUserResponse> responseHandler) {
-        return gtUserTasks.unfollow(userId, false, responseHandler);
+        return gtUserTasks.unfollow(userId, responseHandler);
     }
 
     public GTRequestPerformed search(GTQueryParameters parameters, GTResponseHandler<GTListUsersResponse> responseHandler) {
-        return gtUserTasks.search(false, parameters, responseHandler);
+        return gtUserTasks.search(parameters, responseHandler);
     }
 }

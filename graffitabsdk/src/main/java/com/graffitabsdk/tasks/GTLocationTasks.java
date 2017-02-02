@@ -36,16 +36,16 @@ public class GTLocationTasks extends GTNetworkTask {
     public GTRequestPerformed createLocation(String address, double latitude, double longitude, GTResponseHandler<GTLocationResponse> responseHandler) {
         EditLocationMetadata editLocationMetadata = new EditLocationMetadata(address, latitude, longitude);
         EditLocationData editLocationData = new EditLocationData(editLocationMetadata);
-        return performJsonRequest(locationService.createLocation(editLocationData), GTLocationResponse.class, responseHandler, false);
+        return performJsonRequest(locationService.createLocation(editLocationData), GTLocationResponse.class, responseHandler);
     }
 
     public GTRequestPerformed editLocation(int locationId, String address, double latitude, double longitude, GTResponseHandler<GTLocationResponse> responseHandler) {
         EditLocationMetadata editLocationMetadata = new EditLocationMetadata(address, latitude, longitude);
         EditLocationData editLocationData = new EditLocationData(editLocationMetadata);
-        return performJsonRequest(locationService.editLocation(locationId, editLocationData), GTLocationResponse.class, responseHandler, false);
+        return performJsonRequest(locationService.editLocation(locationId, editLocationData), GTLocationResponse.class, responseHandler);
     }
 
     public GTRequestPerformed deleteLocation(int locationId, GTResponseHandler<GTLocationDeletedResult> responseHandler) {
-        return performJsonRequest(locationService.deleteLocation(locationId), GTLocationDeletedResult.class, responseHandler, false);
+        return performJsonRequest(locationService.deleteLocation(locationId), GTLocationDeletedResult.class, responseHandler);
     }
 }

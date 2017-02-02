@@ -45,11 +45,11 @@ public class GTStreamableManager {
     }
 
     public GTRequestPerformed like(int streamableId, GTResponseHandler<GTStreamableResponse> responseHandler) {
-        return gtStreamableTasks.like(streamableId, false, responseHandler);
+        return gtStreamableTasks.like(streamableId, responseHandler);
     }
 
     public GTRequestPerformed unlike(int streamableId, GTResponseHandler<GTStreamableResponse> responseHandler) {
-        return gtStreamableTasks.unlike(streamableId, false, responseHandler);
+        return gtStreamableTasks.unlike(streamableId, responseHandler);
     }
 
     public GTRequestPerformed getComments(int streamableId, boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListCommentsResponse> responseHandler) {
@@ -69,22 +69,22 @@ public class GTStreamableManager {
     }
 
     public GTRequestPerformed search(GTQueryParameters parameters, GTResponseHandler<GTListStreamablesResponse> responseHandler) {
-        return gtStreamableTasks.search(false, parameters, responseHandler);
+        return gtStreamableTasks.search(parameters, responseHandler);
     }
 
     public GTRequestPerformed searchLocation(GTQueryParameters parameters, GTResponseHandler<GTListStreamablesResponse> responseHandler) {
-        return gtStreamableTasks.searchLocation(false, parameters, responseHandler);
+        return gtStreamableTasks.searchLocation(parameters, responseHandler);
     }
 
     public GTRequestPerformed searchHashtags(GTQueryParameters parameters, GTResponseHandler<GTListHashtagsResponse> responseHandler) {
-        return gtStreamableTasks.searchHashtags(false, parameters, responseHandler);
+        return gtStreamableTasks.searchHashtags(parameters, responseHandler);
     }
 
     public GTRequestPerformed makePrivate(int streamableId, GTResponseHandler<GTStreamableResponse> responseHandler) {
-        return gtStreamableTasks.makePrivate(streamableId, false, responseHandler);
+        return gtStreamableTasks.makePrivate(streamableId, responseHandler);
     }
 
     public GTRequestPerformed makePublic(int streamableId, GTResponseHandler<GTStreamableResponse> responseHandler) {
-        return gtStreamableTasks.makePublic(streamableId, false, responseHandler);
+        return gtStreamableTasks.makePublic(streamableId, responseHandler);
     }
 }
