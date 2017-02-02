@@ -87,4 +87,8 @@ public class GTStreamableManager {
     public GTRequestPerformed makePublic(int streamableId, GTResponseHandler<GTStreamableResponse> responseHandler) {
         return gtStreamableTasks.makePublic(streamableId, responseHandler);
     }
+
+    public GTRequestPerformed flag(int streamableId, GTResponseHandler<GTStreamableResponse> responseHandler) {
+        return gtStreamableTasks.flag(streamableId, responseHandler);
+    }
 }

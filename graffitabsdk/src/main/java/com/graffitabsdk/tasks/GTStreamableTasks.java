@@ -100,4 +100,8 @@ public class GTStreamableTasks extends GTNetworkTask {
     public GTRequestPerformed makePublic(int streamableId, GTResponseHandler<GTStreamableResponse> responseHandler) {
         return performJsonRequest(streamableService.makePublic(streamableId), GTStreamableResponse.class, responseHandler);
     }
+
+    public GTRequestPerformed flag(int streamableId, GTResponseHandler<GTStreamableResponse> responseHandler) {
+        return performJsonRequest(streamableService.flag(streamableId), GTStreamableResponse.class, responseHandler);
+    }
 }

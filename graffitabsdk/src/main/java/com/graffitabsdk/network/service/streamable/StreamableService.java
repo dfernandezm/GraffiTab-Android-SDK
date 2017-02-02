@@ -92,4 +92,8 @@ public interface StreamableService {
     @Headers("Content-Type: application/json")
     @DELETE(GTApiConstants.MY_PRIVATE_STREAMABLE_ENDPOINT)
     Call<GTStreamableResponse> makePublic(@Path("streamableId") int streamableId);
+
+    @Headers("Content-Type: application/json")
+    @PUT(GTApiConstants.STREAMABLE_FLAG_ENDPOINT)
+    Call<GTStreamableResponse> flag(@Path("streamableId") int streamableId);
 }
