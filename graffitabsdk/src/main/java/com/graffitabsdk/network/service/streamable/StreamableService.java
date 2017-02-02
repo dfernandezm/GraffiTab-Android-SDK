@@ -5,6 +5,7 @@ import com.graffitabsdk.network.common.result.GTCommentDeletedResult;
 import com.graffitabsdk.network.service.streamable.data.comment.PostCommentData;
 import com.graffitabsdk.network.service.streamable.response.GTCommentResponse;
 import com.graffitabsdk.network.service.streamable.response.GTListCommentsResponse;
+import com.graffitabsdk.network.service.streamable.response.GTListHashtagsResponse;
 import com.graffitabsdk.network.service.streamable.response.GTListStreamablesResponse;
 import com.graffitabsdk.network.service.streamable.response.GTStreamableResponse;
 import com.graffitabsdk.network.service.user.response.GTListUsersResponse;
@@ -75,6 +76,10 @@ public interface StreamableService {
     @Headers("Content-Type: application/json")
     @GET(GTApiConstants.STREAMABLES_SEARCH_HASHTAG_ENDPOINT)
     Call<GTListStreamablesResponse> search(@QueryMap Map<String, String> parameters);
+
+    @Headers("Content-Type: application/json")
+    @GET(GTApiConstants.STREAMABLES_SEARCH_HASHTAGS_ENDPOINT)
+    Call<GTListHashtagsResponse> searchHashtags(@QueryMap Map<String, String> parameters);
 
     @Headers("Content-Type: application/json")
     @GET(GTApiConstants.STREAMABLES_SEARCH_LOCATION_ENDPOINT)

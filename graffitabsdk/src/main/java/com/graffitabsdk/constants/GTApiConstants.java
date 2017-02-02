@@ -143,7 +143,7 @@ public class GTApiConstants {
     public static final String STREAMABLES_SEARCH_ENDPOINT = STREAMABLES_ENDPOINT + "/search";
     public static final String STREAMABLES_SEARCH_LOCATION_ENDPOINT = STREAMABLES_SEARCH_ENDPOINT + "/location";
     public static final String STREAMABLES_SEARCH_HASHTAG_ENDPOINT = STREAMABLES_SEARCH_ENDPOINT + "/hashtag";
-    public static final String STREAMABLES_SEARCH_HASHTAGS_ENDPOINT = STREAMABLES_SEARCH_ENDPOINT + "/hashtags?query={hashtag}";
+    public static final String STREAMABLES_SEARCH_HASHTAGS_ENDPOINT = STREAMABLES_SEARCH_ENDPOINT + "/hashtags";
 
 
     // - Feedback

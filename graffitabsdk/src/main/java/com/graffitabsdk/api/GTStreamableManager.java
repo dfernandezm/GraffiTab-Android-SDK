@@ -6,6 +6,7 @@ import com.graffitabsdk.network.common.response.GTResponseHandler;
 import com.graffitabsdk.network.common.result.GTCommentDeletedResult;
 import com.graffitabsdk.network.service.streamable.response.GTCommentResponse;
 import com.graffitabsdk.network.service.streamable.response.GTListCommentsResponse;
+import com.graffitabsdk.network.service.streamable.response.GTListHashtagsResponse;
 import com.graffitabsdk.network.service.streamable.response.GTListStreamablesResponse;
 import com.graffitabsdk.network.service.streamable.response.GTStreamableResponse;
 import com.graffitabsdk.network.service.user.response.GTListUsersResponse;
@@ -73,6 +74,10 @@ public class GTStreamableManager {
 
     public GTRequestPerformed searchLocation(GTQueryParameters parameters, GTResponseHandler<GTListStreamablesResponse> responseHandler) {
         return gtStreamableTasks.searchLocation(false, parameters, responseHandler);
+    }
+
+    public GTRequestPerformed searchHashtags(GTQueryParameters parameters, GTResponseHandler<GTListHashtagsResponse> responseHandler) {
+        return gtStreamableTasks.searchHashtags(false, parameters, responseHandler);
     }
 
     public GTRequestPerformed makePrivate(int streamableId, GTResponseHandler<GTStreamableResponse> responseHandler) {

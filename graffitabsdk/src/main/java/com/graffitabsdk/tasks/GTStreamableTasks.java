@@ -11,6 +11,7 @@ import com.graffitabsdk.network.service.streamable.data.comment.CommentData;
 import com.graffitabsdk.network.service.streamable.data.comment.PostCommentData;
 import com.graffitabsdk.network.service.streamable.response.GTCommentResponse;
 import com.graffitabsdk.network.service.streamable.response.GTListCommentsResponse;
+import com.graffitabsdk.network.service.streamable.response.GTListHashtagsResponse;
 import com.graffitabsdk.network.service.streamable.response.GTListStreamablesResponse;
 import com.graffitabsdk.network.service.streamable.response.GTStreamableResponse;
 import com.graffitabsdk.network.service.user.response.GTListUsersResponse;
@@ -86,6 +87,10 @@ public class GTStreamableTasks extends GTNetworkTask {
 
     public GTRequestPerformed searchLocation(boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListStreamablesResponse> responseHandler) {
         return performJsonRequest(streamableService.searchLocation(parameters.getParameters()), GTListStreamablesResponse.class, responseHandler, useCache);
+    }
+
+    public GTRequestPerformed searchHashtags(boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListHashtagsResponse> responseHandler) {
+        return performJsonRequest(streamableService.searchHashtags(parameters.getParameters()), GTListHashtagsResponse.class, responseHandler, useCache);
     }
 
     public GTRequestPerformed makePrivate(int streamableId, boolean useCache, GTResponseHandler<GTStreamableResponse> responseHandler) {
