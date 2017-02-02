@@ -9,6 +9,7 @@ import com.graffitabsdk.network.service.location.response.GTListLocationsRespons
 import com.graffitabsdk.network.service.location.response.GTLocationResponse;
 import com.graffitabsdk.network.service.notification.response.GTListNotificationsResponse;
 import com.graffitabsdk.network.service.streamable.response.GTListStreamablesResponse;
+import com.graffitabsdk.network.service.user.response.GTUnseenNotificationsResponse;
 import com.graffitabsdk.network.service.user.response.GTUserResponse;
 import com.graffitabsdk.tasks.GTLocationTasks;
 import com.graffitabsdk.tasks.GTNotificationTasks;
@@ -62,6 +63,10 @@ public class GTMeManager {
 
     public GTRequestPerformed getNotifications(boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListNotificationsResponse> responseHandler) {
         return gtNotificationTasks.getNotifications(useCache, parameters, responseHandler);
+    }
+
+    public GTRequestPerformed getUnseenNotifications(GTResponseHandler<GTUnseenNotificationsResponse> responseHandler) {
+        return gtNotificationTasks.getUnseenNotifications(responseHandler);
     }
 
     public GTRequestPerformed getLocations(boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListLocationsResponse> responseHandler) {

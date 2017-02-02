@@ -7,6 +7,7 @@ import com.graffitabsdk.network.service.notification.NotificationService;
 import com.graffitabsdk.network.service.notification.response.GTListNotificationsResponse;
 import com.graffitabsdk.config.cache.GTCacheService;
 import com.graffitabsdk.network.call.GTNetworkTask;
+import com.graffitabsdk.network.service.user.response.GTUnseenNotificationsResponse;
 
 import javax.inject.Inject;
 
@@ -27,5 +28,9 @@ public class GTNotificationTasks extends GTNetworkTask {
 
     public GTRequestPerformed getNotifications(boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListNotificationsResponse> responseHandler) {
         return performJsonRequest(notificationService.getNotifications(parameters.getParameters()), GTListNotificationsResponse.class, responseHandler, useCache);
+    }
+
+    public GTRequestPerformed getUnseenNotifications(GTResponseHandler<GTUnseenNotificationsResponse> responseHandler) {
+        return performJsonRequest(notificationService.getUnseenNotifications(), GTUnseenNotificationsResponse.class, responseHandler);
     }
 }
