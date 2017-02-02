@@ -4,6 +4,7 @@ import com.graffitabsdk.network.common.GTRequestPerformed;
 import com.graffitabsdk.network.common.params.GTQueryParameters;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
 import com.graffitabsdk.network.common.result.GTCommentDeletedResult;
+import com.graffitabsdk.network.common.result.GTStreamableDeletedResult;
 import com.graffitabsdk.network.service.streamable.response.GTCommentResponse;
 import com.graffitabsdk.network.service.streamable.response.GTListCommentsResponse;
 import com.graffitabsdk.network.service.streamable.response.GTListHashtagsResponse;
@@ -90,5 +91,9 @@ public class GTStreamableManager {
 
     public GTRequestPerformed flag(int streamableId, GTResponseHandler<GTStreamableResponse> responseHandler) {
         return gtStreamableTasks.flag(streamableId, responseHandler);
+    }
+
+    public GTRequestPerformed delete(int streamableId, GTResponseHandler<GTStreamableDeletedResult> responseHandler) {
+        return gtStreamableTasks.delete(streamableId, responseHandler);
     }
 }

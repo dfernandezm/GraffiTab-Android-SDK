@@ -2,6 +2,7 @@ package com.graffitabsdk.network.service.streamable;
 
 import com.graffitabsdk.constants.GTApiConstants;
 import com.graffitabsdk.network.common.result.GTCommentDeletedResult;
+import com.graffitabsdk.network.common.result.GTStreamableDeletedResult;
 import com.graffitabsdk.network.service.streamable.data.comment.PostCommentData;
 import com.graffitabsdk.network.service.streamable.response.GTCommentResponse;
 import com.graffitabsdk.network.service.streamable.response.GTListCommentsResponse;
@@ -96,4 +97,8 @@ public interface StreamableService {
     @Headers("Content-Type: application/json")
     @PUT(GTApiConstants.STREAMABLE_FLAG_ENDPOINT)
     Call<GTStreamableResponse> flag(@Path("streamableId") int streamableId);
+
+    @Headers("Content-Type: application/json")
+    @DELETE(GTApiConstants.MY_STREAMABLE_ENDPOINT)
+    Call<GTStreamableDeletedResult> delete(@Path("streamableId") int streamableId);
 }

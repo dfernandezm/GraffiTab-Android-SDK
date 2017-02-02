@@ -6,6 +6,7 @@ import com.graffitabsdk.network.common.GTRequestPerformed;
 import com.graffitabsdk.network.common.params.GTQueryParameters;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
 import com.graffitabsdk.network.common.result.GTCommentDeletedResult;
+import com.graffitabsdk.network.common.result.GTStreamableDeletedResult;
 import com.graffitabsdk.network.service.streamable.StreamableService;
 import com.graffitabsdk.network.service.streamable.data.comment.CommentData;
 import com.graffitabsdk.network.service.streamable.data.comment.PostCommentData;
@@ -103,5 +104,9 @@ public class GTStreamableTasks extends GTNetworkTask {
 
     public GTRequestPerformed flag(int streamableId, GTResponseHandler<GTStreamableResponse> responseHandler) {
         return performJsonRequest(streamableService.flag(streamableId), GTStreamableResponse.class, responseHandler);
+    }
+
+    public GTRequestPerformed delete(int streamableId, GTResponseHandler<GTStreamableDeletedResult> responseHandler) {
+        return performJsonRequest(streamableService.delete(streamableId), GTStreamableDeletedResult.class, responseHandler);
     }
 }
