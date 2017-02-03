@@ -3,6 +3,7 @@ package com.graffitabsdk.api;
 import com.graffitabsdk.network.common.GTRequestPerformed;
 import com.graffitabsdk.network.common.params.GTQueryParameters;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
+import com.graffitabsdk.network.common.result.GTDeviceLinkResult;
 import com.graffitabsdk.network.common.result.GTEditPasswordResult;
 import com.graffitabsdk.network.common.result.GTLocationDeletedResult;
 import com.graffitabsdk.network.service.location.response.GTListLocationsResponse;
@@ -11,6 +12,7 @@ import com.graffitabsdk.network.service.notification.response.GTListNotification
 import com.graffitabsdk.network.service.streamable.response.GTListStreamablesResponse;
 import com.graffitabsdk.network.service.user.response.GTUnseenNotificationsResponse;
 import com.graffitabsdk.network.service.user.response.GTUserResponse;
+import com.graffitabsdk.tasks.GTDeviceTasks;
 import com.graffitabsdk.tasks.GTLocationTasks;
 import com.graffitabsdk.tasks.GTNotificationTasks;
 import com.graffitabsdk.tasks.GTStreamableTasks;
@@ -29,16 +31,18 @@ public class GTMeManager {
     private GTUserTasks gtUserTasks;
     private GTStreamableTasks gtStreamableTasks;
     private GTNotificationTasks gtNotificationTasks;
+    private GTDeviceTasks gtDeviceTasks;
     private GTLocationTasks gtLocationTasks;
     private GTEditUserTasks gtEditUserTasks;
 
     @Inject
-    public GTMeManager(GTUserTasks userTasks, GTStreamableTasks gtStreamableTasks, GTNotificationTasks gtNotificationTasks, GTLocationTasks gtLocationTasks, GTEditUserTasks gtEditUserTasks) {
+    public GTMeManager(GTUserTasks userTasks, GTStreamableTasks gtStreamableTasks, GTNotificationTasks gtNotificationTasks, GTLocationTasks gtLocationTasks, GTEditUserTasks gtEditUserTasks, GTDeviceTasks gtDeviceTasks) {
         this.gtUserTasks = userTasks;
         this.gtStreamableTasks = gtStreamableTasks;
         this.gtNotificationTasks = gtNotificationTasks;
         this.gtLocationTasks = gtLocationTasks;
         this.gtEditUserTasks = gtEditUserTasks;
+        this.gtDeviceTasks = gtDeviceTasks;
     }
 
     public GTRequestPerformed getMe(boolean useCache, GTResponseHandler<GTUserResponse> responseHandler) {
@@ -87,5 +91,13 @@ public class GTMeManager {
 
     public GTRequestPerformed getPrivatePosts(boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListStreamablesResponse> responseHandler) {
         return gtUserTasks.getPrivatePosts(useCache, parameters, responseHandler);
+    }
+
+    public GTRequestPerformed linkDevice(String token, GTResponseHandler<GTDeviceLinkResult> responseHandler) {
+        return gtDeviceTasks.linkDevice(token, responseHandler);
+    }
+
+    public GTRequestPerformed unlinkDevice(String token, GTResponseHandler<GTDeviceLinkResult> responseHandler) {
+        return gtDeviceTasks.unlinkDevice(token, responseHandler);
     }
 }
