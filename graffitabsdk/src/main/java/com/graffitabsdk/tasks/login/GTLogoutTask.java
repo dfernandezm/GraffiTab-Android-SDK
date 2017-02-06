@@ -6,7 +6,7 @@ import com.graffitabsdk.network.common.GTRequestPerformed;
 import com.graffitabsdk.network.common.response.GTResponse;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
 import com.graffitabsdk.network.service.user.UserService;
-import com.graffitabsdk.config.cache.GTCacheService;
+import com.graffitabsdk.sdk.cache.GTCacheService;
 import com.graffitabsdk.network.call.GTNetworkTask;
 
 import javax.inject.Inject;

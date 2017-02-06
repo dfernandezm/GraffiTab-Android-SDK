@@ -1,4 +1,4 @@
-package com.graffitabsdk.config.cache;
+package com.graffitabsdk.sdk.cache;
 
 import android.app.Application;
 import android.content.Context;

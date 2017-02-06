@@ -1,4 +1,4 @@
-package com.graffitabsdk.config.cache;
+package com.graffitabsdk.sdk.cache;
 
 import com.graffitabsdk.network.common.response.GTResponse;
 import com.graffitabsdk.network.common.GTResultCode;

@@ -1,4 +1,4 @@
-package com.graffitabsdk.config;
+package com.graffitabsdk.sdk;
 
 import android.app.Application;
 import android.support.annotation.Nullable;

@@ -1,4 +1,4 @@
-package com.graffitabsdk.config;
+package com.graffitabsdk.sdk;
 
 import android.app.Application;
 import android.support.annotation.Nullable;
@@ -10,8 +10,8 @@ import com.google.gson.GsonBuilder;
 import com.graffitabsdk.constants.GTApiConstants;
 import com.graffitabsdk.log.GTLog;
 import com.graffitabsdk.network.common.GTSharedPrefsCookiePersistor;
-import com.graffitabsdk.config.cache.GTCache;
-import com.graffitabsdk.config.cache.GTSharedPrefsCache;
+import com.graffitabsdk.sdk.cache.GTCache;
+import com.graffitabsdk.sdk.cache.GTSharedPrefsCache;
 
 import java.util.ArrayList;
 import java.util.HashMap;

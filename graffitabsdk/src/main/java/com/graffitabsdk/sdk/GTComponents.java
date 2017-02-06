@@ -1,4 +1,4 @@
-package com.graffitabsdk.config;
+package com.graffitabsdk.sdk;
 
 import android.app.Activity;
 import android.app.Application;
@@ -8,7 +8,7 @@ import com.graffitabsdk.api.GTAccountManager;
 import com.graffitabsdk.api.GTMeManager;
 import com.graffitabsdk.api.GTStreamableManager;
 import com.graffitabsdk.api.GTUserManager;
-import com.graffitabsdk.config.cache.GTCacheService;
+import com.graffitabsdk.sdk.cache.GTCacheService;
 
 import javax.inject.Singleton;
 

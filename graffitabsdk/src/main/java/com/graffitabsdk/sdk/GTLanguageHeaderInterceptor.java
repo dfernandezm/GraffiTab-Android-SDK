@@ -1,4 +1,4 @@
-package com.graffitabsdk.config;
+package com.graffitabsdk.sdk;
 
 import java.io.IOException;
 

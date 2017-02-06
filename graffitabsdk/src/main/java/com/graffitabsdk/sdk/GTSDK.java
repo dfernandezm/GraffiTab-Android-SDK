@@ -1,4 +1,4 @@
-package com.graffitabsdk.config;
+package com.graffitabsdk.sdk;
 
 import android.app.Activity;
 import android.app.Application;
@@ -8,6 +8,7 @@ import com.graffitabsdk.api.GTMeManager;
 import com.graffitabsdk.api.GTStreamableManager;
 import com.graffitabsdk.api.GTUserManager;
 import com.graffitabsdk.log.GTLog;
+import com.squareup.otto.Bus;
 
 import java.lang.ref.WeakReference;
 
@@ -21,9 +22,11 @@ public class GTSDK {
     private GTComponents gtComponent;
     private static GTSDK instance;
     private WeakReference<Application> application;
+    private Bus eventBus;
 
     private GTSDK(Application app, GTConfig config) {
         this.application = new WeakReference<>(app);
+        this.eventBus = new Bus();
 
         if (config == null) {
             this.config = GTConfig.defaultConfig();
@@ -31,6 +34,18 @@ public class GTSDK {
             this.config = config;
         }
         setupComponents(app);
+    }
+
+    public static void registerEventListener(Object listener) {
+        get().eventBus.register(listener);
+    }
+
+    public static void unregisterEventListener(Object listener) {
+        get().eventBus.unregister(listener);
+    }
+
+    public static void postEvent(Object event) {
+        get().eventBus.post(event);
     }
 
     public static Application getApplication() {

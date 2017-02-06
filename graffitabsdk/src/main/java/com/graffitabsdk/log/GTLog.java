@@ -2,8 +2,8 @@ package com.graffitabsdk.log;
 
 import android.util.Log;
 
-import com.graffitabsdk.config.GTConfig;
-import com.graffitabsdk.config.GTSDK;
+import com.graffitabsdk.sdk.GTConfig;
+import com.graffitabsdk.sdk.GTSDK;
 
 /**
  * Created by georgichristov on 04/07/16.

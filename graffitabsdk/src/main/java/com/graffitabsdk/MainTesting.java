@@ -1,7 +1,7 @@
 package com.graffitabsdk;
 
-import com.graffitabsdk.config.GTConfig;
-import com.graffitabsdk.config.GTSDK;
+import com.graffitabsdk.sdk.GTConfig;
+import com.graffitabsdk.sdk.GTSDK;
 import com.graffitabsdk.model.GTUser;
 import com.graffitabsdk.network.common.response.GTResponse;
 import com.graffitabsdk.network.common.response.GTResponseHandler;

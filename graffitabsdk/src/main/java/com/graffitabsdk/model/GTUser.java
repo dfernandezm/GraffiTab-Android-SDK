@@ -1,6 +1,6 @@
 package com.graffitabsdk.model;
 
-import com.graffitabsdk.config.GTSDK;
+import com.graffitabsdk.sdk.GTSDK;
 
 import java.io.Serializable;
 import java.util.Date;

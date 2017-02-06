@@ -1,6 +1,6 @@
 package com.graffitabsdk.tasks;
 
-import com.graffitabsdk.config.cache.GTCacheService;
+import com.graffitabsdk.sdk.cache.GTCacheService;
 import com.graffitabsdk.network.call.GTNetworkTask;
 import com.graffitabsdk.network.common.GTRequestPerformed;
 import com.graffitabsdk.network.common.response.GTResponseHandler;

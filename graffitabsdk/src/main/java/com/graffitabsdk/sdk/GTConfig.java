@@ -1,4 +1,4 @@
-package com.graffitabsdk.config;
+package com.graffitabsdk.sdk;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

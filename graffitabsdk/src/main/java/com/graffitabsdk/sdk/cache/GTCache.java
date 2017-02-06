@@ -1,4 +1,4 @@
-package com.graffitabsdk.config.cache;
+package com.graffitabsdk.sdk.cache;
 
 /**
  * Created by david on 16/12/2016.

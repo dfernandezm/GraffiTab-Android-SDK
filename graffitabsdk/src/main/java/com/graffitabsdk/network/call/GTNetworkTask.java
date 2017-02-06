@@ -3,7 +3,7 @@ package com.graffitabsdk.network.call;
 import com.graffitabsdk.network.common.GTRequestPerformed;
 import com.graffitabsdk.network.common.response.GTResponse;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
-import com.graffitabsdk.config.cache.GTCacheService;
+import com.graffitabsdk.sdk.cache.GTCacheService;
 
 import retrofit2.Call;
 

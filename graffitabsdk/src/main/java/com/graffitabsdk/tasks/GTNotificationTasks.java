@@ -5,7 +5,7 @@ import com.graffitabsdk.network.common.params.GTQueryParameters;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
 import com.graffitabsdk.network.service.notification.NotificationService;
 import com.graffitabsdk.network.service.notification.response.GTListNotificationsResponse;
-import com.graffitabsdk.config.cache.GTCacheService;
+import com.graffitabsdk.sdk.cache.GTCacheService;
 import com.graffitabsdk.network.call.GTNetworkTask;
 import com.graffitabsdk.network.service.user.response.GTUnseenNotificationsResponse;
 
