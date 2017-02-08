@@ -85,6 +85,24 @@ public class GTUser implements Serializable {
         return String.format("%dK", count / 1000);
     }
 
+    public void addToFollowersCount() {
+        followersCount++;
+    }
+
+    public void removeFromFollowersCount() {
+        followersCount--;
+        if (followersCount < 0) followersCount = 0;
+    }
+
+    public void addToFollowingCount() {
+        followingCount++;
+    }
+
+    public void removeFromFollowingCount() {
+        followingCount--;
+        if (followingCount < 0) followingCount = 0;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

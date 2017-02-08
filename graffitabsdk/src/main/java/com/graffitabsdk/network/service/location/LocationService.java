@@ -1,8 +1,7 @@
 package com.graffitabsdk.network.service.location;
 
 import com.graffitabsdk.constants.GTApiConstants;
-import com.graffitabsdk.network.common.result.GTLocationDeletedResult;
-import com.graffitabsdk.network.service.location.data.edit.EditLocationData;
+import com.graffitabsdk.network.common.result.GTActionCompleteResult;
 import com.graffitabsdk.network.service.location.response.GTListLocationsResponse;
 import com.graffitabsdk.network.service.location.response.GTLocationResponse;
 
@@ -39,5 +38,5 @@ public interface LocationService {
 
     @Headers("Content-Type: application/json")
     @DELETE(GTApiConstants.MY_LOCATION_ENDPOINT)
-    Call<GTLocationDeletedResult> deleteLocation(@Path("locationId") int locationId);
+    Call<GTActionCompleteResult> deleteLocation(@Path("locationId") int locationId);
 }

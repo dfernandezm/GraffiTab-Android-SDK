@@ -3,14 +3,14 @@ package com.graffitabsdk.api;
 import com.graffitabsdk.network.common.GTRequestPerformed;
 import com.graffitabsdk.network.common.params.GTQueryParameters;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
-import com.graffitabsdk.network.common.result.GTPasswordResetCompleteResult;
-import com.graffitabsdk.network.common.result.GTRegistrationCompleteResult;
+import com.graffitabsdk.network.common.result.GTActionCompleteResult;
 import com.graffitabsdk.network.service.streamable.response.GTListStreamablesResponse;
 import com.graffitabsdk.network.service.user.response.GTListUsersResponse;
 import com.graffitabsdk.network.service.user.response.GTUserResponse;
-import com.graffitabsdk.tasks.GTUserTasks;
-import com.graffitabsdk.tasks.login.GTLoginTasks;
-import com.graffitabsdk.tasks.login.GTLogoutTask;
+import com.graffitabsdk.network.service.user.GTUserProfileTasks;
+import com.graffitabsdk.network.service.user.GTUserTasks;
+import com.graffitabsdk.network.service.user.GTLoginTasks;
+import com.graffitabsdk.network.service.user.GTLogoutTask;
 
 import javax.inject.Inject;
 
@@ -23,12 +23,14 @@ public class GTUserManager {
     private GTLoginTasks gtLoginTasks;
     private GTUserTasks gtUserTasks;
     private GTLogoutTask gtLogoutTask;
+    private GTUserProfileTasks gtUserProfileTasks;
 
     @Inject
-    public GTUserManager(GTUserTasks userTasks, GTLoginTasks loginTasks, GTLogoutTask gtLogoutTask) {
+    public GTUserManager(GTUserTasks userTasks, GTLoginTasks loginTasks, GTLogoutTask gtLogoutTask, GTUserProfileTasks gtUserProfileTasks) {
         this.gtUserTasks = userTasks;
         this.gtLoginTasks = loginTasks;
         this.gtLogoutTask = gtLogoutTask;
+        this.gtUserProfileTasks = gtUserProfileTasks;
     }
 
     public GTRequestPerformed login(String username, String password, GTResponseHandler<GTUserResponse> responseHandler) {
@@ -39,11 +41,11 @@ public class GTUserManager {
         return gtLogoutTask.logout(responseHandler);
     }
 
-    public GTRequestPerformed resetPassword(String email, GTResponseHandler<GTPasswordResetCompleteResult> responseHandler) {
+    public GTRequestPerformed resetPassword(String email, GTResponseHandler<GTActionCompleteResult> responseHandler) {
         return gtUserTasks.resetPassword(email, responseHandler);
     }
 
-    public GTRequestPerformed register(String firstName, String lastName, String email, String username, String password, GTResponseHandler<GTRegistrationCompleteResult> responseHandler) {
+    public GTRequestPerformed register(String firstName, String lastName, String email, String username, String password, GTResponseHandler<GTActionCompleteResult> responseHandler) {
         return gtUserTasks.register(firstName, lastName, email, username, password, responseHandler);
     }
 
@@ -72,11 +74,11 @@ public class GTUserManager {
     }
 
     public GTRequestPerformed getUserProfile(int userId, boolean useCache, GTResponseHandler<GTUserResponse> responseHandler) {
-        return gtUserTasks.getUserProfile(userId, useCache, responseHandler);
+        return gtUserProfileTasks.getUserProfile(userId, useCache, responseHandler);
     }
 
     public GTRequestPerformed getFullUserProfile(int userId, boolean useCache, GTResponseHandler<GTUserResponse> responseHandler) {
-        return gtUserTasks.getFullUserProfile(userId, useCache, responseHandler);
+        return gtUserProfileTasks.getFullUserProfile(userId, useCache, responseHandler);
     }
 
     public GTRequestPerformed follow(int userId, GTResponseHandler<GTUserResponse> responseHandler) {

@@ -20,7 +20,7 @@ import dagger.Component;
  * Copyright © GraffiTab Inc. 2016
  */
 @Singleton
-@Component(modules = {LocationModule.class, UserModule.class, StreamableModule.class, NotificationModule.class, DeviceModule.class, NetworkModule.class, AppModule.class})
+@Component(modules = {ModuleLocation.class, ModuleUser.class, ModuleStreamable.class, ModuleNotification.class, ModuleDevice.class, ModuleNetwork.class, ModuleApp.class})
 interface GTComponents {
     void inject(MainTesting mainTesting);
     void inject(Activity activity);
@@ -34,8 +34,8 @@ interface GTComponents {
         private Initializer() {}
         public static GTComponents init(Application app, GTConfig gtConfig) {
             return DaggerGTComponents.builder()
-                    .appModule(new AppModule(app))
-                    .networkModule(new NetworkModule(gtConfig))
+                    .moduleApp(new ModuleApp(app))
+                    .moduleNetwork(new ModuleNetwork(gtConfig))
                     .build();
         }
     }

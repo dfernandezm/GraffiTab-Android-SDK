@@ -1,7 +1,7 @@
 package com.graffitabsdk.api;
 
 import com.graffitabsdk.model.GTUser;
-import com.graffitabsdk.tasks.login.LoggedInUserPersistor;
+import com.graffitabsdk.network.service.user.persist.LoggedInUserPersistor;
 
 import javax.inject.Inject;
 

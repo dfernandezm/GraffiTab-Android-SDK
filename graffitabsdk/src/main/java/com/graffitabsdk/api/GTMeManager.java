@@ -3,21 +3,19 @@ package com.graffitabsdk.api;
 import com.graffitabsdk.network.common.GTRequestPerformed;
 import com.graffitabsdk.network.common.params.GTQueryParameters;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
-import com.graffitabsdk.network.common.result.GTDeviceLinkResult;
-import com.graffitabsdk.network.common.result.GTEditPasswordResult;
-import com.graffitabsdk.network.common.result.GTLocationDeletedResult;
+import com.graffitabsdk.network.common.result.GTActionCompleteResult;
 import com.graffitabsdk.network.service.location.response.GTListLocationsResponse;
 import com.graffitabsdk.network.service.location.response.GTLocationResponse;
 import com.graffitabsdk.network.service.notification.response.GTListNotificationsResponse;
 import com.graffitabsdk.network.service.streamable.response.GTListStreamablesResponse;
 import com.graffitabsdk.network.service.user.response.GTUnseenNotificationsResponse;
 import com.graffitabsdk.network.service.user.response.GTUserResponse;
-import com.graffitabsdk.tasks.GTDeviceTasks;
-import com.graffitabsdk.tasks.GTLocationTasks;
-import com.graffitabsdk.tasks.GTNotificationTasks;
-import com.graffitabsdk.tasks.GTStreamableTasks;
-import com.graffitabsdk.tasks.GTUserTasks;
-import com.graffitabsdk.tasks.edit.GTEditUserTasks;
+import com.graffitabsdk.network.service.device.GTDeviceTasks;
+import com.graffitabsdk.network.service.location.GTLocationTasks;
+import com.graffitabsdk.network.service.notification.GTNotificationTasks;
+import com.graffitabsdk.network.service.streamable.GTStreamableTasks;
+import com.graffitabsdk.network.service.user.GTUserProfileTasks;
+import com.graffitabsdk.network.service.user.GTUserTasks;
 
 import javax.inject.Inject;
 
@@ -33,31 +31,31 @@ public class GTMeManager {
     private GTNotificationTasks gtNotificationTasks;
     private GTDeviceTasks gtDeviceTasks;
     private GTLocationTasks gtLocationTasks;
-    private GTEditUserTasks gtEditUserTasks;
+    private GTUserProfileTasks gtUserProfileTasks;
 
     @Inject
-    public GTMeManager(GTUserTasks userTasks, GTStreamableTasks gtStreamableTasks, GTNotificationTasks gtNotificationTasks, GTLocationTasks gtLocationTasks, GTEditUserTasks gtEditUserTasks, GTDeviceTasks gtDeviceTasks) {
+    public GTMeManager(GTUserTasks userTasks, GTStreamableTasks gtStreamableTasks, GTNotificationTasks gtNotificationTasks, GTLocationTasks gtLocationTasks, GTUserProfileTasks gtUserProfileTasks, GTDeviceTasks gtDeviceTasks) {
         this.gtUserTasks = userTasks;
         this.gtStreamableTasks = gtStreamableTasks;
         this.gtNotificationTasks = gtNotificationTasks;
         this.gtLocationTasks = gtLocationTasks;
-        this.gtEditUserTasks = gtEditUserTasks;
+        this.gtUserProfileTasks = gtUserProfileTasks;
         this.gtDeviceTasks = gtDeviceTasks;
     }
 
     public GTRequestPerformed getMe(boolean useCache, GTResponseHandler<GTUserResponse> responseHandler) {
-        return gtUserTasks.getMe(useCache, responseHandler);
+        return gtUserProfileTasks.getMe(useCache, responseHandler);
     }
 
     public GTRequestPerformed getMyFullProfile(boolean useCache, GTResponseHandler<GTUserResponse> responseHandler) {
-        return gtUserTasks.getMyFullProfile(useCache, responseHandler);
+        return gtUserProfileTasks.getMyFullProfile(useCache, responseHandler);
     }
 
     public GTRequestPerformed edit(String firstName, String lastName, String email, String about, String website, GTResponseHandler<GTUserResponse> responseHandler) {
-        return gtEditUserTasks.edit(firstName, lastName, email, about, website, responseHandler);
+        return gtUserProfileTasks.edit(firstName, lastName, email, about, website, responseHandler);
     }
 
-    public GTRequestPerformed editPassword(String currentPassword, String newPassword, GTResponseHandler<GTEditPasswordResult> responseHandler) {
+    public GTRequestPerformed editPassword(String currentPassword, String newPassword, GTResponseHandler<GTActionCompleteResult> responseHandler) {
         return gtUserTasks.editPassword(currentPassword, newPassword, responseHandler);
     }
 
@@ -85,7 +83,7 @@ public class GTMeManager {
         return gtLocationTasks.editLocation(locationId, address, latitude, longitude, responseHandler);
     }
 
-    public GTRequestPerformed deleteLocation(int locationId, GTResponseHandler<GTLocationDeletedResult> responseHandler) {
+    public GTRequestPerformed deleteLocation(int locationId, GTResponseHandler<GTActionCompleteResult> responseHandler) {
         return gtLocationTasks.deleteLocation(locationId, responseHandler);
     }
 
@@ -93,11 +91,11 @@ public class GTMeManager {
         return gtUserTasks.getPrivatePosts(useCache, parameters, responseHandler);
     }
 
-    public GTRequestPerformed linkDevice(String token, GTResponseHandler<GTDeviceLinkResult> responseHandler) {
+    public GTRequestPerformed linkDevice(String token, GTResponseHandler<GTActionCompleteResult> responseHandler) {
         return gtDeviceTasks.linkDevice(token, responseHandler);
     }
 
-    public GTRequestPerformed unlinkDevice(String token, GTResponseHandler<GTDeviceLinkResult> responseHandler) {
+    public GTRequestPerformed unlinkDevice(String token, GTResponseHandler<GTActionCompleteResult> responseHandler) {
         return gtDeviceTasks.unlinkDevice(token, responseHandler);
     }
 }

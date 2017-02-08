@@ -1,15 +1,8 @@
 package com.graffitabsdk.network.service.user;
 
 import com.graffitabsdk.constants.GTApiConstants;
-import com.graffitabsdk.network.common.result.GTEditPasswordResult;
-import com.graffitabsdk.network.common.result.GTPasswordResetCompleteResult;
-import com.graffitabsdk.network.common.result.GTRegistrationCompleteResult;
+import com.graffitabsdk.network.common.result.GTActionCompleteResult;
 import com.graffitabsdk.network.service.streamable.response.GTListStreamablesResponse;
-import com.graffitabsdk.network.service.user.data.LoginData;
-import com.graffitabsdk.network.service.user.data.ResetPasswordData;
-import com.graffitabsdk.network.service.user.data.edit.EditPasswordData;
-import com.graffitabsdk.network.service.user.data.edit.EditProfileData;
-import com.graffitabsdk.network.service.user.data.register.RegisterData;
 import com.graffitabsdk.network.service.user.response.GTListUsersResponse;
 import com.graffitabsdk.network.service.user.response.GTUserResponse;
 
@@ -39,11 +32,11 @@ public interface UserService {
 
     @Headers("Content-Type: application/json")
     @POST(GTApiConstants.USER_RESET_PASSWORD)
-    Call<GTPasswordResetCompleteResult> resetPassword(@Body ResetPasswordData resetPasswordData);
+    Call<GTActionCompleteResult> resetPassword(@Body ResetPasswordData resetPasswordData);
 
     @Headers("Content-Type: application/json")
     @POST(GTApiConstants.USERS_ENDPOINT)
-    Call<GTRegistrationCompleteResult> register(@Body RegisterData registerData);
+    Call<GTActionCompleteResult> register(@Body RegisterData registerData);
 
     @Headers("Content-Type: application/json")
     @GET(GTApiConstants.ME_ENDPOINT)
@@ -67,7 +60,7 @@ public interface UserService {
 
     @Headers("Content-Type: application/json")
     @PUT(GTApiConstants.ME_CHANGE_PASSWORD_ENDPOINT)
-    Call<GTEditPasswordResult> editPassword(@Body EditPasswordData passwordData);
+    Call<GTActionCompleteResult> editPassword(@Body EditPasswordData passwordData);
 
     @Headers("Content-Type: application/json")
     @GET(GTApiConstants.USERS_MOST_ACTIVE_ENDPOINT)

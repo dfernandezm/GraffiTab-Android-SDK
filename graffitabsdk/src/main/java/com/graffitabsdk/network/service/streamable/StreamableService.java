@@ -1,9 +1,7 @@
 package com.graffitabsdk.network.service.streamable;
 
 import com.graffitabsdk.constants.GTApiConstants;
-import com.graffitabsdk.network.common.result.GTCommentDeletedResult;
-import com.graffitabsdk.network.common.result.GTStreamableDeletedResult;
-import com.graffitabsdk.network.service.streamable.data.comment.PostCommentData;
+import com.graffitabsdk.network.common.result.GTActionCompleteResult;
 import com.graffitabsdk.network.service.streamable.response.GTCommentResponse;
 import com.graffitabsdk.network.service.streamable.response.GTListCommentsResponse;
 import com.graffitabsdk.network.service.streamable.response.GTListHashtagsResponse;
@@ -68,7 +66,7 @@ public interface StreamableService {
 
     @Headers("Content-Type: application/json")
     @DELETE(GTApiConstants.STREAMABLE_COMMENT_ENDPOINT)
-    Call<GTCommentDeletedResult> deleteComment(@Path("streamableId") int streamableId, @Path("commentId") int commentId);
+    Call<GTActionCompleteResult> deleteComment(@Path("streamableId") int streamableId, @Path("commentId") int commentId);
 
     @Headers("Content-Type: application/json")
     @PUT(GTApiConstants.STREAMABLE_COMMENT_ENDPOINT)
@@ -100,5 +98,5 @@ public interface StreamableService {
 
     @Headers("Content-Type: application/json")
     @DELETE(GTApiConstants.MY_STREAMABLE_ENDPOINT)
-    Call<GTStreamableDeletedResult> delete(@Path("streamableId") int streamableId);
+    Call<GTActionCompleteResult> delete(@Path("streamableId") int streamableId);
 }

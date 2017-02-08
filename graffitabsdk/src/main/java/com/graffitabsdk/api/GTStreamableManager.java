@@ -3,15 +3,14 @@ package com.graffitabsdk.api;
 import com.graffitabsdk.network.common.GTRequestPerformed;
 import com.graffitabsdk.network.common.params.GTQueryParameters;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
-import com.graffitabsdk.network.common.result.GTCommentDeletedResult;
-import com.graffitabsdk.network.common.result.GTStreamableDeletedResult;
+import com.graffitabsdk.network.common.result.GTActionCompleteResult;
 import com.graffitabsdk.network.service.streamable.response.GTCommentResponse;
 import com.graffitabsdk.network.service.streamable.response.GTListCommentsResponse;
 import com.graffitabsdk.network.service.streamable.response.GTListHashtagsResponse;
 import com.graffitabsdk.network.service.streamable.response.GTListStreamablesResponse;
 import com.graffitabsdk.network.service.streamable.response.GTStreamableResponse;
 import com.graffitabsdk.network.service.user.response.GTListUsersResponse;
-import com.graffitabsdk.tasks.GTStreamableTasks;
+import com.graffitabsdk.network.service.streamable.GTStreamableTasks;
 
 import javax.inject.Inject;
 
@@ -65,7 +64,7 @@ public class GTStreamableManager {
         return gtStreamableTasks.editComment(streamableId, commentId, text, responseHandler);
     }
 
-    public GTRequestPerformed deleteComment(int streamableId, int commentId, GTResponseHandler<GTCommentDeletedResult> responseHandler) {
+    public GTRequestPerformed deleteComment(int streamableId, int commentId, GTResponseHandler<GTActionCompleteResult> responseHandler) {
         return gtStreamableTasks.deleteComment(streamableId, commentId, responseHandler);
     }
 
@@ -93,7 +92,7 @@ public class GTStreamableManager {
         return gtStreamableTasks.flag(streamableId, responseHandler);
     }
 
-    public GTRequestPerformed delete(int streamableId, GTResponseHandler<GTStreamableDeletedResult> responseHandler) {
+    public GTRequestPerformed delete(int streamableId, GTResponseHandler<GTActionCompleteResult> responseHandler) {
         return gtStreamableTasks.delete(streamableId, responseHandler);
     }
 }

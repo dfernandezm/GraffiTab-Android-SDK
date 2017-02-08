@@ -1,8 +1,7 @@
 package com.graffitabsdk.network.service.device;
 
 import com.graffitabsdk.constants.GTApiConstants;
-import com.graffitabsdk.network.common.result.GTDeviceLinkResult;
-import com.graffitabsdk.network.service.device.data.LinkDeviceData;
+import com.graffitabsdk.network.common.result.GTActionCompleteResult;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -19,9 +18,9 @@ public interface DeviceService {
 
     @Headers("Content-Type: application/json")
     @POST(GTApiConstants.MY_DEVICES_ENDPOINT)
-    Call<GTDeviceLinkResult> linkDevice(@Body LinkDeviceData linkDeviceData);
+    Call<GTActionCompleteResult> linkDevice(@Body LinkDeviceData linkDeviceData);
 
     @Headers("Content-Type: application/json")
     @HTTP(method = "DELETE", path = GTApiConstants.MY_DEVICES_ENDPOINT, hasBody = true)
-    Call<GTDeviceLinkResult> unlinkDevice(@Body LinkDeviceData linkDeviceData);
+    Call<GTActionCompleteResult> unlinkDevice(@Body LinkDeviceData linkDeviceData);
 }
