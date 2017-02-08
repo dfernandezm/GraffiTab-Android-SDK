@@ -3,6 +3,7 @@ package com.graffitabsdk.network.service.streamable;
 import com.graffitabsdk.network.call.GTNetworkTask;
 import com.graffitabsdk.network.common.GTRequestPerformed;
 import com.graffitabsdk.network.common.params.GTQueryParameters;
+import com.graffitabsdk.network.common.response.GTResponse;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
 import com.graffitabsdk.network.common.result.GTActionCompleteResult;
 import com.graffitabsdk.network.service.streamable.response.GTCommentResponse;
@@ -11,7 +12,12 @@ import com.graffitabsdk.network.service.streamable.response.GTListHashtagsRespon
 import com.graffitabsdk.network.service.streamable.response.GTListStreamablesResponse;
 import com.graffitabsdk.network.service.streamable.response.GTStreamableResponse;
 import com.graffitabsdk.network.service.user.response.GTListUsersResponse;
+import com.graffitabsdk.sdk.GTSDK;
 import com.graffitabsdk.sdk.cache.GTCacheService;
+import com.graffitabsdk.sdk.events.comments.GTCommentDeletedEvent;
+import com.graffitabsdk.sdk.events.comments.GTCommentPostedEvent;
+import com.graffitabsdk.sdk.events.streamables.GTStreamableLikedEvent;
+import com.graffitabsdk.sdk.events.streamables.GTStreamableUnlikedEvent;
 
 import javax.inject.Inject;
 
@@ -50,22 +56,58 @@ public class GTStreamableTasks extends GTNetworkTask {
         return performJsonRequest(streamableService.getLikers(streamableId, parameters.getParameters()), GTListUsersResponse.class, responseHandler, useCache);
     }
 
-    public GTRequestPerformed like(int streamableId, GTResponseHandler<GTStreamableResponse> responseHandler) {
-        return performJsonRequest(streamableService.like(streamableId), GTStreamableResponse.class, responseHandler);
+    public GTRequestPerformed like(int streamableId, final GTResponseHandler<GTStreamableResponse> responseHandler) {
+        return performJsonRequest(streamableService.like(streamableId), GTStreamableResponse.class, new GTResponseHandler<GTStreamableResponse>() {
+
+            @Override
+            public void onSuccess(GTResponse<GTStreamableResponse> gtResponse) {
+                GTSDK.postEvent(new GTStreamableLikedEvent(gtResponse.getObject().streamable));
+                responseHandler.onSuccess(gtResponse);
+            }
+
+            @Override
+            public void onFailure(GTResponse<GTStreamableResponse> gtResponse) {
+                responseHandler.onFailure(gtResponse);
+            }
+        });
     }
 
-    public GTRequestPerformed unlike(int streamableId, GTResponseHandler<GTStreamableResponse> responseHandler) {
-        return performJsonRequest(streamableService.unlike(streamableId), GTStreamableResponse.class, responseHandler);
+    public GTRequestPerformed unlike(int streamableId, final GTResponseHandler<GTStreamableResponse> responseHandler) {
+        return performJsonRequest(streamableService.unlike(streamableId), GTStreamableResponse.class, new GTResponseHandler<GTStreamableResponse>() {
+
+            @Override
+            public void onSuccess(GTResponse<GTStreamableResponse> gtResponse) {
+                GTSDK.postEvent(new GTStreamableUnlikedEvent(gtResponse.getObject().streamable));
+                responseHandler.onSuccess(gtResponse);
+            }
+
+            @Override
+            public void onFailure(GTResponse<GTStreamableResponse> gtResponse) {
+                responseHandler.onFailure(gtResponse);
+            }
+        });
     }
 
     public GTRequestPerformed getComments(int streamableId, boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListCommentsResponse> responseHandler) {
         return performJsonRequest(streamableService.getComments(streamableId, parameters.getParameters()), GTListCommentsResponse.class, responseHandler, useCache);
     }
 
-    public GTRequestPerformed postComment(int streamableId, String text, GTResponseHandler<GTCommentResponse> responseHandler) {
+    public GTRequestPerformed postComment(int streamableId, String text, final GTResponseHandler<GTCommentResponse> responseHandler) {
         CommentData commentData = new CommentData(text);
         PostCommentData postCommentData = new PostCommentData(commentData);
-        return performJsonRequest(streamableService.postComment(streamableId, postCommentData), GTCommentResponse.class, responseHandler);
+        return performJsonRequest(streamableService.postComment(streamableId, postCommentData), GTCommentResponse.class, new GTResponseHandler<GTCommentResponse>() {
+
+            @Override
+            public void onSuccess(GTResponse<GTCommentResponse> gtResponse) {
+                GTSDK.postEvent(new GTCommentPostedEvent(gtResponse.getObject().comment));
+                responseHandler.onSuccess(gtResponse);
+            }
+
+            @Override
+            public void onFailure(GTResponse<GTCommentResponse> gtResponse) {
+                responseHandler.onFailure(gtResponse);
+            }
+        });
     }
 
     public GTRequestPerformed editComment(int streamableId, int commentId, String text, GTResponseHandler<GTCommentResponse> responseHandler) {
@@ -74,8 +116,20 @@ public class GTStreamableTasks extends GTNetworkTask {
         return performJsonRequest(streamableService.editComment(streamableId, commentId, postCommentData), GTCommentResponse.class, responseHandler);
     }
 
-    public GTRequestPerformed deleteComment(int streamableId, int commentId, GTResponseHandler<GTActionCompleteResult> responseHandler) {
-        return performJsonRequest(streamableService.deleteComment(streamableId, commentId), GTActionCompleteResult.class, responseHandler);
+    public GTRequestPerformed deleteComment(final int streamableId, final int commentId, final GTResponseHandler<GTActionCompleteResult> responseHandler) {
+        return performJsonRequest(streamableService.deleteComment(streamableId, commentId), GTActionCompleteResult.class, new GTResponseHandler<GTActionCompleteResult>() {
+
+            @Override
+            public void onSuccess(GTResponse<GTActionCompleteResult> gtResponse) {
+                GTSDK.postEvent(new GTCommentDeletedEvent(commentId, streamableId));
+                responseHandler.onSuccess(gtResponse);
+            }
+
+            @Override
+            public void onFailure(GTResponse<GTActionCompleteResult> gtResponse) {
+                responseHandler.onFailure(gtResponse);
+            }
+        });
     }
 
     public GTRequestPerformed search(GTQueryParameters parameters, GTResponseHandler<GTListStreamablesResponse> responseHandler) {
