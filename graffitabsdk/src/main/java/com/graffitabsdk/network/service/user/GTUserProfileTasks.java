@@ -64,6 +64,10 @@ public class GTUserProfileTasks extends GTNetworkTask {
         return performJsonRequest(userService.getFullUserProfile(userId), GTUserResponse.class, responseHandler, useCache);
     }
 
+    public GTRequestPerformed getFullUserProfileForUsername(String username, boolean useCache, GTResponseHandler<GTUserResponse> responseHandler) {
+        return performJsonRequest(userService.getFullUserProfileForUsername(username), GTUserResponse.class, responseHandler, useCache);
+    }
+
     @Override
     protected void performExtraOperationOnSuccess(GTResponse<?> gtResponse) {
         GTUser user = ((GTUserResponse) gtResponse.getObject()).user;

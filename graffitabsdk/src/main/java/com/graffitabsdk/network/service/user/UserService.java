@@ -55,6 +55,10 @@ public interface UserService {
     Call<GTUserResponse> getFullUserProfile(@Path("userId") int userId);
 
     @Headers("Content-Type: application/json")
+    @GET(GTApiConstants.USER_FULL_PROFILE_BY_USERNAME_ENDPOINT)
+    Call<GTUserResponse> getFullUserProfileForUsername(@Path("username") String username);
+
+    @Headers("Content-Type: application/json")
     @PUT(GTApiConstants.ME_ENDPOINT)
     Call<GTUserResponse> edit(@Body EditProfileData profileData);
 

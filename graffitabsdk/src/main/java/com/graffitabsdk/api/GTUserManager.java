@@ -81,6 +81,10 @@ public class GTUserManager {
         return gtUserProfileTasks.getFullUserProfile(userId, useCache, responseHandler);
     }
 
+    public GTRequestPerformed getFullUserProfileForUsername(String username, boolean useCache, GTResponseHandler<GTUserResponse> responseHandler) {
+        return gtUserProfileTasks.getFullUserProfileForUsername(username, useCache, responseHandler);
+    }
+
     public GTRequestPerformed follow(int userId, GTResponseHandler<GTUserResponse> responseHandler) {
         return gtUserTasks.follow(userId, responseHandler);
     }
