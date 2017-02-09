@@ -16,7 +16,12 @@ import com.graffitabsdk.sdk.GTSDK;
 import com.graffitabsdk.sdk.cache.GTCacheService;
 import com.graffitabsdk.sdk.events.comments.GTCommentDeletedEvent;
 import com.graffitabsdk.sdk.events.comments.GTCommentPostedEvent;
+import com.graffitabsdk.sdk.events.comments.GTCommentUpdatedEvent;
+import com.graffitabsdk.sdk.events.streamables.GTStreamableDeletedEvent;
+import com.graffitabsdk.sdk.events.streamables.GTStreamableFlaggedEvent;
 import com.graffitabsdk.sdk.events.streamables.GTStreamableLikedEvent;
+import com.graffitabsdk.sdk.events.streamables.GTStreamableMarkedPrivateEvent;
+import com.graffitabsdk.sdk.events.streamables.GTStreamableMarkedPublicEvent;
 import com.graffitabsdk.sdk.events.streamables.GTStreamableUnlikedEvent;
 
 import javax.inject.Inject;
@@ -110,10 +115,22 @@ public class GTStreamableTasks extends GTNetworkTask {
         });
     }
 
-    public GTRequestPerformed editComment(int streamableId, int commentId, String text, GTResponseHandler<GTCommentResponse> responseHandler) {
+    public GTRequestPerformed editComment(int streamableId, int commentId, String text, final GTResponseHandler<GTCommentResponse> responseHandler) {
         CommentData commentData = new CommentData(text);
         PostCommentData postCommentData = new PostCommentData(commentData);
-        return performJsonRequest(streamableService.editComment(streamableId, commentId, postCommentData), GTCommentResponse.class, responseHandler);
+        return performJsonRequest(streamableService.editComment(streamableId, commentId, postCommentData), GTCommentResponse.class, new GTResponseHandler<GTCommentResponse>() {
+
+            @Override
+            public void onSuccess(GTResponse<GTCommentResponse> gtResponse) {
+                GTSDK.postEvent(new GTCommentUpdatedEvent(gtResponse.getObject().comment));
+                responseHandler.onSuccess(gtResponse);
+            }
+
+            @Override
+            public void onFailure(GTResponse<GTCommentResponse> gtResponse) {
+                responseHandler.onFailure(gtResponse);
+            }
+        });
     }
 
     public GTRequestPerformed deleteComment(final int streamableId, final int commentId, final GTResponseHandler<GTActionCompleteResult> responseHandler) {
@@ -144,19 +161,67 @@ public class GTStreamableTasks extends GTNetworkTask {
         return performJsonRequest(streamableService.searchHashtags(parameters.getParameters()), GTListHashtagsResponse.class, responseHandler);
     }
 
-    public GTRequestPerformed makePrivate(int streamableId, GTResponseHandler<GTStreamableResponse> responseHandler) {
-        return performJsonRequest(streamableService.makePrivate(streamableId), GTStreamableResponse.class, responseHandler);
+    public GTRequestPerformed makePrivate(int streamableId, final GTResponseHandler<GTStreamableResponse> responseHandler) {
+        return performJsonRequest(streamableService.makePrivate(streamableId), GTStreamableResponse.class, new GTResponseHandler<GTStreamableResponse>() {
+
+            @Override
+            public void onSuccess(GTResponse<GTStreamableResponse> gtResponse) {
+                GTSDK.postEvent(new GTStreamableMarkedPrivateEvent(gtResponse.getObject().streamable));
+                responseHandler.onSuccess(gtResponse);
+            }
+
+            @Override
+            public void onFailure(GTResponse<GTStreamableResponse> gtResponse) {
+                responseHandler.onFailure(gtResponse);
+            }
+        });
     }
 
-    public GTRequestPerformed makePublic(int streamableId, GTResponseHandler<GTStreamableResponse> responseHandler) {
-        return performJsonRequest(streamableService.makePublic(streamableId), GTStreamableResponse.class, responseHandler);
+    public GTRequestPerformed makePublic(int streamableId, final GTResponseHandler<GTStreamableResponse> responseHandler) {
+        return performJsonRequest(streamableService.makePublic(streamableId), GTStreamableResponse.class, new GTResponseHandler<GTStreamableResponse>() {
+
+            @Override
+            public void onSuccess(GTResponse<GTStreamableResponse> gtResponse) {
+                GTSDK.postEvent(new GTStreamableMarkedPublicEvent(gtResponse.getObject().streamable));
+                responseHandler.onSuccess(gtResponse);
+            }
+
+            @Override
+            public void onFailure(GTResponse<GTStreamableResponse> gtResponse) {
+                responseHandler.onFailure(gtResponse);
+            }
+        });
     }
 
-    public GTRequestPerformed flag(int streamableId, GTResponseHandler<GTStreamableResponse> responseHandler) {
-        return performJsonRequest(streamableService.flag(streamableId), GTStreamableResponse.class, responseHandler);
+    public GTRequestPerformed flag(int streamableId, final GTResponseHandler<GTStreamableResponse> responseHandler) {
+        return performJsonRequest(streamableService.flag(streamableId), GTStreamableResponse.class, new GTResponseHandler<GTStreamableResponse>() {
+
+            @Override
+            public void onSuccess(GTResponse<GTStreamableResponse> gtResponse) {
+                GTSDK.postEvent(new GTStreamableFlaggedEvent(gtResponse.getObject().streamable));
+                responseHandler.onSuccess(gtResponse);
+            }
+
+            @Override
+            public void onFailure(GTResponse<GTStreamableResponse> gtResponse) {
+                responseHandler.onFailure(gtResponse);
+            }
+        });
     }
 
-    public GTRequestPerformed delete(int streamableId, GTResponseHandler<GTActionCompleteResult> responseHandler) {
-        return performJsonRequest(streamableService.delete(streamableId), GTActionCompleteResult.class, responseHandler);
+    public GTRequestPerformed delete(final int streamableId, final GTResponseHandler<GTActionCompleteResult> responseHandler) {
+        return performJsonRequest(streamableService.delete(streamableId), GTActionCompleteResult.class, new GTResponseHandler<GTActionCompleteResult>() {
+
+            @Override
+            public void onSuccess(GTResponse<GTActionCompleteResult> gtResponse) {
+                GTSDK.postEvent(new GTStreamableDeletedEvent(streamableId));
+                responseHandler.onSuccess(gtResponse);
+            }
+
+            @Override
+            public void onFailure(GTResponse<GTActionCompleteResult> gtResponse) {
+                responseHandler.onFailure(gtResponse);
+            }
+        });
     }
 }
