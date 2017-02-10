@@ -4,17 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
- * Created by georgichristov on 16/01/2017
+ * Created by georgichristov on 10/02/2017
  * --
  * Copyright © GraffiTab Inc. 2016
  */
 @AllArgsConstructor
 @Data
-class RegisterMetadata {
+public class RegisterExternalProviderMetadata {
 
     private String firstName;
     private String lastName;
     private String email;
     private String username;
-    private String password;
 }

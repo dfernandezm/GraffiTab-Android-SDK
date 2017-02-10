@@ -1,5 +1,6 @@
 package com.graffitabsdk.network.service.user;
 
+import com.graffitabsdk.model.GTExternalProvider;
 import com.graffitabsdk.network.common.GTRequestPerformed;
 import com.graffitabsdk.network.common.response.GTResponse;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
@@ -29,9 +30,10 @@ public class GTLoginTasks extends GTNetworkTask {
         return performJsonRequest(userService.login(loginData), GTUserResponse.class, responseHandler);
     }
 
-    public GTRequestPerformed loginWithExternalProvider() {
-        //TODO
-        return null;
+    public GTRequestPerformed login(String externalId, String externalToken, GTExternalProvider.GTExternalProviderType externalType, GTResponseHandler<GTUserResponse> responseHandler) {
+        LoginExternalProviderMetadata loginExternalProviderMetadata = new LoginExternalProviderMetadata(externalId, externalToken, externalType);
+        LoginExternalProviderData loginExternalProviderData = new LoginExternalProviderData(loginExternalProviderMetadata);
+        return performJsonRequest(userService.loginExternal(loginExternalProviderData), GTUserResponse.class, responseHandler);
     }
 
     @Override

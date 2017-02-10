@@ -1,5 +1,6 @@
 package com.graffitabsdk.api;
 
+import com.graffitabsdk.model.GTExternalProvider;
 import com.graffitabsdk.network.common.GTRequestPerformed;
 import com.graffitabsdk.network.common.params.GTQueryParameters;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
@@ -39,6 +40,10 @@ public class GTUserManager {
         return gtLoginTasks.login(username, password, responseHandler);
     }
 
+    public GTRequestPerformed login(String externalId, String externalToken, GTExternalProvider.GTExternalProviderType type, GTResponseHandler<GTUserResponse> responseHandler) {
+        return gtLoginTasks.login(externalId, externalToken, type, responseHandler);
+    }
+
     public GTRequestPerformed logout(GTResponseHandler<Void> responseHandler) {
         return gtLogoutTask.logout(responseHandler);
     }
@@ -49,6 +54,10 @@ public class GTUserManager {
 
     public GTRequestPerformed register(String firstName, String lastName, String email, String username, String password, GTResponseHandler<GTActionCompleteResult> responseHandler) {
         return gtUserTasks.register(firstName, lastName, email, username, password, responseHandler);
+    }
+
+    public GTRequestPerformed register(GTExternalProvider.GTExternalProviderType type, String externalId, String token, String firstName, String lastName, String email, String username, GTResponseHandler<GTActionCompleteResult> responseHandler) {
+        return gtUserTasks.register(type, externalId, token, firstName, lastName, email, username, responseHandler);
     }
 
     public GTRequestPerformed getMostActiveUsers(boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListUsersResponse> responseHandler) {

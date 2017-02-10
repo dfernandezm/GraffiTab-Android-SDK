@@ -1,5 +1,6 @@
 package com.graffitabsdk.network.service.user;
 
+import com.graffitabsdk.model.GTExternalProvider;
 import com.graffitabsdk.model.GTUser;
 import com.graffitabsdk.network.call.GTNetworkTask;
 import com.graffitabsdk.network.common.GTRequestPerformed;
@@ -40,6 +41,12 @@ public class GTUserTasks extends GTNetworkTask {
         RegisterMetadata registerUserData = new RegisterMetadata(firstName, lastName, email, username, password);
         RegisterData registerData = new RegisterData(registerUserData);
         return performJsonRequest(userService.register(registerData), GTActionCompleteResult.class, responseHandler);
+    }
+
+    public GTRequestPerformed register(GTExternalProvider.GTExternalProviderType type, String externalId, String token, String firstName, String lastName, String email, String username, GTResponseHandler<GTActionCompleteResult> responseHandler) {
+        RegisterExternalProviderMetadata registerExternalProviderMetadata = new RegisterExternalProviderMetadata(firstName, lastName, email, username);
+        RegisterExternalProviderData registerExternalProviderData = new RegisterExternalProviderData(registerExternalProviderMetadata, externalId, token, type);
+        return performJsonRequest(userService.register(registerExternalProviderData), GTActionCompleteResult.class, responseHandler);
     }
 
     public GTRequestPerformed resetPassword(String email, GTResponseHandler<GTActionCompleteResult> responseHandler) {

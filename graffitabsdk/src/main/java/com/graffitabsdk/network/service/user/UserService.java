@@ -32,6 +32,10 @@ public interface UserService {
     @POST(GTApiConstants.USER_LOGIN_ENDPOINT)
     Call<GTUserResponse> login(@Body LoginData loginData);
 
+    @Headers("Content-Type: application/json")
+    @POST(GTApiConstants.USER_LOGIN_WITH_EXTERNAL_PROVIDER_ENDPOINT)
+    Call<GTUserResponse> loginExternal(@Body LoginExternalProviderData loginExternalProviderData);
+
     @GET(GTApiConstants.USER_LOGOUT_ENDPOINT)
     Call<Void> logout();
 
@@ -42,6 +46,10 @@ public interface UserService {
     @Headers("Content-Type: application/json")
     @POST(GTApiConstants.USERS_ENDPOINT)
     Call<GTActionCompleteResult> register(@Body RegisterData registerData);
+
+    @Headers("Content-Type: application/json")
+    @POST(GTApiConstants.USER_EXTERNAL_PROVIDERS_ENDPOINT)
+    Call<GTActionCompleteResult> register(@Body RegisterExternalProviderData registerExternalProviderData);
 
     @Headers("Content-Type: application/json")
     @GET(GTApiConstants.ME_ENDPOINT)
