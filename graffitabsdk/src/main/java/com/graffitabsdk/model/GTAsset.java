@@ -1,8 +1,8 @@
 package com.graffitabsdk.model;
 
-import lombok.AllArgsConstructor;
-
 import java.io.Serializable;
+
+import lombok.AllArgsConstructor;
 
 /**
  * Created by georgichristov on 04/07/16.
@@ -10,6 +10,10 @@ import java.io.Serializable;
 
 @AllArgsConstructor
 public class GTAsset implements Serializable {
+
+    public enum AssetState {
+        RESIZING, PROCESSING, COMPLETED;
+    }
 
     public String guid;
     public String link;
@@ -20,10 +24,6 @@ public class GTAsset implements Serializable {
     public int thumbnailWidth;
     public int thumbnailHeight;
     public AssetState state;
-
-    public enum AssetState {
-        RESIZING, PROCESSING, COMPLETED;
-    }
 
     public GTAsset() {}
 

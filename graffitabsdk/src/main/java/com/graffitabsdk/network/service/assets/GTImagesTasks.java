@@ -9,7 +9,8 @@ import com.graffitabsdk.network.common.response.GTResponse;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
 import com.graffitabsdk.network.service.assets.response.GTAssetResponse;
 
-;
+;import static com.graffitabsdk.constants.GTConstants.NUMBER_OF_RETRIES;
+import static com.graffitabsdk.constants.GTConstants.WAIT_BETWEEN_TRIES;
 
 /**
  * Created by david on 29/12/2016.
@@ -18,10 +19,12 @@ import com.graffitabsdk.network.service.assets.response.GTAssetResponse;
 public abstract class GTImagesTasks extends GTNetworkTask {
 
     protected AssetService assetService;
-    private static final int NUMBER_OF_RETRIES = 10;
-    private static final int WAIT_BETWEEN_TRIES = 1000;
 
-    protected void awaitAssetState(final GTAsset gtAsset, final int currentNumberOfTries,
+    public void awaitAssetState(final GTAsset gtAsset, final AssetProgressListener assetProgressListener) {
+        awaitAssetState(gtAsset, 0, assetProgressListener);
+    }
+
+    private void awaitAssetState(final GTAsset gtAsset, final int currentNumberOfTries,
                                  final AssetProgressListener assetProgressListener) {
 
         Runnable awaitAssetStateRunnable = new Runnable() {
@@ -29,22 +32,24 @@ public abstract class GTImagesTasks extends GTNetworkTask {
             public void run() {
                 if (gtAsset.state != GTAsset.AssetState.COMPLETED && currentNumberOfTries < NUMBER_OF_RETRIES) {
                     pollForProgress(gtAsset, new GTResponseHandler<GTAssetResponse>() {
+
                         @Override
                         public void onSuccess(GTResponse<GTAssetResponse> gtResponse) {
-                            awaitAssetState(gtAsset, currentNumberOfTries + 1, assetProgressListener);
+                            GTLog.i(getClass().getSimpleName(), "Polling for asset " + gtAsset.guid + ":\nState: " + gtResponse.getObject().asset.state + "\nTries: " +
+                                    currentNumberOfTries, false);
+                            awaitAssetState(gtResponse.getObject().asset, currentNumberOfTries + 1, assetProgressListener);
                         }
 
                         @Override
                         public void onFailure(GTResponse<GTAssetResponse> gtResponse) {
-                            GTLog.i(getClass().getSimpleName(), "Failed to poll for asset state " + gtAsset.state + ": " +
-                                    gtResponse.getResultDetail(), true);
+                            GTLog.i(getClass().getSimpleName(), "Failed to poll for asset " + gtAsset.guid + ":\nState: " + gtAsset.state + "\nTries: " +
+                                    currentNumberOfTries + ":\nDetails: " + gtResponse.getResultDetail(), true);
                             awaitAssetState(gtAsset, currentNumberOfTries + 1, assetProgressListener);
                         }
                     });
                 } else {
-                    if (gtAsset.state == GTAsset.AssetState.COMPLETED) {
+                    if (gtAsset.state == GTAsset.AssetState.COMPLETED)
                         assetProgressListener.onFinish(gtAsset);
-                    }
 
                     if (currentNumberOfTries == NUMBER_OF_RETRIES) {
                         //TODO: we reach, maximum number of retries

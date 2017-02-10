@@ -170,7 +170,7 @@ public class MainTesting {
 
             @Override
             public void onSuccess(GTResponse<GTUserResponse> gtResponse) {
-                GTSDK.getUserManager().uploadAvatar(getBitmapFromFile(), new GTResponseHandler<GTAssetResponse>() {
+                GTSDK.getMeManager().uploadAvatar(getBitmapFromFile(), new GTResponseHandler<GTAssetResponse>() {
                     @Override
                     public void onSuccess(GTResponse<GTAssetResponse> gtResponse) {
                         GTAssetResponse asset = gtResponse.getObject();

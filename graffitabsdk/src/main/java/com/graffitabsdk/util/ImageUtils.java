@@ -10,14 +10,6 @@ import java.io.ByteArrayOutputStream;
 
 public class ImageUtils {
 
-    public static byte[] bitmapToByteArray( Bitmap bmp ) {
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bmp.compress( Bitmap.CompressFormat.JPEG, 60, stream );
-        byte[] byteArray = stream.toByteArray();
-
-        return byteArray;
-    }
-
     public static byte[] downsampleBitmapToJpegAsByteArray(Bitmap bmp, int qualityPercent) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bmp.compress( Bitmap.CompressFormat.JPEG, qualityPercent, stream);

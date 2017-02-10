@@ -17,8 +17,9 @@ import retrofit2.http.Path;
  */
 
 public interface AssetService {
+
     @Multipart
-    @POST(GTApiConstants.UPLOAD_AVATAR_ENDPOINT)
+    @POST(GTApiConstants.MY_AVATAR)
     Call<GTAssetResponse> uploadAvatar(@Part MultipartBody.Part file, @Part("name") RequestBody name);
 
     @Headers("Content-Type: application/json")

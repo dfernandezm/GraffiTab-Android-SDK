@@ -1,6 +1,7 @@
 package com.graffitabsdk.network.service.user;
 
 import android.graphics.Bitmap;
+
 import com.graffitabsdk.log.GTLog;
 import com.graffitabsdk.model.GTAsset;
 import com.graffitabsdk.model.GTUser;
@@ -9,12 +10,10 @@ import com.graffitabsdk.network.common.response.GTResponse;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
 import com.graffitabsdk.network.service.assets.AssetService;
 import com.graffitabsdk.network.service.assets.GTImagesTasks;
-import com.graffitabsdk.network.service.assets.UploadRequest;
 import com.graffitabsdk.network.service.assets.response.GTAssetResponse;
 import com.graffitabsdk.network.service.user.persist.LoggedInUserPersistor;
 import com.graffitabsdk.sdk.GTSDK;
 import com.graffitabsdk.sdk.events.users.GTUserAvatarUpdatedEvent;
-import com.graffitabsdk.util.UploadUtils;
 
 import javax.inject.Inject;
 
@@ -33,17 +32,20 @@ public class GTUserImagesTasks extends GTImagesTasks {
     }
 
     public GTRequestPerformed uploadAvatar(Bitmap image, final GTResponseHandler<GTAssetResponse> responseHandler) {
-        UploadRequest uploadRequest = UploadUtils.prepareImageUploadRequest(image);
-        return performJsonRequest(assetService.uploadAvatar(uploadRequest.getFileBody(), uploadRequest.getName()),
+        EditProfileAssetsData editProfileAssetsData = EditProfileAssetsData.buildEditProfileAssetsData(image);
+        return performJsonRequest(assetService.uploadAvatar(editProfileAssetsData.getFileBody(), editProfileAssetsData.getName()),
                 GTAssetResponse.class,
                 new GTResponseHandler<GTAssetResponse>() {
+
                     @Override
                     public void onSuccess(final GTResponse<GTAssetResponse> gtResponse) {
-                        awaitAssetState(gtResponse.getObject().asset, 0, new AssetProgressListener() {
+                        // For avatar changes, we wait until the image has finished processing on the server side.
+                        awaitAssetState(gtResponse.getObject().asset, new AssetProgressListener() {
                             @Override
                             public void onFinish(GTAsset asset) {
                                 GTLog.i(getClass().getSimpleName(), "Finished polling for response: " + asset.state, true);
-                                // Replace asset with the fetched one
+
+                                // Replace user avatar with the fetched one
                                 gtResponse.getObject().asset = asset;
                                 GTSDK.getAccountManager().getLoggedInUser().avatar = asset;
 
@@ -63,7 +65,7 @@ public class GTUserImagesTasks extends GTImagesTasks {
 
     @Override
     protected void performExtraOperationOnSuccess(GTResponse<?> gtResponse) {
-        // It is going to pick the one updated by the success callback (in memory) and save it in Shared Prefs
+        // It is going to pick the user updated by the success callback (in memory) and save it in Shared Prefs
         GTUser gtUser = GTSDK.getAccountManager().getLoggedInUser();
         loggedInUserPersistor.saveLoggedInUser(gtUser);
     }
