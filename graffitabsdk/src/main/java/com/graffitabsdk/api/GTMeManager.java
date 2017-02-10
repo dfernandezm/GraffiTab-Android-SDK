@@ -109,4 +109,8 @@ public class GTMeManager {
     public GTRequestPerformed uploadAvatar(Bitmap bitmap, GTResponseHandler<GTAssetResponse> responseHandler) {
         return gtUserImagesTasks.uploadAvatar(bitmap, responseHandler);
     }
+
+    public GTRequestPerformed uploadCover(Bitmap bitmap, GTResponseHandler<GTAssetResponse> responseHandler) {
+        return gtUserImagesTasks.uploadCover(bitmap, responseHandler);
+    }
 }

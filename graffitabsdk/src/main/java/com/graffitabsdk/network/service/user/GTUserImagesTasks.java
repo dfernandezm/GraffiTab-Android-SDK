@@ -14,6 +14,7 @@ import com.graffitabsdk.network.service.assets.response.GTAssetResponse;
 import com.graffitabsdk.network.service.user.persist.LoggedInUserPersistor;
 import com.graffitabsdk.sdk.GTSDK;
 import com.graffitabsdk.sdk.events.users.GTUserAvatarUpdatedEvent;
+import com.graffitabsdk.sdk.events.users.GTUserCoverUpdatedEvent;
 
 import javax.inject.Inject;
 
@@ -51,6 +52,38 @@ public class GTUserImagesTasks extends GTImagesTasks {
 
                                 // Not passing in the avatar on the event, we pick it from loggedInUser
                                 GTSDK.postEvent(new GTUserAvatarUpdatedEvent());
+                                responseHandler.onSuccess(gtResponse);
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onFailure(GTResponse<GTAssetResponse> gtResponse) {
+                        responseHandler.onFailure(gtResponse);
+                    }
+                });
+    }
+
+    public GTRequestPerformed uploadCover(Bitmap image, final GTResponseHandler<GTAssetResponse> responseHandler) {
+        EditProfileAssetsData editProfileAssetsData = EditProfileAssetsData.buildEditProfileAssetsData(image);
+        return performJsonRequest(assetService.uploadCover(editProfileAssetsData.getFileBody(), editProfileAssetsData.getName()),
+                GTAssetResponse.class,
+                new GTResponseHandler<GTAssetResponse>() {
+
+                    @Override
+                    public void onSuccess(final GTResponse<GTAssetResponse> gtResponse) {
+                        // For cover changes, we wait until the image has finished processing on the server side.
+                        awaitAssetState(gtResponse.getObject().asset, new AssetProgressListener() {
+                            @Override
+                            public void onFinish(GTAsset asset) {
+                                GTLog.i(getClass().getSimpleName(), "Finished polling for response: " + asset.state, true);
+
+                                // Replace user cover with the fetched one
+                                gtResponse.getObject().asset = asset;
+                                GTSDK.getAccountManager().getLoggedInUser().cover = asset;
+
+                                // Not passing in the cover on the event, we pick it from loggedInUser
+                                GTSDK.postEvent(new GTUserCoverUpdatedEvent());
                                 responseHandler.onSuccess(gtResponse);
                             }
                         });

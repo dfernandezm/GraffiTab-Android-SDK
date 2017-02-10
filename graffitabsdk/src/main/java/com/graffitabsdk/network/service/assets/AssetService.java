@@ -22,6 +22,10 @@ public interface AssetService {
     @POST(GTApiConstants.MY_AVATAR)
     Call<GTAssetResponse> uploadAvatar(@Part MultipartBody.Part file, @Part("name") RequestBody name);
 
+    @Multipart
+    @POST(GTApiConstants.MY_COVER)
+    Call<GTAssetResponse> uploadCover(@Part MultipartBody.Part file, @Part("name") RequestBody name);
+
     @Headers("Content-Type: application/json")
     @GET(GTApiConstants.ASSET_PROGRESS_ENDPOINT)
     Call<GTAssetResponse> pollForProgress(@Path("guid") String guid);
