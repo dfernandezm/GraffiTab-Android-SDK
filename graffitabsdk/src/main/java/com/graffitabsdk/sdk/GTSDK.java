@@ -38,10 +38,12 @@ public class GTSDK {
 
     public static void registerEventListener(Object listener) {
         get().eventBus.register(listener);
+        GTLog.i(get().getClass().getSimpleName(), "Registered event bus for " + listener, false);
     }
 
     public static void unregisterEventListener(Object listener) {
         get().eventBus.unregister(listener);
+        GTLog.i(get().getClass().getSimpleName(), "Unregistered event bus for " + listener, false);
     }
 
     public static void postEvent(Object event) {
