@@ -2,19 +2,24 @@ package com.graffitabsdk.network.service.user;
 
 import com.graffitabsdk.constants.GTApiConstants;
 import com.graffitabsdk.network.common.result.GTActionCompleteResult;
+import com.graffitabsdk.network.service.assets.response.GTAssetResponse;
 import com.graffitabsdk.network.service.streamable.response.GTListStreamablesResponse;
 import com.graffitabsdk.network.service.user.response.GTListUsersResponse;
 import com.graffitabsdk.network.service.user.response.GTUserResponse;
 
 import java.util.Map;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
 
@@ -65,6 +70,22 @@ public interface UserService {
     @Headers("Content-Type: application/json")
     @PUT(GTApiConstants.ME_CHANGE_PASSWORD_ENDPOINT)
     Call<GTActionCompleteResult> editPassword(@Body EditPasswordData passwordData);
+
+    @Multipart
+    @POST(GTApiConstants.MY_AVATAR)
+    Call<GTAssetResponse> editAvatar(@Part MultipartBody.Part file, @Part("name") RequestBody name);
+
+    @Headers("Content-Type: application/json")
+    @DELETE(GTApiConstants.MY_AVATAR)
+    Call<GTActionCompleteResult> deleteAvatar();
+
+    @Multipart
+    @POST(GTApiConstants.MY_COVER)
+    Call<GTAssetResponse> editCover(@Part MultipartBody.Part file, @Part("name") RequestBody name);
+
+    @Headers("Content-Type: application/json")
+    @DELETE(GTApiConstants.MY_COVER)
+    Call<GTActionCompleteResult> deleteCover();
 
     @Headers("Content-Type: application/json")
     @GET(GTApiConstants.USERS_MOST_ACTIVE_ENDPOINT)

@@ -24,17 +24,19 @@ import javax.inject.Inject;
 
 public class GTUserImagesTasks extends GTImagesTasks {
 
+    private UserService userService;
     private LoggedInUserPersistor loggedInUserPersistor;
 
     @Inject
-    public GTUserImagesTasks(AssetService assetService, LoggedInUserPersistor loggedInUserPersistor) {
+    public GTUserImagesTasks(AssetService assetService, UserService userService, LoggedInUserPersistor loggedInUserPersistor) {
         super.assetService = assetService;
+        this.userService = userService;
         this.loggedInUserPersistor = loggedInUserPersistor;
     }
 
-    public GTRequestPerformed uploadAvatar(Bitmap image, final GTResponseHandler<GTAssetResponse> responseHandler) {
+    public GTRequestPerformed editAvatar(Bitmap image, final GTResponseHandler<GTAssetResponse> responseHandler) {
         EditProfileAssetsData editProfileAssetsData = EditProfileAssetsData.buildEditProfileAssetsData(image);
-        return performJsonRequest(assetService.uploadAvatar(editProfileAssetsData.getFileBody(), editProfileAssetsData.getName()),
+        return performJsonRequest(userService.editAvatar(editProfileAssetsData.getFileBody(), editProfileAssetsData.getName()),
                 GTAssetResponse.class,
                 new GTResponseHandler<GTAssetResponse>() {
 
@@ -64,9 +66,9 @@ public class GTUserImagesTasks extends GTImagesTasks {
                 });
     }
 
-    public GTRequestPerformed uploadCover(Bitmap image, final GTResponseHandler<GTAssetResponse> responseHandler) {
+    public GTRequestPerformed editCover(Bitmap image, final GTResponseHandler<GTAssetResponse> responseHandler) {
         EditProfileAssetsData editProfileAssetsData = EditProfileAssetsData.buildEditProfileAssetsData(image);
-        return performJsonRequest(assetService.uploadCover(editProfileAssetsData.getFileBody(), editProfileAssetsData.getName()),
+        return performJsonRequest(userService.editCover(editProfileAssetsData.getFileBody(), editProfileAssetsData.getName()),
                 GTAssetResponse.class,
                 new GTResponseHandler<GTAssetResponse>() {
 

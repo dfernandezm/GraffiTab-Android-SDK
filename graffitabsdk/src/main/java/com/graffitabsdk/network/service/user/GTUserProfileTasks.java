@@ -5,11 +5,11 @@ import com.graffitabsdk.network.call.GTNetworkTask;
 import com.graffitabsdk.network.common.GTRequestPerformed;
 import com.graffitabsdk.network.common.response.GTResponse;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
+import com.graffitabsdk.network.service.user.persist.LoggedInUserPersistor;
 import com.graffitabsdk.network.service.user.response.GTUserResponse;
 import com.graffitabsdk.sdk.GTSDK;
 import com.graffitabsdk.sdk.cache.GTCacheService;
 import com.graffitabsdk.sdk.events.users.GTUserProfileUpdatedEvent;
-import com.graffitabsdk.network.service.user.persist.LoggedInUserPersistor;
 
 import javax.inject.Inject;
 

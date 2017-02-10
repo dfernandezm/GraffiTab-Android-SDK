@@ -8,10 +8,13 @@ import com.graffitabsdk.network.common.response.GTResponse;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
 import com.graffitabsdk.network.common.result.GTActionCompleteResult;
 import com.graffitabsdk.network.service.streamable.response.GTListStreamablesResponse;
+import com.graffitabsdk.network.service.user.persist.LoggedInUserPersistor;
 import com.graffitabsdk.network.service.user.response.GTListUsersResponse;
 import com.graffitabsdk.network.service.user.response.GTUserResponse;
 import com.graffitabsdk.sdk.GTSDK;
 import com.graffitabsdk.sdk.cache.GTCacheService;
+import com.graffitabsdk.sdk.events.users.GTUserAvatarUpdatedEvent;
+import com.graffitabsdk.sdk.events.users.GTUserCoverUpdatedEvent;
 import com.graffitabsdk.sdk.events.users.GTUserFollowedEvent;
 import com.graffitabsdk.sdk.events.users.GTUserUnfollowedEvent;
 
@@ -24,11 +27,13 @@ import javax.inject.Inject;
 public class GTUserTasks extends GTNetworkTask {
 
     private UserService userService;
+    private LoggedInUserPersistor loggedInUserPersistor;
 
     @Inject
-    public GTUserTasks(UserService userService, GTCacheService gtCacheService) {
+    public GTUserTasks(UserService userService, GTCacheService gtCacheService, LoggedInUserPersistor loggedInUserPersistor) {
         super.cacheService = gtCacheService;
         this.userService = userService;
+        this.loggedInUserPersistor = loggedInUserPersistor;
     }
 
     public GTRequestPerformed register(String firstName, String lastName, String email, String username, String password, GTResponseHandler<GTActionCompleteResult> responseHandler) {
@@ -45,6 +50,50 @@ public class GTUserTasks extends GTNetworkTask {
     public GTRequestPerformed editPassword(String currentPassword, String newPassword, GTResponseHandler<GTActionCompleteResult> responseHandler) {
         EditPasswordData editPasswordData = new EditPasswordData(currentPassword, newPassword);
         return performJsonRequest(userService.editPassword(editPasswordData), GTActionCompleteResult.class, responseHandler);
+    }
+
+    public GTRequestPerformed deleteAvatar(final GTResponseHandler<GTActionCompleteResult> responseHandler) {
+        return performJsonRequest(userService.deleteAvatar(), GTActionCompleteResult.class, new GTResponseHandler<GTActionCompleteResult>() {
+
+            @Override
+            public void onSuccess(GTResponse<GTActionCompleteResult> gtResponse) {
+                // Update logged in user locally.
+                GTUser me = GTSDK.getAccountManager().getLoggedInUser();
+                me.avatar = null;
+                loggedInUserPersistor.saveLoggedInUser(me);
+
+                // Notify changes.
+                GTSDK.postEvent(new GTUserAvatarUpdatedEvent());
+                responseHandler.onSuccess(gtResponse);
+            }
+
+            @Override
+            public void onFailure(GTResponse<GTActionCompleteResult> gtResponse) {
+                responseHandler.onFailure(gtResponse);
+            }
+        });
+    }
+
+    public GTRequestPerformed deleteCover(final GTResponseHandler<GTActionCompleteResult> responseHandler) {
+        return performJsonRequest(userService.deleteCover(), GTActionCompleteResult.class, new GTResponseHandler<GTActionCompleteResult>() {
+
+            @Override
+            public void onSuccess(GTResponse<GTActionCompleteResult> gtResponse) {
+                // Update logged in user locally.
+                GTUser me = GTSDK.getAccountManager().getLoggedInUser();
+                me.cover = null;
+                loggedInUserPersistor.saveLoggedInUser(me);
+
+                // Notify changes.
+                GTSDK.postEvent(new GTUserCoverUpdatedEvent());
+                responseHandler.onSuccess(gtResponse);
+            }
+
+            @Override
+            public void onFailure(GTResponse<GTActionCompleteResult> gtResponse) {
+                responseHandler.onFailure(gtResponse);
+            }
+        });
     }
 
     public GTRequestPerformed getMostActive(boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListUsersResponse> responseHandler) {

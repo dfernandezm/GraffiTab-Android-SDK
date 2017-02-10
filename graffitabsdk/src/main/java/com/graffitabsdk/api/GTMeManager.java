@@ -1,6 +1,7 @@
 package com.graffitabsdk.api;
 
 import android.graphics.Bitmap;
+
 import com.graffitabsdk.network.common.GTRequestPerformed;
 import com.graffitabsdk.network.common.params.GTQueryParameters;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
@@ -66,6 +67,22 @@ public class GTMeManager {
         return gtUserTasks.editPassword(currentPassword, newPassword, responseHandler);
     }
 
+    public GTRequestPerformed editAvatar(Bitmap bitmap, GTResponseHandler<GTAssetResponse> responseHandler) {
+        return gtUserImagesTasks.editAvatar(bitmap, responseHandler);
+    }
+
+    public GTRequestPerformed deleteAvatar(GTResponseHandler<GTActionCompleteResult> responseHandler) {
+        return gtUserTasks.deleteAvatar(responseHandler);
+    }
+
+    public GTRequestPerformed editCover(Bitmap bitmap, GTResponseHandler<GTAssetResponse> responseHandler) {
+        return gtUserImagesTasks.editCover(bitmap, responseHandler);
+    }
+
+    public GTRequestPerformed deleteCover(GTResponseHandler<GTActionCompleteResult> responseHandler) {
+        return gtUserTasks.deleteCover(responseHandler);
+    }
+
     public GTRequestPerformed getFeed(boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListStreamablesResponse> responseHandler) {
         return gtStreamableTasks.getFeed(useCache, parameters, responseHandler);
     }
@@ -104,13 +121,5 @@ public class GTMeManager {
 
     public GTRequestPerformed unlinkDevice(String token, GTResponseHandler<GTActionCompleteResult> responseHandler) {
         return gtDeviceTasks.unlinkDevice(token, responseHandler);
-    }
-
-    public GTRequestPerformed uploadAvatar(Bitmap bitmap, GTResponseHandler<GTAssetResponse> responseHandler) {
-        return gtUserImagesTasks.uploadAvatar(bitmap, responseHandler);
-    }
-
-    public GTRequestPerformed uploadCover(Bitmap bitmap, GTResponseHandler<GTAssetResponse> responseHandler) {
-        return gtUserImagesTasks.uploadCover(bitmap, responseHandler);
     }
 }
