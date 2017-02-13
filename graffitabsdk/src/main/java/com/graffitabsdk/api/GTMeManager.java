@@ -2,6 +2,7 @@ package com.graffitabsdk.api;
 
 import android.graphics.Bitmap;
 
+import com.graffitabsdk.model.GTExternalProvider;
 import com.graffitabsdk.network.common.GTRequestPerformed;
 import com.graffitabsdk.network.common.params.GTQueryParameters;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
@@ -121,5 +122,13 @@ public class GTMeManager {
 
     public GTRequestPerformed unlinkDevice(String token, GTResponseHandler<GTActionCompleteResult> responseHandler) {
         return gtDeviceTasks.unlinkDevice(token, responseHandler);
+    }
+
+    public GTRequestPerformed linkExternalProvider(String userId, String accessToken, GTExternalProvider.GTExternalProviderType type, GTResponseHandler<GTUserResponse> responseHandler) {
+        return gtUserProfileTasks.linkExternalProvider(userId, accessToken, type, responseHandler);
+    }
+
+    public GTRequestPerformed unlinkExternalProvider(GTExternalProvider.GTExternalProviderType type, GTResponseHandler<GTUserResponse> responseHandler) {
+        return gtUserProfileTasks.unlinkExternalProvider(type, responseHandler);
     }
 }

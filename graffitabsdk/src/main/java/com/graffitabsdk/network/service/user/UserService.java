@@ -15,6 +15,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -50,6 +51,14 @@ public interface UserService {
     @Headers("Content-Type: application/json")
     @POST(GTApiConstants.USER_EXTERNAL_PROVIDERS_ENDPOINT)
     Call<GTActionCompleteResult> register(@Body RegisterExternalProviderData registerExternalProviderData);
+
+    @Headers("Content-Type: application/json")
+    @POST(GTApiConstants.MY_EXTERNAL_PROVIDERS_ENDPOINT)
+    Call<GTUserResponse> linkExternalProvider(@Body ExternalProviderData externalProviderData);
+
+    @Headers("Content-Type: application/json")
+    @HTTP(method = "DELETE", path = GTApiConstants.MY_EXTERNAL_PROVIDERS_ENDPOINT, hasBody = true)
+    Call<GTUserResponse> unlinkExternalProvider(@Body ExternalProviderMetadata externalProviderMetadata);
 
     @Headers("Content-Type: application/json")
     @GET(GTApiConstants.ME_ENDPOINT)

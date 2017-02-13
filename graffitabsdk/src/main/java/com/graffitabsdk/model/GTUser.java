@@ -103,6 +103,16 @@ public class GTUser implements Serializable {
         if (followingCount < 0) followingCount = 0;
     }
 
+    public boolean hasLinkedAccount(GTExternalProvider.GTExternalProviderType type) {
+        if (linkedAccounts == null || linkedAccounts.size() <= 0)
+            return false;
+        for (GTExternalProvider provider : linkedAccounts) {
+            if (provider.type == type)
+                return true;
+        }
+        return false;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

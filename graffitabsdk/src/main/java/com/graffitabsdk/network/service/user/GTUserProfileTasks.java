@@ -1,5 +1,6 @@
 package com.graffitabsdk.network.service.user;
 
+import com.graffitabsdk.model.GTExternalProvider;
 import com.graffitabsdk.model.GTUser;
 import com.graffitabsdk.network.call.GTNetworkTask;
 import com.graffitabsdk.network.common.GTRequestPerformed;
@@ -9,6 +10,8 @@ import com.graffitabsdk.network.service.user.persist.AccountsPersistor;
 import com.graffitabsdk.network.service.user.response.GTUserResponse;
 import com.graffitabsdk.sdk.GTSDK;
 import com.graffitabsdk.sdk.cache.GTCacheService;
+import com.graffitabsdk.sdk.events.externalproviders.GTExternalProviderLinkedEvent;
+import com.graffitabsdk.sdk.events.externalproviders.GTExternalProviderUnlinkedEvent;
 import com.graffitabsdk.sdk.events.users.GTUserProfileUpdatedEvent;
 
 import javax.inject.Inject;
@@ -28,6 +31,41 @@ public class GTUserProfileTasks extends GTNetworkTask {
         super.cacheService = gtCacheService;
         this.userService = userService;
         this.accountsPersistor = accountsPersistor;
+    }
+
+    public GTRequestPerformed linkExternalProvider(String userId, String accessToken, GTExternalProvider.GTExternalProviderType type, final GTResponseHandler<GTUserResponse> responseHandler) {
+        ExternalProviderMetadata externalProviderMetadata = new ExternalProviderMetadata(userId, accessToken, type);
+        ExternalProviderData externalProviderData = new ExternalProviderData(externalProviderMetadata);
+        return performJsonRequest(userService.linkExternalProvider(externalProviderData), GTUserResponse.class, new GTResponseHandler<GTUserResponse>() {
+
+            @Override
+            public void onSuccess(GTResponse<GTUserResponse> gtResponse) {
+                GTSDK.postEvent(new GTExternalProviderLinkedEvent());
+                responseHandler.onSuccess(gtResponse);
+            }
+
+            @Override
+            public void onFailure(GTResponse<GTUserResponse> gtResponse) {
+                responseHandler.onFailure(gtResponse);
+            }
+        });
+    }
+
+    public GTRequestPerformed unlinkExternalProvider(GTExternalProvider.GTExternalProviderType type, final GTResponseHandler<GTUserResponse> responseHandler) {
+        ExternalProviderMetadata externalProviderMetadata = new ExternalProviderMetadata(null, null, type);
+        return performJsonRequest(userService.unlinkExternalProvider(externalProviderMetadata), GTUserResponse.class, new GTResponseHandler<GTUserResponse>() {
+
+            @Override
+            public void onSuccess(GTResponse<GTUserResponse> gtResponse) {
+                GTSDK.postEvent(new GTExternalProviderUnlinkedEvent());
+                responseHandler.onSuccess(gtResponse);
+            }
+
+            @Override
+            public void onFailure(GTResponse<GTUserResponse> gtResponse) {
+                responseHandler.onFailure(gtResponse);
+            }
+        });
     }
 
     public GTRequestPerformed edit(String firstName, String lastName, String email, String about, String website, final GTResponseHandler<GTUserResponse> responseHandler) {
