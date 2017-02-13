@@ -5,9 +5,9 @@ import com.graffitabsdk.log.GTLog;
 import com.graffitabsdk.network.common.GTRequestPerformed;
 import com.graffitabsdk.network.common.response.GTResponse;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
+import com.graffitabsdk.network.service.user.persist.AccountsPersistor;
 import com.graffitabsdk.sdk.cache.GTCacheService;
 import com.graffitabsdk.network.call.GTNetworkTask;
-import com.graffitabsdk.network.service.user.persist.LoggedInUserPersistor;
 
 import javax.inject.Inject;
 
@@ -20,15 +20,15 @@ import okhttp3.CookieJar;
 public class GTLogoutTask extends GTNetworkTask {
 
     private UserService userService;
-    private LoggedInUserPersistor loggedInUserPersistor;
+    private AccountsPersistor accountsPersistor;
     private GTCacheService cacheService;
     private CookieJar cookieJar;
 
     @Inject
-    public GTLogoutTask(UserService userService, LoggedInUserPersistor loggedInUserPersistor, GTCacheService cacheService, CookieJar cookieJar) {
+    public GTLogoutTask(UserService userService, AccountsPersistor accountsPersistor, GTCacheService cacheService, CookieJar cookieJar) {
         this.userService = userService;
         this.cacheService = cacheService;
-        this.loggedInUserPersistor = loggedInUserPersistor;
+        this.accountsPersistor = accountsPersistor;
         this.cookieJar = cookieJar;
     }
 
@@ -49,7 +49,7 @@ public class GTLogoutTask extends GTNetworkTask {
 
     private void clearUserAccount() {
         GTLog.i(getClass().getSimpleName(), "Clearing logged in user...", false);
-        loggedInUserPersistor.clearLoggedInUser();
+        accountsPersistor.clearLoggedInUser();
         cacheService.invalidateCache();
 
         if (cookieJar instanceof ClearableCookieJar) {

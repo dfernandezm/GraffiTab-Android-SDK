@@ -1,12 +1,13 @@
 package com.graffitabsdk.network.service.user;
 
 import com.graffitabsdk.model.GTExternalProvider;
+import com.graffitabsdk.model.GTUser;
 import com.graffitabsdk.network.common.GTRequestPerformed;
 import com.graffitabsdk.network.common.response.GTResponse;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
 import com.graffitabsdk.network.service.user.response.GTUserResponse;
 import com.graffitabsdk.network.call.GTNetworkTask;
-import com.graffitabsdk.network.service.user.persist.LoggedInUserPersistor;
+import com.graffitabsdk.network.service.user.persist.AccountsPersistor;
 
 import javax.inject.Inject;
 
@@ -17,15 +18,18 @@ import javax.inject.Inject;
 public class GTLoginTasks extends GTNetworkTask {
 
     private UserService userService;
-    private LoggedInUserPersistor loggedInUserPersistor;
+    private AccountsPersistor accountsPersistor;
+    private String lastUsedPassword;
 
     @Inject
-    public GTLoginTasks(UserService userService, LoggedInUserPersistor loggedInUserPersistor) {
+    public GTLoginTasks(UserService userService, AccountsPersistor accountsPersistor) {
         this.userService = userService;
-        this.loggedInUserPersistor = loggedInUserPersistor;
+        this.accountsPersistor = accountsPersistor;
     }
 
     public GTRequestPerformed login(String username, String password, GTResponseHandler<GTUserResponse> responseHandler) {
+        this.lastUsedPassword = password;
+
         LoginData loginData = new LoginData(username, password);
         return performJsonRequest(userService.login(loginData), GTUserResponse.class, responseHandler);
     }
@@ -38,6 +42,8 @@ public class GTLoginTasks extends GTNetworkTask {
 
     @Override
     protected void performExtraOperationOnSuccess(GTResponse<?> gtResponse) {
-        loggedInUserPersistor.saveLoggedInUser(((GTUserResponse) gtResponse.getObject()).user);
+        GTUser user = ((GTUserResponse) gtResponse.getObject()).user;
+        accountsPersistor.saveLoggedInUser(user);
+        accountsPersistor.saveLastLoggedInUser(user, lastUsedPassword);
     }
 }

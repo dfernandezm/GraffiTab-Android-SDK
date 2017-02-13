@@ -1,7 +1,7 @@
 package com.graffitabsdk.api;
 
 import com.graffitabsdk.model.GTUser;
-import com.graffitabsdk.network.service.user.persist.LoggedInUserPersistor;
+import com.graffitabsdk.network.service.user.persist.AccountsPersistor;
 
 import javax.inject.Inject;
 
@@ -11,18 +11,34 @@ import javax.inject.Inject;
 
 public class GTAccountManager {
 
-    private LoggedInUserPersistor loggedInUserPersistor;
+    private AccountsPersistor accountsPersistor;
 
     @Inject
-    public GTAccountManager(LoggedInUserPersistor loggedInUserPersistor) {
-        this.loggedInUserPersistor = loggedInUserPersistor;
+    public GTAccountManager(AccountsPersistor accountsPersistor) {
+        this.accountsPersistor = accountsPersistor;
     }
 
     public GTUser getLoggedInUser() {
-        return loggedInUserPersistor.getLoggedInUser();
+        return accountsPersistor.getLoggedInUser();
     }
 
     public boolean isUserLoggedIn() {
-        return loggedInUserPersistor.getLoggedInUser() != null;
+        return accountsPersistor.getLoggedInUser() != null;
+    }
+
+    public boolean hasLastLoggedInUser() {
+        return accountsPersistor.getLastLoggedInUser() != null;
+    }
+
+    public GTUser getLastLoggedInUser() {
+        return accountsPersistor.getLastLoggedInUser();
+    }
+
+    public String getLastLoggedInUserPassword() {
+        return accountsPersistor.getLastLoggedInUserPassword();
+    }
+
+    public void clearLastLoggedInUser() {
+        accountsPersistor.clearLastLoggedInUser();
     }
 }

@@ -11,7 +11,7 @@ import com.graffitabsdk.network.common.response.GTResponseHandler;
 import com.graffitabsdk.network.service.assets.AssetService;
 import com.graffitabsdk.network.service.assets.GTImagesTasks;
 import com.graffitabsdk.network.service.assets.response.GTAssetResponse;
-import com.graffitabsdk.network.service.user.persist.LoggedInUserPersistor;
+import com.graffitabsdk.network.service.user.persist.AccountsPersistor;
 import com.graffitabsdk.sdk.GTSDK;
 import com.graffitabsdk.sdk.events.users.GTUserAvatarUpdatedEvent;
 import com.graffitabsdk.sdk.events.users.GTUserCoverUpdatedEvent;
@@ -25,13 +25,13 @@ import javax.inject.Inject;
 public class GTUserImagesTasks extends GTImagesTasks {
 
     private UserService userService;
-    private LoggedInUserPersistor loggedInUserPersistor;
+    private AccountsPersistor accountsPersistor;
 
     @Inject
-    public GTUserImagesTasks(AssetService assetService, UserService userService, LoggedInUserPersistor loggedInUserPersistor) {
+    public GTUserImagesTasks(AssetService assetService, UserService userService, AccountsPersistor accountsPersistor) {
         super.assetService = assetService;
         this.userService = userService;
-        this.loggedInUserPersistor = loggedInUserPersistor;
+        this.accountsPersistor = accountsPersistor;
     }
 
     public GTRequestPerformed editAvatar(Bitmap image, final GTResponseHandler<GTAssetResponse> responseHandler) {
@@ -102,7 +102,7 @@ public class GTUserImagesTasks extends GTImagesTasks {
     protected void performExtraOperationOnSuccess(GTResponse<?> gtResponse) {
         // It is going to pick the user updated by the success callback (in memory) and save it in Shared Prefs
         GTUser gtUser = GTSDK.getAccountManager().getLoggedInUser();
-        loggedInUserPersistor.saveLoggedInUser(gtUser);
+        accountsPersistor.saveLoggedInUser(gtUser);
     }
 
 }

@@ -5,7 +5,7 @@ import com.graffitabsdk.network.call.GTNetworkTask;
 import com.graffitabsdk.network.common.GTRequestPerformed;
 import com.graffitabsdk.network.common.response.GTResponse;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
-import com.graffitabsdk.network.service.user.persist.LoggedInUserPersistor;
+import com.graffitabsdk.network.service.user.persist.AccountsPersistor;
 import com.graffitabsdk.network.service.user.response.GTUserResponse;
 import com.graffitabsdk.sdk.GTSDK;
 import com.graffitabsdk.sdk.cache.GTCacheService;
@@ -21,13 +21,13 @@ import javax.inject.Inject;
 public class GTUserProfileTasks extends GTNetworkTask {
 
     private UserService userService;
-    private LoggedInUserPersistor loggedInUserPersistor;
+    private AccountsPersistor accountsPersistor;
 
     @Inject
-    public GTUserProfileTasks(GTCacheService gtCacheService, UserService userService, LoggedInUserPersistor loggedInUserPersistor) {
+    public GTUserProfileTasks(GTCacheService gtCacheService, UserService userService, AccountsPersistor accountsPersistor) {
         super.cacheService = gtCacheService;
         this.userService = userService;
-        this.loggedInUserPersistor = loggedInUserPersistor;
+        this.accountsPersistor = accountsPersistor;
     }
 
     public GTRequestPerformed edit(String firstName, String lastName, String email, String about, String website, final GTResponseHandler<GTUserResponse> responseHandler) {
@@ -72,6 +72,6 @@ public class GTUserProfileTasks extends GTNetworkTask {
     protected void performExtraOperationOnSuccess(GTResponse<?> gtResponse) {
         GTUser user = ((GTUserResponse) gtResponse.getObject()).user;
         if (user.isMe())
-            loggedInUserPersistor.saveLoggedInUser(user);
+            accountsPersistor.saveLoggedInUser(user);
     }
 }

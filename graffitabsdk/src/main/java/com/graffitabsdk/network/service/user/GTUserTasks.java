@@ -9,7 +9,7 @@ import com.graffitabsdk.network.common.response.GTResponse;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
 import com.graffitabsdk.network.common.result.GTActionCompleteResult;
 import com.graffitabsdk.network.service.streamable.response.GTListStreamablesResponse;
-import com.graffitabsdk.network.service.user.persist.LoggedInUserPersistor;
+import com.graffitabsdk.network.service.user.persist.AccountsPersistor;
 import com.graffitabsdk.network.service.user.response.GTListUsersResponse;
 import com.graffitabsdk.network.service.user.response.GTUserResponse;
 import com.graffitabsdk.sdk.GTSDK;
@@ -28,13 +28,13 @@ import javax.inject.Inject;
 public class GTUserTasks extends GTNetworkTask {
 
     private UserService userService;
-    private LoggedInUserPersistor loggedInUserPersistor;
+    private AccountsPersistor accountsPersistor;
 
     @Inject
-    public GTUserTasks(UserService userService, GTCacheService gtCacheService, LoggedInUserPersistor loggedInUserPersistor) {
+    public GTUserTasks(UserService userService, GTCacheService gtCacheService, AccountsPersistor accountsPersistor) {
         super.cacheService = gtCacheService;
         this.userService = userService;
-        this.loggedInUserPersistor = loggedInUserPersistor;
+        this.accountsPersistor = accountsPersistor;
     }
 
     public GTRequestPerformed register(String firstName, String lastName, String email, String username, String password, GTResponseHandler<GTActionCompleteResult> responseHandler) {
@@ -67,7 +67,7 @@ public class GTUserTasks extends GTNetworkTask {
                 // Update logged in user locally.
                 GTUser me = GTSDK.getAccountManager().getLoggedInUser();
                 me.avatar = null;
-                loggedInUserPersistor.saveLoggedInUser(me);
+                accountsPersistor.saveLoggedInUser(me);
 
                 // Notify changes.
                 GTSDK.postEvent(new GTUserAvatarUpdatedEvent());
@@ -89,7 +89,7 @@ public class GTUserTasks extends GTNetworkTask {
                 // Update logged in user locally.
                 GTUser me = GTSDK.getAccountManager().getLoggedInUser();
                 me.cover = null;
-                loggedInUserPersistor.saveLoggedInUser(me);
+                accountsPersistor.saveLoggedInUser(me);
 
                 // Notify changes.
                 GTSDK.postEvent(new GTUserCoverUpdatedEvent());

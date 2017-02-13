@@ -2,17 +2,19 @@ package com.graffitabsdk.sdk;
 
 import android.app.Application;
 import android.support.annotation.Nullable;
+
 import com.google.gson.Gson;
 import com.graffitabsdk.model.GTUser;
 import com.graffitabsdk.network.service.assets.AssetService;
 import com.graffitabsdk.network.service.user.UserService;
-import com.graffitabsdk.network.service.user.persist.LoggedInUserPersistor;
-import com.graffitabsdk.network.service.user.persist.SharedPrefsLoggedInUserPersistor;
+import com.graffitabsdk.network.service.user.persist.AccountsPersistor;
+import com.graffitabsdk.network.service.user.persist.SecureAccountsPersistor;
+
+import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
 import retrofit2.Retrofit;
-
-import javax.inject.Singleton;
 
 /**
  * Created by david on 03/12/2016.
@@ -33,11 +35,15 @@ class ModuleUser {
 
     @Provides
     @Singleton
-    LoggedInUserPersistor provideLoggedInUserPersistor(@Nullable  Application application, Gson gson) {
+    AccountsPersistor provideLoggedInUserPersistor(@Nullable  Application application, Gson gson) {
         //TODO: Remove once the tests are in place (subclass module with mock)
         if (application == null) {
-            return new LoggedInUserPersistor() {
+            return new AccountsPersistor() {
+
                 private GTUser loggedInUser;
+                private GTUser lastLoggedInUser;
+                private String lastLoggedInUserPassword;
+
                 @Override
                 public GTUser getLoggedInUser() {
                     return loggedInUser;
@@ -52,9 +58,36 @@ class ModuleUser {
                 public void clearLoggedInUser() {
                     this.loggedInUser = null;
                 }
+
+                @Override
+                public GTUser getLastLoggedInUser() {
+                    return lastLoggedInUser;
+                }
+
+                @Override
+                public String getLastLoggedInUserPassword() {
+                    return lastLoggedInUserPassword;
+                }
+
+                @Override
+                public void saveLastLoggedInUser(GTUser user) {
+                    this.lastLoggedInUser = user;
+                }
+
+                @Override
+                public void saveLastLoggedInUser(GTUser user, String password) {
+                    this.lastLoggedInUser = user;
+                    this.lastLoggedInUserPassword = password;
+                }
+
+                @Override
+                public void clearLastLoggedInUser() {
+                    this.lastLoggedInUser = null;
+                    this.lastLoggedInUserPassword = null;
+                }
             };
         } else {
-            return new SharedPrefsLoggedInUserPersistor(application, gson);
+            return new SecureAccountsPersistor(application, gson);
         }
     }
 }
