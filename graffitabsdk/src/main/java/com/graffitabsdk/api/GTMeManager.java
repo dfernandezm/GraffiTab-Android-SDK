@@ -72,6 +72,10 @@ public class GTMeManager {
         return gtUserImagesTasks.editAvatar(bitmap, responseHandler);
     }
 
+    public GTRequestPerformed importAvatar(GTExternalProvider.GTExternalProviderType type, GTResponseHandler<GTAssetResponse> responseHandler) {
+        return gtUserImagesTasks.importAvatar(type, responseHandler);
+    }
+
     public GTRequestPerformed deleteAvatar(GTResponseHandler<GTActionCompleteResult> responseHandler) {
         return gtUserTasks.deleteAvatar(responseHandler);
     }

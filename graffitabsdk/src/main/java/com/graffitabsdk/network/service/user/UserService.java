@@ -1,6 +1,7 @@
 package com.graffitabsdk.network.service.user;
 
 import com.graffitabsdk.constants.GTApiConstants;
+import com.graffitabsdk.model.GTExternalProvider;
 import com.graffitabsdk.network.common.result.GTActionCompleteResult;
 import com.graffitabsdk.network.service.assets.response.GTAssetResponse;
 import com.graffitabsdk.network.service.streamable.response.GTListStreamablesResponse;
@@ -91,6 +92,10 @@ public interface UserService {
     @Multipart
     @POST(GTApiConstants.MY_AVATAR)
     Call<GTAssetResponse> editAvatar(@Part MultipartBody.Part file, @Part("name") RequestBody name);
+
+    @Headers("Content-Type: application/json")
+    @PUT(GTApiConstants.ME_IMPORT_AVATAR_ENDPOINT)
+    Call<GTAssetResponse> importAvatar(@Path("socialType") GTExternalProvider.GTExternalProviderType type);
 
     @Headers("Content-Type: application/json")
     @DELETE(GTApiConstants.MY_AVATAR)

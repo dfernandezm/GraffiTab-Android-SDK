@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 
 import com.graffitabsdk.log.GTLog;
 import com.graffitabsdk.model.GTAsset;
+import com.graffitabsdk.model.GTExternalProvider;
 import com.graffitabsdk.model.GTUser;
 import com.graffitabsdk.network.common.GTRequestPerformed;
 import com.graffitabsdk.network.common.response.GTResponse;
@@ -32,6 +33,37 @@ public class GTUserImagesTasks extends GTImagesTasks {
         super.assetService = assetService;
         this.userService = userService;
         this.accountsPersistor = accountsPersistor;
+    }
+
+    public GTRequestPerformed importAvatar(GTExternalProvider.GTExternalProviderType type, final GTResponseHandler<GTAssetResponse> responseHandler) {
+        return performJsonRequest(userService.importAvatar(type),
+                GTAssetResponse.class,
+                new GTResponseHandler<GTAssetResponse>() {
+
+                    @Override
+                    public void onSuccess(final GTResponse<GTAssetResponse> gtResponse) {
+                        // For avatar changes, we wait until the image has finished processing on the server side.
+                        awaitAssetState(gtResponse.getObject().asset, new AssetProgressListener() {
+                            @Override
+                            public void onFinish(GTAsset asset) {
+                                GTLog.i(getClass().getSimpleName(), "Finished polling for response: " + asset.state, true);
+
+                                // Replace user avatar with the fetched one
+                                gtResponse.getObject().asset = asset;
+                                GTSDK.getAccountManager().getLoggedInUser().avatar = asset;
+
+                                // Not passing in the avatar on the event, we pick it from loggedInUser
+                                GTSDK.postEvent(new GTUserAvatarUpdatedEvent());
+                                responseHandler.onSuccess(gtResponse);
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onFailure(GTResponse<GTAssetResponse> gtResponse) {
+                        responseHandler.onFailure(gtResponse);
+                    }
+                });
     }
 
     public GTRequestPerformed editAvatar(Bitmap image, final GTResponseHandler<GTAssetResponse> responseHandler) {
