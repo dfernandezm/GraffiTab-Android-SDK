@@ -45,6 +45,16 @@ public class GTLog {
             Log.d(tag, message, throwable);
     }
 
+    public static void e(String tag, String message, boolean forceLog) {
+        if (forceLog || canLog())
+            Log.e(tag, message);
+    }
+
+    public static void e(String tag, String message, Throwable throwable, boolean forceLog) {
+        if (forceLog || canLog())
+            Log.e(tag, message, throwable);
+    }
+
     private static boolean canLog() {
         // GTSDK.init() should have been called first
         GTConfig config = GTSDK.getConfig();

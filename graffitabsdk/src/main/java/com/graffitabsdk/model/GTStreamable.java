@@ -50,15 +50,6 @@ public class GTStreamable implements Serializable {
         if (likersCount < 0) likersCount = 0;
     }
 
-    public void addToCommentsCount() {
-        commentsCount++;
-    }
-
-    public void removeFromCommentsCount() {
-        commentsCount--;
-        if (commentsCount < 0) commentsCount = 0;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
