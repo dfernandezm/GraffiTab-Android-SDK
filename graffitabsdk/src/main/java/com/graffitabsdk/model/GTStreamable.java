@@ -1,11 +1,10 @@
 package com.graffitabsdk.model;
 
 import com.graffitabsdk.sdk.GTSDK;
+import lombok.AllArgsConstructor;
 
 import java.io.Serializable;
 import java.util.Date;
-
-import lombok.AllArgsConstructor;
 
 /**
  * Created by georgichristov on 04/07/16.

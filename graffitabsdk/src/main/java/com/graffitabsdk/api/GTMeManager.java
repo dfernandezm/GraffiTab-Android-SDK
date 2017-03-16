@@ -19,6 +19,7 @@ import com.graffitabsdk.network.service.streamable.response.GTListStreamablesRes
 import com.graffitabsdk.network.service.user.GTUserImagesTasks;
 import com.graffitabsdk.network.service.user.GTUserProfileTasks;
 import com.graffitabsdk.network.service.user.GTUserTasks;
+import com.graffitabsdk.network.service.user.response.GTListActivityContainersResponse;
 import com.graffitabsdk.network.service.user.response.GTUnseenNotificationsResponse;
 import com.graffitabsdk.network.service.user.response.GTUserResponse;
 
@@ -134,5 +135,10 @@ public class GTMeManager {
 
     public GTRequestPerformed unlinkExternalProvider(GTExternalProvider.GTExternalProviderType type, GTResponseHandler<GTUserResponse> responseHandler) {
         return gtUserProfileTasks.unlinkExternalProvider(type, responseHandler);
+    }
+
+    public GTRequestPerformed getFollowersActivity(boolean useCache, GTQueryParameters gtQueryParameters,
+                                                   GTResponseHandler<GTListActivityContainersResponse> responseHandler) {
+        return gtUserTasks.getFollowersActivity(gtQueryParameters, responseHandler, useCache);
     }
 }

@@ -5,11 +5,9 @@ import com.graffitabsdk.model.GTExternalProvider;
 import com.graffitabsdk.network.common.result.GTActionCompleteResult;
 import com.graffitabsdk.network.service.assets.response.GTAssetResponse;
 import com.graffitabsdk.network.service.streamable.response.GTListStreamablesResponse;
+import com.graffitabsdk.network.service.user.response.GTListActivityContainersResponse;
 import com.graffitabsdk.network.service.user.response.GTListUsersResponse;
 import com.graffitabsdk.network.service.user.response.GTUserResponse;
-
-import java.util.Map;
-
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -24,6 +22,8 @@ import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
+
+import java.util.Map;
 
 /**
  * Created by david on 10/11/2016.
@@ -148,5 +148,10 @@ public interface UserService {
     @Headers("Content-Type: application/json")
     @GET(GTApiConstants.USERS_SEARCH_ENDPOINT)
     Call<GTListUsersResponse> search(@QueryMap Map<String, String> parameters);
+
+    @Headers("Content-Type: application/json")
+    @GET(GTApiConstants.MY_FOLLOWERS_ACTIVITY_ENDPOINT)
+    Call<GTListActivityContainersResponse> getFollowersActivity(@QueryMap Map<String, String> parameters);
+
 }
 
