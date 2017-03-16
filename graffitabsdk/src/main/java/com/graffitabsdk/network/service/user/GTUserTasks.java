@@ -10,6 +10,7 @@ import com.graffitabsdk.network.common.response.GTResponseHandler;
 import com.graffitabsdk.network.common.result.GTActionCompleteResult;
 import com.graffitabsdk.network.service.streamable.response.GTListStreamablesResponse;
 import com.graffitabsdk.network.service.user.persist.AccountsPersistor;
+import com.graffitabsdk.network.service.user.response.GTListActivityContainersResponse;
 import com.graffitabsdk.network.service.user.response.GTListUsersResponse;
 import com.graffitabsdk.network.service.user.response.GTUserResponse;
 import com.graffitabsdk.sdk.GTSDK;
@@ -173,5 +174,12 @@ public class GTUserTasks extends GTNetworkTask {
 
     public GTRequestPerformed search(GTQueryParameters parameters, GTResponseHandler<GTListUsersResponse> responseHandler) {
         return performJsonRequest(userService.search(parameters.getParameters()), GTListUsersResponse.class, responseHandler);
+    }
+
+    public GTRequestPerformed getFollowersActivity(GTQueryParameters gtQueryParameters,
+                                                   GTResponseHandler<GTListActivityContainersResponse> responseHandler,
+                                                   boolean useCache) {
+        return performJsonRequest(userService.getFollowersActivity(gtQueryParameters.getParameters()),
+                GTListActivityContainersResponse.class, responseHandler, useCache);
     }
 }
