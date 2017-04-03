@@ -2,6 +2,7 @@ package com.graffitabsdk.network.service.user;
 
 import com.graffitabsdk.constants.GTApiConstants;
 import com.graffitabsdk.model.GTExternalProvider;
+import com.graffitabsdk.model.GTUserSocialFriendsContainer;
 import com.graffitabsdk.network.common.result.GTActionCompleteResult;
 import com.graffitabsdk.network.service.assets.response.GTAssetResponse;
 import com.graffitabsdk.network.service.streamable.response.GTListStreamablesResponse;
@@ -152,6 +153,10 @@ public interface GTUserService {
     @Headers("Content-Type: application/json")
     @GET(GTApiConstants.MY_FOLLOWERS_ACTIVITY_ENDPOINT)
     Call<GTListActivityContainersResponse> getFollowersActivity(@QueryMap Map<String, String> parameters);
+
+    @Headers("Content-Type: application/json")
+    @GET(GTApiConstants.ME_FILTER_SOCIAL_FRIENDS_ENDPOINT)
+    Call<GTUserSocialFriendsContainer> findSocialFriends(@Path("socialType") String socialType, @QueryMap Map<String, String> parameters);
 
 }
 

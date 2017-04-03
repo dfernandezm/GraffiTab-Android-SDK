@@ -14,4 +14,12 @@ public class GTRequestPerformed {
     public GTRequestPerformed(GTCall<?> requestCall) {
         this.requestCall = requestCall;
     }
+
+    public void cancel() {
+        requestCall.cancel();
+    }
+
+    public String getRequestUrl() {
+        return requestCall.getApiEndpointUrl();
+    }
 }

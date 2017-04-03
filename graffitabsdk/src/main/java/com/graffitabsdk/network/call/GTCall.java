@@ -3,8 +3,8 @@ package com.graffitabsdk.network.call;
 import com.graffitabsdk.network.common.GTResultCode;
 import com.graffitabsdk.network.common.response.GTResponse;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
-
 import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  * Created by david on 22/11/2016.
@@ -15,6 +15,8 @@ public abstract class GTCall<T> {
     protected Boolean done  = Boolean.FALSE;
     protected Boolean successful = Boolean.FALSE;
     protected GTAfterCompletionOperation<T> afterCompletionOperation;
+    protected Call<T> wrappedCall;
+    protected Response<T> resolvedResponse;
 
     protected GTCall(String apiEndpointUrl, GTAfterCompletionOperation<T> afterCompletion) {
         this.apiEndpointUrl = apiEndpointUrl;
@@ -60,6 +62,10 @@ public abstract class GTCall<T> {
 
     public boolean isSuccessful() {
         return successful;
+    }
+
+    public void cancel() {
+        wrappedCall.cancel();
     }
 
     protected void runAfterCompletion(GTResponse<T> gtResponse, Boolean success) {

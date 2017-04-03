@@ -2,6 +2,7 @@ package com.graffitabsdk.network.service.user;
 
 import com.graffitabsdk.model.GTExternalProvider;
 import com.graffitabsdk.model.GTUser;
+import com.graffitabsdk.model.GTUserSocialFriendsContainer;
 import com.graffitabsdk.network.call.GTNetworkTask;
 import com.graffitabsdk.network.common.GTRequestPerformed;
 import com.graffitabsdk.network.common.params.GTQueryParameters;
@@ -116,6 +117,10 @@ public class GTUserTasks extends GTNetworkTask {
         return performJsonRequest(userService.getPosts(userId, parameters.getParameters()), GTListStreamablesResponse.class, responseHandler, useCache);
     }
 
+    public String getPostsUrl(int userId, GTQueryParameters parameters) {
+        return userService.getPosts(userId, parameters.getParameters()).request().url().toString();
+    }
+
     public GTRequestPerformed getMentions(int userId, boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListStreamablesResponse> responseHandler) {
         return performJsonRequest(userService.getMentions(userId, parameters.getParameters()), GTListStreamablesResponse.class, responseHandler, useCache);
     }
@@ -182,4 +187,12 @@ public class GTUserTasks extends GTNetworkTask {
         return performJsonRequest(userService.getFollowersActivity(gtQueryParameters.getParameters()),
                 GTListActivityContainersResponse.class, responseHandler, useCache);
     }
+
+    public GTRequestPerformed findFacebookFriends(GTQueryParameters gtQueryParameters,
+                                                  GTResponseHandler<GTUserSocialFriendsContainer> responseHandler,
+                                                  boolean useCache) {
+        return performJsonRequest(userService.findSocialFriends(GTExternalProvider.GTExternalProviderType.FACEBOOK.toString(), gtQueryParameters.getParameters()),
+                GTUserSocialFriendsContainer.class, responseHandler, useCache);
+    }
+
 }

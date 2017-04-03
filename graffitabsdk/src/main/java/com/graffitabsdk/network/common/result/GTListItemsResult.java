@@ -1,9 +1,9 @@
 package com.graffitabsdk.network.common.result;
 
+import lombok.AllArgsConstructor;
+
 import java.io.Serializable;
 import java.util.List;
-
-import lombok.AllArgsConstructor;
 
 /**
  * Created by georgichristov on 04/07/16.

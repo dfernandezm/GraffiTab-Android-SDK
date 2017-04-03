@@ -72,6 +72,10 @@ public class GTUserManager {
         return gtUserTasks.getPosts(userId, useCache, parameters, responseHandler);
     }
 
+    public String getPostsUrl(int userId, GTQueryParameters parameters) {
+        return gtUserTasks.getPostsUrl(userId, parameters);
+    }
+
     public GTRequestPerformed getMentions(int userId, boolean useCache, GTQueryParameters parameters, GTResponseHandler<GTListStreamablesResponse> responseHandler) {
         return gtUserTasks.getMentions(userId, useCache, parameters, responseHandler);
     }

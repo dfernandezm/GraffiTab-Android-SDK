@@ -5,14 +5,13 @@ import com.google.gson.reflect.TypeToken;
 import com.graffitabsdk.network.common.GTResultCode;
 import com.graffitabsdk.network.common.response.GTResponse;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.Map;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Created by david on 11/12/2016.
@@ -22,9 +21,6 @@ class GTJsonCall<T> extends GTCall<T> {
 
     private static final Type STRING_MAP_GSON_TYPE = new TypeToken<Map<String, String>>(){}.getType();
     private static final Gson gson = new Gson();
-    private final Call<T> wrappedCall;
-
-    private Response<T> resolvedResponse;
 
     public GTJsonCall(Call<T> wrappedCall,
                       GTAfterCompletionOperation<T> afterCompletionOperation) {

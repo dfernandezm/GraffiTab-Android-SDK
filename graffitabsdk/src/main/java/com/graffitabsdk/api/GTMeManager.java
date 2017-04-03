@@ -3,6 +3,7 @@ package com.graffitabsdk.api;
 import android.graphics.Bitmap;
 
 import com.graffitabsdk.model.GTExternalProvider;
+import com.graffitabsdk.model.GTUserSocialFriendsContainer;
 import com.graffitabsdk.network.common.GTRequestPerformed;
 import com.graffitabsdk.network.common.params.GTQueryParameters;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
@@ -140,5 +141,10 @@ public class GTMeManager {
     public GTRequestPerformed getFollowersActivity(boolean useCache, GTQueryParameters gtQueryParameters,
                                                    GTResponseHandler<GTListActivityContainersResponse> responseHandler) {
         return gtUserTasks.getFollowersActivity(gtQueryParameters, responseHandler, useCache);
+    }
+
+    public GTRequestPerformed findFacebookFriends(boolean useCache, GTQueryParameters gtQueryParameters,
+                                                  GTResponseHandler<GTUserSocialFriendsContainer> responseHandler) {
+        return gtUserTasks.findFacebookFriends(gtQueryParameters, responseHandler, useCache);
     }
 }
