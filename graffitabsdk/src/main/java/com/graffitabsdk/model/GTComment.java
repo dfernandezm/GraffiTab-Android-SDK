@@ -20,6 +20,10 @@ public class GTComment implements Serializable {
 
     public GTComment() {}
 
+    public String quotedText() {
+        return "\"" + text + "\"";
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
