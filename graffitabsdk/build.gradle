@@ -35,7 +35,7 @@ def lombokVersion = "1.16.8"
 def javaxAnnotationVersion = "10.0-b28"
 def okHttpUrlConnectionVersion = "3.2.0"
 def okHttpLoggingInterceptorVersion="3.3.1"
-def appCompatVersion="25.2.0"
+def appCompatVersion="25.3.0"
 def mockitoVersion="1.10.19"
 def persistentCookieJarVersion = "v1.0.0"
 def daggerVersion = "2.7"
@@ -47,22 +47,36 @@ def hawkVersion = "2.0.1"
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    // JUnit
     testCompile "junit:junit:$jUnitVersion"
+
+    // Mockito
+    testCompile "org.mockito:mockito-all:$mockitoVersion"
+
+    // Android libraries
     compile "com.android.support:appcompat-v7:$appCompatVersion"
+
+    // Retrofit
     compile "com.squareup.okhttp3:okhttp-urlconnection:$okHttpUrlConnectionVersion"
     compile "com.squareup.retrofit2:retrofit:$retroFitVersion"
     compile "com.squareup.retrofit2:converter-gson:$converterGsonVersion"
     compile "com.squareup.okhttp3:logging-interceptor:$okHttpLoggingInterceptorVersion"
+    compile "com.github.franmontiel:PersistentCookieJar:$persistentCookieJarVersion"
+
+    // Lombok
+    apt "org.projectlombok:lombok:$lombokVersion"
     compile "org.projectlombok:lombok:$lombokVersion"
     compile "commons-codec:commons-codec:$commonsCodecVersion"
-    testCompile "org.projectlombok:lombok:$lombokVersion"
-    testCompile "org.mockito:mockito-all:$mockitoVersion"
     provided "org.glassfish:javax.annotation:$javaxAnnotationVersion"
-    compile "com.github.franmontiel:PersistentCookieJar:$persistentCookieJarVersion"
+    provided "javax.annotation:jsr250-api:$jsr250Version"
+    testCompile "org.projectlombok:lombok:$lombokVersion"
+
+    // Dagger
     apt "com.google.dagger:dagger-compiler:$daggerVersion"
     compile "com.google.dagger:dagger:$daggerVersion"
-    provided "javax.annotation:jsr250-api:$jsr250Version"
-    apt "org.projectlombok:lombok:$lombokVersion"
+
+    // Other
     compile "com.squareup:otto:$ottoVersion"
     compile "com.orhanobut:hawk:$hawkVersion"
 }

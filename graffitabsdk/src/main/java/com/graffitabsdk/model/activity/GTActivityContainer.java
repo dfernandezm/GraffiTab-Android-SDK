@@ -1,12 +1,14 @@
 package com.graffitabsdk.model.activity;
 
+import com.graffitabsdk.model.GTStreamable;
 import com.graffitabsdk.model.GTUser;
-import lombok.AllArgsConstructor;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import lombok.AllArgsConstructor;
 
 /**
  * Created by georgichristov on 04/07/16.
@@ -27,5 +29,24 @@ public class GTActivityContainer implements Serializable {
 
     public boolean isEmpty() {
         return activities.size() == 0;
+    }
+
+    public GTActivity getFirst() {
+        return activities.get(0);
+    }
+
+    public List<GTStreamable> getStreamables() {
+        List<GTStreamable> streamables = new ArrayList<>();
+        for (GTActivity activity: activities)
+            streamables.add(activity.getActivityStreamable());
+        return streamables;
+    }
+
+    public List<GTUser> getUsers() {
+        List<GTUser> users = new ArrayList<>();
+        for (GTActivity activity: activities) {
+            users.add(activity.getActivityUser());
+        }
+        return users;
     }
 }
