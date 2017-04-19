@@ -9,10 +9,10 @@ import com.graffitabsdk.model.GTUser;
 import com.graffitabsdk.network.common.GTRequestPerformed;
 import com.graffitabsdk.network.common.response.GTResponse;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
-import com.graffitabsdk.network.service.assets.AssetService;
+import com.graffitabsdk.network.service.assets.GTAssetService;
 import com.graffitabsdk.network.service.assets.GTImagesTasks;
 import com.graffitabsdk.network.service.assets.response.GTAssetResponse;
-import com.graffitabsdk.network.service.user.persist.AccountsPersistor;
+import com.graffitabsdk.network.service.user.persist.GTAccountsPersistor;
 import com.graffitabsdk.sdk.GTSDK;
 import com.graffitabsdk.sdk.events.users.GTUserAvatarUpdatedEvent;
 import com.graffitabsdk.sdk.events.users.GTUserCoverUpdatedEvent;
@@ -25,11 +25,11 @@ import javax.inject.Inject;
 
 public class GTUserImagesTasks extends GTImagesTasks {
 
-    private UserService userService;
-    private AccountsPersistor accountsPersistor;
+    private GTUserService userService;
+    private GTAccountsPersistor accountsPersistor;
 
     @Inject
-    public GTUserImagesTasks(AssetService assetService, UserService userService, AccountsPersistor accountsPersistor) {
+    public GTUserImagesTasks(GTAssetService assetService, GTUserService userService, GTAccountsPersistor accountsPersistor) {
         super.assetService = assetService;
         this.userService = userService;
         this.accountsPersistor = accountsPersistor;
@@ -67,7 +67,7 @@ public class GTUserImagesTasks extends GTImagesTasks {
     }
 
     public GTRequestPerformed editAvatar(Bitmap image, final GTResponseHandler<GTAssetResponse> responseHandler) {
-        EditProfileAssetsData editProfileAssetsData = EditProfileAssetsData.buildEditProfileAssetsData(image);
+        GTEditProfileAssetsData editProfileAssetsData = GTEditProfileAssetsData.buildEditProfileAssetsData(image);
         return performJsonRequest(userService.editAvatar(editProfileAssetsData.getFileBody(), editProfileAssetsData.getName()),
                 GTAssetResponse.class,
                 new GTResponseHandler<GTAssetResponse>() {
@@ -99,7 +99,7 @@ public class GTUserImagesTasks extends GTImagesTasks {
     }
 
     public GTRequestPerformed editCover(Bitmap image, final GTResponseHandler<GTAssetResponse> responseHandler) {
-        EditProfileAssetsData editProfileAssetsData = EditProfileAssetsData.buildEditProfileAssetsData(image);
+        GTEditProfileAssetsData editProfileAssetsData = GTEditProfileAssetsData.buildEditProfileAssetsData(image);
         return performJsonRequest(userService.editCover(editProfileAssetsData.getFileBody(), editProfileAssetsData.getName()),
                 GTAssetResponse.class,
                 new GTResponseHandler<GTAssetResponse>() {

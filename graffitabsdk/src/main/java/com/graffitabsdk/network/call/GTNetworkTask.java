@@ -22,7 +22,7 @@ public abstract class GTNetworkTask {
 
     protected <T> GTRequestPerformed performJsonRequest(Call<T> request, Class<T> type, GTResponseHandler<T> responseHandler, boolean shouldUseCache) {
         boolean isGetRequest = request.request().method().equalsIgnoreCase("GET");
-        AfterCompletionOperation<T> afterCompletionOperation = getAfterCompletionOperations(shouldUseCache, isGetRequest);
+        GTAfterCompletionOperation<T> afterCompletionOperation = getAfterCompletionOperations(shouldUseCache, isGetRequest);
         GTCall<T> call = GTCall.jsonCall(request, afterCompletionOperation);
         GTRequestPerformed requestPerformed = new GTRequestPerformed(call);
 
@@ -41,15 +41,15 @@ public abstract class GTNetworkTask {
      * @return
      */
     protected <T> GTRequestPerformed performRawRequest(Call<T> request, GTResponseHandler<T> responseHandler) {
-        AfterCompletionOperation<T> afterCompletionOperation = getAfterCompletionOperations(false, false);
+        GTAfterCompletionOperation<T> afterCompletionOperation = getAfterCompletionOperations(false, false);
         GTCall<T> call = GTCall.rawCall(request, afterCompletionOperation);
         GTRequestPerformed requestPerformed = new GTRequestPerformed(call);
         call.execute(responseHandler);
         return requestPerformed;
     }
 
-    private <T> AfterCompletionOperation<T> getAfterCompletionOperations(final boolean shouldUseCache, final boolean isGetRequest) {
-        return new AfterCompletionOperation<T>() {
+    private <T> GTAfterCompletionOperation<T> getAfterCompletionOperations(final boolean shouldUseCache, final boolean isGetRequest) {
+        return new GTAfterCompletionOperation<T>() {
             @Override
             public void executeOnSuccess(GTResponse<T> gtResponse) {
                 saveResponseToCacheIfPossible(gtResponse, shouldUseCache, isGetRequest);

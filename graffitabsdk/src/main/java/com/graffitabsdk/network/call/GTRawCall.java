@@ -18,7 +18,7 @@ class GTRawCall<T> extends GTCall<T> {
     private final Call<T> wrappedCall;
     private Response<T> resolvedResponse;
 
-    public GTRawCall(Call<T> call, AfterCompletionOperation<T> afterCompletionOperation) {
+    public GTRawCall(Call<T> call, GTAfterCompletionOperation<T> afterCompletionOperation) {
         super(call.request().url().toString(), afterCompletionOperation);
         this.wrappedCall = call;
     }

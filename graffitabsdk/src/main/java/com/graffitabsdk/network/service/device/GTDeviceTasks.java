@@ -15,23 +15,23 @@ import javax.inject.Inject;
  */
 public class GTDeviceTasks extends GTNetworkTask {
 
-    private DeviceService deviceService;
+    private GTDeviceService deviceService;
 
     @Inject
-    public GTDeviceTasks(DeviceService deviceService, GTCacheService gtCacheService) {
+    public GTDeviceTasks(GTDeviceService deviceService, GTCacheService gtCacheService) {
         super.cacheService = gtCacheService;
         this.deviceService = deviceService;
     }
 
     public GTRequestPerformed linkDevice(String token, GTResponseHandler<GTActionCompleteResult> responseHandler) {
-        LinkDeviceMetadata linkDeviceMetadata = new LinkDeviceMetadata(token);
-        LinkDeviceData linkDeviceData = new LinkDeviceData(linkDeviceMetadata);
+        GTLinkDeviceMetadata linkDeviceMetadata = new GTLinkDeviceMetadata(token);
+        GTLinkDeviceData linkDeviceData = new GTLinkDeviceData(linkDeviceMetadata);
         return performJsonRequest(deviceService.linkDevice(linkDeviceData), GTActionCompleteResult.class, responseHandler);
     }
 
     public GTRequestPerformed unlinkDevice(String token, GTResponseHandler<GTActionCompleteResult> responseHandler) {
-        LinkDeviceMetadata linkDeviceMetadata = new LinkDeviceMetadata(token);
-        LinkDeviceData linkDeviceData = new LinkDeviceData(linkDeviceMetadata);
+        GTLinkDeviceMetadata linkDeviceMetadata = new GTLinkDeviceMetadata(token);
+        GTLinkDeviceData linkDeviceData = new GTLinkDeviceData(linkDeviceMetadata);
         return performJsonRequest(deviceService.unlinkDevice(linkDeviceData), GTActionCompleteResult.class, responseHandler);
     }
 }

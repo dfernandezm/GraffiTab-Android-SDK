@@ -27,7 +27,7 @@ class GTJsonCall<T> extends GTCall<T> {
     private Response<T> resolvedResponse;
 
     public GTJsonCall(Call<T> wrappedCall,
-                      AfterCompletionOperation<T> afterCompletionOperation) {
+                      GTAfterCompletionOperation<T> afterCompletionOperation) {
         super(wrappedCall.request().url().toString(),afterCompletionOperation);
         this.wrappedCall = wrappedCall;
     }

@@ -1,7 +1,7 @@
 package com.graffitabsdk.api;
 
 import com.graffitabsdk.model.GTUser;
-import com.graffitabsdk.network.service.user.persist.AccountsPersistor;
+import com.graffitabsdk.network.service.user.persist.GTAccountsPersistor;
 
 import javax.inject.Inject;
 
@@ -11,10 +11,10 @@ import javax.inject.Inject;
 
 public class GTAccountManager {
 
-    private AccountsPersistor accountsPersistor;
+    private GTAccountsPersistor accountsPersistor;
 
     @Inject
-    public GTAccountManager(AccountsPersistor accountsPersistor) {
+    public GTAccountManager(GTAccountsPersistor accountsPersistor) {
         this.accountsPersistor = accountsPersistor;
     }
 

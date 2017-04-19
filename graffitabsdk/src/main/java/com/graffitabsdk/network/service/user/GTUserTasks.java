@@ -9,7 +9,7 @@ import com.graffitabsdk.network.common.response.GTResponse;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
 import com.graffitabsdk.network.common.result.GTActionCompleteResult;
 import com.graffitabsdk.network.service.streamable.response.GTListStreamablesResponse;
-import com.graffitabsdk.network.service.user.persist.AccountsPersistor;
+import com.graffitabsdk.network.service.user.persist.GTAccountsPersistor;
 import com.graffitabsdk.network.service.user.response.GTListActivityContainersResponse;
 import com.graffitabsdk.network.service.user.response.GTListUsersResponse;
 import com.graffitabsdk.network.service.user.response.GTUserResponse;
@@ -28,35 +28,35 @@ import javax.inject.Inject;
 
 public class GTUserTasks extends GTNetworkTask {
 
-    private UserService userService;
-    private AccountsPersistor accountsPersistor;
+    private GTUserService userService;
+    private GTAccountsPersistor accountsPersistor;
 
     @Inject
-    public GTUserTasks(UserService userService, GTCacheService gtCacheService, AccountsPersistor accountsPersistor) {
+    public GTUserTasks(GTUserService userService, GTCacheService gtCacheService, GTAccountsPersistor accountsPersistor) {
         super.cacheService = gtCacheService;
         this.userService = userService;
         this.accountsPersistor = accountsPersistor;
     }
 
     public GTRequestPerformed register(String firstName, String lastName, String email, String username, String password, GTResponseHandler<GTActionCompleteResult> responseHandler) {
-        RegisterMetadata registerUserData = new RegisterMetadata(firstName, lastName, email, username, password);
-        RegisterData registerData = new RegisterData(registerUserData);
+        GTRegisterMetadata registerUserData = new GTRegisterMetadata(firstName, lastName, email, username, password);
+        GTRegisterData registerData = new GTRegisterData(registerUserData);
         return performJsonRequest(userService.register(registerData), GTActionCompleteResult.class, responseHandler);
     }
 
     public GTRequestPerformed register(GTExternalProvider.GTExternalProviderType type, String externalId, String token, String firstName, String lastName, String email, String username, GTResponseHandler<GTActionCompleteResult> responseHandler) {
-        RegisterExternalProviderMetadata registerExternalProviderMetadata = new RegisterExternalProviderMetadata(firstName, lastName, email, username);
-        RegisterExternalProviderData registerExternalProviderData = new RegisterExternalProviderData(registerExternalProviderMetadata, externalId, token, type);
+        GTRegisterExternalProviderMetadata registerExternalProviderMetadata = new GTRegisterExternalProviderMetadata(firstName, lastName, email, username);
+        GTRegisterExternalProviderData registerExternalProviderData = new GTRegisterExternalProviderData(registerExternalProviderMetadata, externalId, token, type);
         return performJsonRequest(userService.register(registerExternalProviderData), GTActionCompleteResult.class, responseHandler);
     }
 
     public GTRequestPerformed resetPassword(String email, GTResponseHandler<GTActionCompleteResult> responseHandler) {
-        ResetPasswordData resetPasswordData = new ResetPasswordData(email);
+        GTResetPasswordData resetPasswordData = new GTResetPasswordData(email);
         return performJsonRequest(userService.resetPassword(resetPasswordData), GTActionCompleteResult.class, responseHandler);
     }
 
     public GTRequestPerformed editPassword(String currentPassword, String newPassword, GTResponseHandler<GTActionCompleteResult> responseHandler) {
-        EditPasswordData editPasswordData = new EditPasswordData(currentPassword, newPassword);
+        GTEditPasswordData editPasswordData = new GTEditPasswordData(currentPassword, newPassword);
         return performJsonRequest(userService.editPassword(editPasswordData), GTActionCompleteResult.class, responseHandler);
     }
 

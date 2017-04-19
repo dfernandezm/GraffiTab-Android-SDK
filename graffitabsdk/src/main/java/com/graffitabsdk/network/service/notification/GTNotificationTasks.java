@@ -17,10 +17,10 @@ import javax.inject.Inject;
  */
 public class GTNotificationTasks extends GTNetworkTask {
 
-    private NotificationService notificationService;
+    private GTNotificationService notificationService;
 
     @Inject
-    public GTNotificationTasks(NotificationService notificationService, GTCacheService gtCacheService) {
+    public GTNotificationTasks(GTNotificationService notificationService, GTCacheService gtCacheService) {
         super.cacheService = gtCacheService;
         this.notificationService = notificationService;
     }

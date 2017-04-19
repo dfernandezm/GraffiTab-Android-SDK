@@ -5,7 +5,7 @@ import com.graffitabsdk.log.GTLog;
 import com.graffitabsdk.network.common.GTRequestPerformed;
 import com.graffitabsdk.network.common.response.GTResponse;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
-import com.graffitabsdk.network.service.user.persist.AccountsPersistor;
+import com.graffitabsdk.network.service.user.persist.GTAccountsPersistor;
 import com.graffitabsdk.sdk.cache.GTCacheService;
 import com.graffitabsdk.network.call.GTNetworkTask;
 
@@ -19,13 +19,13 @@ import okhttp3.CookieJar;
 
 public class GTLogoutTask extends GTNetworkTask {
 
-    private UserService userService;
-    private AccountsPersistor accountsPersistor;
+    private GTUserService userService;
+    private GTAccountsPersistor accountsPersistor;
     private GTCacheService cacheService;
     private CookieJar cookieJar;
 
     @Inject
-    public GTLogoutTask(UserService userService, AccountsPersistor accountsPersistor, GTCacheService cacheService, CookieJar cookieJar) {
+    public GTLogoutTask(GTUserService userService, GTAccountsPersistor accountsPersistor, GTCacheService cacheService, CookieJar cookieJar) {
         this.userService = userService;
         this.cacheService = cacheService;
         this.accountsPersistor = accountsPersistor;

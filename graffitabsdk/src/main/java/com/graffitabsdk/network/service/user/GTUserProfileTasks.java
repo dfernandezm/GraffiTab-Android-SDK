@@ -6,7 +6,7 @@ import com.graffitabsdk.network.call.GTNetworkTask;
 import com.graffitabsdk.network.common.GTRequestPerformed;
 import com.graffitabsdk.network.common.response.GTResponse;
 import com.graffitabsdk.network.common.response.GTResponseHandler;
-import com.graffitabsdk.network.service.user.persist.AccountsPersistor;
+import com.graffitabsdk.network.service.user.persist.GTAccountsPersistor;
 import com.graffitabsdk.network.service.user.response.GTUserResponse;
 import com.graffitabsdk.sdk.GTSDK;
 import com.graffitabsdk.sdk.cache.GTCacheService;
@@ -21,30 +21,30 @@ import javax.inject.Inject;
  */
 public class GTUserProfileTasks extends GTNetworkTask {
 
-    private UserService userService;
-    private AccountsPersistor accountsPersistor;
+    private GTUserService userService;
+    private GTAccountsPersistor accountsPersistor;
 
     @Inject
-    public GTUserProfileTasks(GTCacheService gtCacheService, UserService userService, AccountsPersistor accountsPersistor) {
+    public GTUserProfileTasks(GTCacheService gtCacheService, GTUserService userService, GTAccountsPersistor accountsPersistor) {
         super.cacheService = gtCacheService;
         this.userService = userService;
         this.accountsPersistor = accountsPersistor;
     }
 
     public GTRequestPerformed linkExternalProvider(String userId, String accessToken, GTExternalProvider.GTExternalProviderType type, GTResponseHandler<GTUserResponse> responseHandler) {
-        ExternalProviderMetadata externalProviderMetadata = new ExternalProviderMetadata(userId, accessToken, type);
-        ExternalProviderData externalProviderData = new ExternalProviderData(externalProviderMetadata);
+        GTExternalProviderMetadata externalProviderMetadata = new GTExternalProviderMetadata(userId, accessToken, type);
+        GTExternalProviderData externalProviderData = new GTExternalProviderData(externalProviderMetadata);
         return performJsonRequest(userService.linkExternalProvider(externalProviderData), GTUserResponse.class, responseHandler);
     }
 
     public GTRequestPerformed unlinkExternalProvider(GTExternalProvider.GTExternalProviderType type, GTResponseHandler<GTUserResponse> responseHandler) {
-        ExternalProviderMetadata externalProviderMetadata = new ExternalProviderMetadata(null, null, type);
+        GTExternalProviderMetadata externalProviderMetadata = new GTExternalProviderMetadata(null, null, type);
         return performJsonRequest(userService.unlinkExternalProvider(externalProviderMetadata), GTUserResponse.class, responseHandler);
     }
 
     public GTRequestPerformed edit(String firstName, String lastName, String email, String about, String website, final GTResponseHandler<GTUserResponse> responseHandler) {
-        EditProfileMetadata editProfileMetadata = new EditProfileMetadata(firstName, lastName, email, about, website);
-        EditProfileData editProfileData = new EditProfileData(editProfileMetadata);
+        GTEditProfileMetadata editProfileMetadata = new GTEditProfileMetadata(firstName, lastName, email, about, website);
+        GTEditProfileData editProfileData = new GTEditProfileData(editProfileMetadata);
         return performJsonRequest(userService.edit(editProfileData), GTUserResponse.class, new GTResponseHandler<GTUserResponse>() {
 
             @Override

@@ -33,10 +33,10 @@ import javax.inject.Inject;
  */
 public class GTStreamableTasks extends GTNetworkTask {
 
-    private StreamableService streamableService;
+    private GTStreamableService streamableService;
 
     @Inject
-    public GTStreamableTasks(StreamableService streamableService, GTCacheService gtCacheService) {
+    public GTStreamableTasks(GTStreamableService streamableService, GTCacheService gtCacheService) {
         super.cacheService = gtCacheService;
         this.streamableService = streamableService;
     }
@@ -98,8 +98,8 @@ public class GTStreamableTasks extends GTNetworkTask {
     }
 
     public GTRequestPerformed postComment(int streamableId, String text, final GTResponseHandler<GTCommentResponse> responseHandler) {
-        CommentData commentData = new CommentData(text);
-        PostCommentData postCommentData = new PostCommentData(commentData);
+        GTCommentData commentData = new GTCommentData(text);
+        GTPostCommentData postCommentData = new GTPostCommentData(commentData);
         return performJsonRequest(streamableService.postComment(streamableId, postCommentData), GTCommentResponse.class, new GTResponseHandler<GTCommentResponse>() {
 
             @Override
@@ -116,8 +116,8 @@ public class GTStreamableTasks extends GTNetworkTask {
     }
 
     public GTRequestPerformed editComment(int streamableId, int commentId, String text, final GTResponseHandler<GTCommentResponse> responseHandler) {
-        CommentData commentData = new CommentData(text);
-        PostCommentData postCommentData = new PostCommentData(commentData);
+        GTCommentData commentData = new GTCommentData(text);
+        GTPostCommentData postCommentData = new GTPostCommentData(commentData);
         return performJsonRequest(streamableService.editComment(streamableId, commentId, postCommentData), GTCommentResponse.class, new GTResponseHandler<GTCommentResponse>() {
 
             @Override

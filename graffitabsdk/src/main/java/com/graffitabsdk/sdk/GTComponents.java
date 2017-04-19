@@ -3,7 +3,7 @@ package com.graffitabsdk.sdk;
 import android.app.Activity;
 import android.app.Application;
 
-import com.graffitabsdk.MainTesting;
+import com.graffitabsdk.GTMainTesting;
 import com.graffitabsdk.api.GTAccountManager;
 import com.graffitabsdk.api.GTMeManager;
 import com.graffitabsdk.api.GTStreamableManager;
@@ -20,9 +20,9 @@ import dagger.Component;
  * Copyright © GraffiTab Inc. 2016
  */
 @Singleton
-@Component(modules = {ModuleLocation.class, ModuleUser.class, ModuleStreamable.class, ModuleNotification.class, ModuleDevice.class, ModuleNetwork.class, ModuleApp.class})
+@Component(modules = {GTModuleLocation.class, GTModuleUser.class, GTModuleStreamable.class, GTModuleNotification.class, GTModuleDevice.class, GTModuleNetwork.class, GTModuleApp.class})
 interface GTComponents {
-    void inject(MainTesting mainTesting);
+    void inject(GTMainTesting mainTesting);
     void inject(Activity activity);
     GTUserManager getUserManager();
     GTMeManager getMeManager();
@@ -34,8 +34,8 @@ interface GTComponents {
         private Initializer() {}
         public static GTComponents init(Application app, GTConfig gtConfig) {
             return DaggerGTComponents.builder()
-                    .moduleApp(new ModuleApp(app))
-                    .moduleNetwork(new ModuleNetwork(gtConfig))
+                    .gTModuleApp(new GTModuleApp(app))
+                    .gTModuleNetwork(new GTModuleNetwork(gtConfig))
                     .build();
         }
     }

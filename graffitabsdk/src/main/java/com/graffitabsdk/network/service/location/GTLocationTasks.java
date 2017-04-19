@@ -23,10 +23,10 @@ import javax.inject.Inject;
  */
 public class GTLocationTasks extends GTNetworkTask {
 
-    private LocationService locationService;
+    private GTLocationService locationService;
 
     @Inject
-    public GTLocationTasks(LocationService locationService, GTCacheService gtCacheService) {
+    public GTLocationTasks(GTLocationService locationService, GTCacheService gtCacheService) {
         super.cacheService = gtCacheService;
         this.locationService = locationService;
     }
@@ -36,8 +36,8 @@ public class GTLocationTasks extends GTNetworkTask {
     }
 
     public GTRequestPerformed createLocation(String address, double latitude, double longitude, final GTResponseHandler<GTLocationResponse> responseHandler) {
-        EditLocationMetadata editLocationMetadata = new EditLocationMetadata(address, latitude, longitude);
-        EditLocationData editLocationData = new EditLocationData(editLocationMetadata);
+        GTEditLocationMetadata editLocationMetadata = new GTEditLocationMetadata(address, latitude, longitude);
+        GTEditLocationData editLocationData = new GTEditLocationData(editLocationMetadata);
         return performJsonRequest(locationService.createLocation(editLocationData), GTLocationResponse.class, new GTResponseHandler<GTLocationResponse>() {
 
             @Override
@@ -54,8 +54,8 @@ public class GTLocationTasks extends GTNetworkTask {
     }
 
     public GTRequestPerformed editLocation(int locationId, String address, double latitude, double longitude, final GTResponseHandler<GTLocationResponse> responseHandler) {
-        EditLocationMetadata editLocationMetadata = new EditLocationMetadata(address, latitude, longitude);
-        EditLocationData editLocationData = new EditLocationData(editLocationMetadata);
+        GTEditLocationMetadata editLocationMetadata = new GTEditLocationMetadata(address, latitude, longitude);
+        GTEditLocationData editLocationData = new GTEditLocationData(editLocationMetadata);
         return performJsonRequest(locationService.editLocation(locationId, editLocationData), GTLocationResponse.class, new GTResponseHandler<GTLocationResponse>() {
 
             @Override

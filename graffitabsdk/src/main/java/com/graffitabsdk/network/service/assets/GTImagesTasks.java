@@ -18,7 +18,7 @@ import static com.graffitabsdk.constants.GTConstants.WAIT_BETWEEN_TRIES;
 
 public abstract class GTImagesTasks extends GTNetworkTask {
 
-    protected AssetService assetService;
+    protected GTAssetService assetService;
 
     public void awaitAssetState(final GTAsset gtAsset, final AssetProgressListener assetProgressListener) {
         awaitAssetState(gtAsset, 0, assetProgressListener);

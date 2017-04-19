@@ -14,9 +14,9 @@ public abstract class GTCall<T> {
     protected final String apiEndpointUrl;
     protected Boolean done  = Boolean.FALSE;
     protected Boolean successful = Boolean.FALSE;
-    protected AfterCompletionOperation<T> afterCompletionOperation;
+    protected GTAfterCompletionOperation<T> afterCompletionOperation;
 
-    protected GTCall(String apiEndpointUrl, AfterCompletionOperation<T> afterCompletion) {
+    protected GTCall(String apiEndpointUrl, GTAfterCompletionOperation<T> afterCompletion) {
         this.apiEndpointUrl = apiEndpointUrl;
         this.afterCompletionOperation = afterCompletion;
     }
@@ -72,11 +72,11 @@ public abstract class GTCall<T> {
         }
     }
 
-    static <T> GTCall<T> jsonCall(Call<T> call, AfterCompletionOperation<T> afterCompletionOperation) {
+    static <T> GTCall<T> jsonCall(Call<T> call, GTAfterCompletionOperation<T> afterCompletionOperation) {
         return new GTJsonCall<>(call, afterCompletionOperation);
     }
 
-    static <T> GTCall<T> rawCall(Call<T> call, AfterCompletionOperation<T> afterCompletionOperation) {
+    static <T> GTCall<T> rawCall(Call<T> call, GTAfterCompletionOperation<T> afterCompletionOperation) {
         return new GTRawCall<>(call, afterCompletionOperation);
     }
 }
